@@ -1,0 +1,3826 @@
+<meta charset="utf-8">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.min.css">
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<style type="text/css">
+
+    * {
+  box-sizing: border-box;
+}
+
+html *
+{
+   font-family: sans-serif;
+}
+
+.bg-Technical_Jargon {
+  background-color: #FF6300
+}
+
+.Technical_Jargon {
+  color: #FF6300
+}
+
+.border-Technical_Jargon {
+  border-bottom: 3px solid #FF6300;
+}
+
+.bg-Bad_Math {
+  background-color: #111111
+}
+
+.Bad_Math {
+  color: #111111
+}
+
+.border-Bad_Math {
+  border-bottom: 3px solid #111111;
+}
+
+.bg-Encyclopedic {
+  background-color: #137752
+}
+
+.Encyclopedic {
+  color: #137752
+}
+
+.border-Encyclopedic {
+  border-bottom: 3px solid #137752
+}
+
+.bg-Commonsense {
+  background-color: #9EEBCF
+}
+
+.Commonsense {
+  color: #9EEBCF
+}
+
+.border-Commonsense {
+  border-bottom: 3px solid #9EEBCF
+}
+
+.bg-Needs_Google {
+  background-color: #5E2CA5
+}
+
+.Needs_Google {
+  color: #5E2CA5
+}
+
+.border-Needs_Google {
+  border-bottom: 3px solid #5E2CA5
+}
+
+.bg-Grammar_Usage {
+  background-color: #CCCCCC
+}
+
+.Grammar_Usage {
+  color: #CCCCCC
+}
+
+.border-Grammar_Usage {
+  border-bottom: 3px solid #CCCCCC
+}
+
+.bg-Redundant {
+  background-color: #E7040F
+}
+
+.Redundant {
+  color: #E7040F
+}
+
+.border-Redundant {
+  border-bottom: 3px solid #E7040F
+}
+
+.bg-Redundant_antecedent {
+  background-color: #FF725C
+}
+
+.Redundant_antecedent {
+  color: #FF725C
+}
+
+.border-Redundant_antecedent {
+  border-bottom: 3px solid #FF725C
+}
+
+.bg-Off-prompt {
+  background-color: #FFD700
+}
+
+.Off-prompt {
+  color: #FFD700
+}
+
+.border-Off-prompt {
+  border-bottom: 3px solid #FFD700
+}
+
+.bg-Self-contradiction {
+  background-color: #00449E
+}
+
+.Self-contradiction {
+  color: #00449E
+}
+
+.border-Self-contradiction {
+  border-bottom: 3px solid #00449E
+}
+
+.bg-Self-contradiction_antecedent {
+  background-color: #96CCFF
+}
+
+.Self-contradiction_antecedent {
+  color: #96CCFF
+}
+
+.border-Self-contradiction_antecedent {
+  border-bottom: 3px solid #96CCFF
+}
+
+.bg-Incoherent {
+  background-color: #FF80CC
+}
+
+.Incoherent {
+  color: #FF80CC
+}
+
+.border-Incoherent {
+  border-bottom: 3px solid #FF80CC
+}
+
+/* .bg-Other {
+  background-color: #B9770E
+}
+
+.Other {
+  color: #B9770E
+}
+
+.border-Other {
+  border-bottom:3px solid #B9770E
+} */
+
+.single_part {
+  border-top: 1px solid #d6d6d6;
+}
+
+.single_part_error_qual {
+  border-top: 3px solid #d6d6d6;
+}
+
+
+.prompt {font-style: italic}
+
+.paragraph {
+  line-height: 1.6
+}
+
+span.quality-span {
+  cursor: default;
+}
+
+/* span.annotation { border-bottom:3px solid; } */
+
+span.annotation span.annotation { padding-bottom:6px; }
+
+span.annotation span.annotation span.annotation { padding-bottom:12px; }
+
+span.annotation span.annotation span.annotation span.annotation { padding-bottom:18px; }
+
+span.annotation span.annotation span.annotation span.annotation span.annotation { padding-bottom:24px; }
+
+/* span[data-uid="001"] { border-color:#f08080; }
+span[data-uid="002"] { border-color:#dda0dd; }
+span[data-uid="003"] { border-color:#a9d6bf; }
+span[data-uid="004"] { border-color:#edbb85; }
+span[data-uid="005"] { border-color:#add8e6; } */
+
+#quality-selection {
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding:10px;
+    /* text-align: center; */
+    width: 640px;
+    /* max-width: 400px; */
+    margin: 20px;
+    z-index: 100;
+}
+
+/* #dropdown-button-container {
+  text-align: center;
+} */
+/* 
+#explanation_div {
+  padding-top: 20px;
+} */
+
+.single_part {
+  padding-bottom: 20px;
+}
+
+#close-icon {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 60px;
+  /* box-shadow: 0px 0px 2px #888; */
+  padding: 0.25em 0.3em;
+}
+
+#close-icon:hover {
+  background-color: #C0C0C0;
+}
+
+/* ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+} */
+
+/* submit button css */
+/* .multi-button {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+} */
+.quality_button{
+  /* margin: auto; */
+  display: inline-block;
+  background: white;
+  border: 0.125em solid black;
+  cursor: pointer;
+  margin: 0em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.125em;
+  /* margin: 0.5rem; */
+  padding: 0.4em 0.55em;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+}
+.quality_button:before, .quality_button:after {
+  content: '';
+  position: absolute;
+  transition: all 0.135s ease-in-out;
+}
+
+.confirm:after {
+  border: 0.125em dashed black;
+  bottom: -0.125em;
+  left: -0.125em;
+  right: -0.125em;
+  top: -0.125em;
+}
+
+.confirm:hover:after, .confirm:focus:after {
+  bottom: 0.125em;
+  left: 0.125em;
+  right: 0.125em;
+  top: 0.125em;
+}
+
+/* clear and confirm button css end */
+
+/* #situation-0-div {
+  margin-top: 5em;
+} */
+
+.alignment {
+  vertical-align: top; 
+  display: inline-block;
+}
+
+.quality { font-size: 24px; font-weight: 300; line-height: 32px; margin: 0px; display:inline-block}
+
+.situation-display {
+    padding-left: 10px;
+}
+
+.disable {
+  opacity: .3;
+  cursor: default;
+  outline: none;
+  pointer-events: none;
+}
+
+.selection_a {
+    /* color: #FFFFFF; */
+    background: #FFD700;
+    padding: 5px;
+    line-height: 1.5;
+    text-decoration: none;
+}
+
+.selection_a_antecedent {
+    background: #FBF1A9;
+    padding: 5px;
+    line-height: 1.8;
+    text-decoration: none;
+}
+
+
+#selection_text {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+#selection_antecedent {
+  margin-bottom: 0;
+}
+
+/*for div border animation*/
+.gradient-border {
+    --borderWidth: 3px;
+    background: #1D1F20;
+    position: relative;
+    border-radius: var(--borderWidth);
+  }
+  .gradient-border:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 4px;
+    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+    background-size: 300% 300%;
+    clip-path: polygon(0% 100%, 3px 100%, 3px 3px, calc(100% - 3px) 3px, calc(100% - 3px) calc(100% - 3px), 3px calc(100% - 3px), 3px 100%, 100% 100%, 100% 0%, 0% 0%);
+    animation: animatedgradient 3.5s ease-in-out infinite;
+  }
+
+  @-webkit-keyframes animatedgradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+
+
+  @keyframes animatedgradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+    
+    :root {
+	--white: #ffffff;
+	--light: #f0eff3;
+	--black: #000000;
+	--dark-blue: #1f2029;
+	--dark-light: #353746;
+	--red: #da2c4d;
+	--yellow: #f8ab37;
+	--grey: #ecedf3;
+}
+
+/* #Primary
+================================================== */
+
+/* body{
+	width: 100%;
+	background: var(--dark-blue);
+	overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+	font-size: 17px;
+	line-height: 30px;
+}
+p{
+    font-family: 'Poppins', sans-serif;
+	font-size: 17px;
+	line-height: 30px;
+	color: var(--white);
+	letter-spacing: 1px;
+	font-weight: 500;
+} */
+.section {
+    position: relative;
+	width: 100%;
+	display: block;
+	/* text-align: center; */
+	margin: 0 auto;
+}
+.column {
+	text-align: center;
+	margin: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+	float: left;
+	width: 20%;
+}
+
+.column-severity {
+	text-align: center;
+	margin: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+	float: left;
+	width: 33%;
+}
+.row {
+	position: relative;
+	overflow: auto;
+	width: 100%;
+}
+/* .over-hide {
+    overflow: hidden;
+} */
+.z-bigger {
+    z-index: 100 !important;
+}
+
+
+.background-color{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+    /* background-color: var(--dark-blue); */
+    background-color: var(--white);
+	z-index: 1;
+}
+
+
+.checkbox-tools:checked,
+.checkbox-tools:not(:checked){
+	position: absolute;
+	left: -9999px;
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+.checkbox-tools:checked + label,
+.checkbox-tools:not(:checked) + label{
+	position: relative;
+	display: flex;
+    align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 10px;
+	width: 115px;
+	height: 70px;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 1px;
+	/* margin: 0; */
+	margin: 0 auto;
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-bottom: 5px;
+	text-align: center;
+	border-radius: 4px;
+	overflow: hidden;
+	cursor: pointer;
+	vertical-align: middle;
+	color: var(--white);
+}
+
+.checkbox-tools-severity:checked + label,
+.checkbox-tools-severity:not(:checked) + label{
+	position: relative;
+	display: flex;
+    align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 10px;
+	width: 198px;
+	height: 70px;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 1px;
+	/* margin: 0; */
+	margin: 0 auto;
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-bottom: 5px;
+	text-align: center;
+	border-radius: 4px;
+	overflow: hidden;
+	cursor: pointer;
+	vertical-align: middle;
+	color: var(--white);
+}
+
+.checkbox-tools:not(:checked) + label{
+	background-color: var(--dark-light);
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.checkbox-tools:checked + label{
+	background-color: transparent;
+    /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); */
+    -webkit-transition: all 300ms linear;
+    transition: all 300ms linear; 
+}
+.checkbox-tools:not(:checked) + label:hover{
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 300ms linear;
+    transition: all 300ms linear; 
+}
+.checkbox-tools:checked + label::before,
+.checkbox-tools:not(:checked) + label::before{
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+	/* background-image: linear-gradient(298deg, var(--red), var(--yellow)); */
+    z-index: -1;
+}
+
+#error-1-label::before {
+	background-color: #FF6300
+}
+
+#error-2-label::before {
+	background-color: #111111
+}
+
+#error-3-label::before {
+	background-color: #137752
+}
+
+#error-4-label {
+	color: black;
+}
+
+#error-4-label::before {
+	background-color: #9EEBCF;
+}
+
+#error-5-label::before {
+	background-color: #5E2CA5
+}
+
+#error-6-label {
+	color: black;
+}
+
+#error-6-label::before {
+	background-color: #CCCCCC
+}
+
+#error-7-label {
+	color: black;
+}
+
+#error-7-label::before {
+	background-color: #FFD700
+}
+
+#error-8-label::before {
+	background-color: #E7040F
+}
+
+#error-9-label::before {
+	background-color: #00449E
+}
+
+#error-10-label::before {
+	background-color: #FF80CC
+}
+
+#severity-1-label::before {
+	background-image: linear-gradient(298deg, var(--red), var(--yellow));
+}
+
+#severity-2-label::before {
+	background-image: linear-gradient(298deg, var(--red), var(--yellow));
+}
+
+#severity-3-label::before {
+	background-image: linear-gradient(298deg, var(--red), var(--yellow));
+}
+
+.checkbox-tools:checked + label .uil,
+.checkbox-tools:not(:checked) + label .uil{
+	font-size: 24px;
+	line-height: 24px;
+	display: block;
+	padding-bottom: 10px;
+}
+
+.section .quality_selection_container .row .column .checkbox-tools:not(:checked) + label{
+	background-color: var(--light);
+	color: var(--black);
+	box-shadow: 0 1x 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+.column-severity .checkbox-tools:not(:checked) + label{
+	background-color: var(--light);
+	color: var(--black);
+	box-shadow: 0 1x 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+    .container {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 1rem;
+}
+
+.card {
+  margin: 1rem;
+  /* background-color: #f8f9fa;
+  border: 1px solid #d9dadb; */
+  border-radius: 4px;
+
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-header {
+  width: 100%;
+  background-color: rgba(0, 0, 0, .03);
+  text-decoration: none;
+  padding: .75rem 1.25rem;
+  border-bottom: 1px solid #d9dadb;
+  display: flex;
+}
+
+.link {
+  color: #157ffb;
+}
+
+.link:hover {
+  color: #0a4d99;
+  text-decoration: underline;
+
+}
+
+.card-body {
+  /* padding: 1rem; */
+  margin-left: auto!important;
+  margin-right: auto!important;
+}
+
+.mf-textarea {
+  width: 100%;
+  /* max-width: 500px; */
+  height: 80px;
+  margin-top: 0px;
+}
+
+.inputs li {
+  /* float: left; */
+  list-style-type: none;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.f7 {
+  font-size: 0.5 rem;
+}
+
+hr {
+  border-top: 1px solid #dfe0e1;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+
+.form__group {
+  position  : relative;
+  padding   : 20px 0 0;
+  margin    : auto;
+  margin-top: 5px;
+  max-width : 400px;
+}
+
+.form__field {
+  width        : 100%;
+  border       : 0;
+  border-bottom: 2px solid;
+  border-image : linear-gradient(to right, #2B32B2, #1488CC) 0 0 100% 0/0 0 2px 0;
+  /* outline   : 0; */
+  color        : #283048;
+  padding      : 4px 0;
+  background   : transparent;
+  transition   : border-color 0.2s;
+}
+
+.form__field::placeholder {
+  color: transparent;
+}
+
+.form__field:placeholder-shown~.form__label {
+  /* font-size: 1.3rem; */
+  cursor: text;
+  top   : 20px;
+}
+
+.form__label {
+  position  : absolute;
+  top       : 0;
+  display   : block;
+  transition: 0.2s;
+  font-size : 1rem;
+  color     : #707070;
+}
+
+.form__field:focus {
+  padding-bottom    : 4px;
+  border-image      : linear-gradient(to right, #2B32B2, #1488CC);
+  border-image-slice: 1;
+}
+
+.form__field:focus~.form__label {
+  position  : absolute;
+  top       : 0;
+  display   : block;
+  transition: 0.2s;
+  font-size : 1rem;
+  color     : #2B32B2;
+}
+
+/* reset input */
+.form__field:required,
+.form__field:invalid {
+  box-shadow: none;
+}
+
+.radio-instruction {
+  text-align: left;
+}
+
+.radios {
+  box-sizing: border-box;
+  display   : inline-block;
+  width     : 100%;
+}
+
+.radios *,
+.radios *:before,
+.radios *:after {
+  box-sizing: border-box;
+}
+
+.radio {
+  /* float: left; */
+  display            : block;
+  cursor             : pointer;
+  -webkit-user-select: none;
+  -moz-user-select   : none;
+  -ms-user-select    : none;
+  user-select        : none;
+  text-align         : left;
+}
+
+/* .radio + .radio {
+    margin-left: 10px;
+  } */
+.radio input {
+  display: none;
+}
+
+.radio input+span {
+  display     : inline-block;
+  position    : relative;
+  padding-left: 20px;
+}
+
+.radio input+span:before {
+  content      : '';
+  display      : block;
+  position     : absolute;
+  top          : 0px;
+  left         : 0px;
+  border-radius: 50%;
+  margin-right : 5px;
+  width        : 16px;
+  height       : 16px;
+  border       : 1px solid #ccc;
+  background   : #fff;
+}
+
+.radio input+span:after {
+  content           : '';
+  display           : block;
+  width             : 10px;
+  height            : 10px;
+  background        : #222;
+  position          : absolute;
+  border-radius     : 50%;
+  top               : 3px;
+  left              : 3px;
+  opacity           : 0;
+  -webkit-transform : scale(0, 0);
+  transform         : scale(0, 0);
+  -webkit-transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+  transition        : all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+}
+
+.radio input:checked+span:after {
+  opacity          : 1;
+  -webkit-transform: scale(1, 1);
+  transform        : scale(1, 1);
+}
+
+.situation-display {
+  margin-top: 4px;
+}
+
+#p_button {
+  max-width   : 1140px;
+  margin-left : auto;
+  margin-right: auto;
+}
+
+.wizard-navigation {
+  top: 0;
+}
+
+.wizard-nav {
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.wizard-progress-with-circle {
+  z-index: 2;
+}
+
+.wizard-icon-circle {
+  z-index: 3;
+}
+
+</style>
+
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+<script>
+    (function () { var e, t; e = this, t = function () { var r = { startStopTimes: {}, idleTimeoutMs: 3e4, currentIdleTimeMs: 0, checkStateRateMs: 250, active: !1, idle: !1, currentPageName: "default-page-name", timeElapsedCallbacks: [], userLeftCallbacks: [], userReturnCallbacks: [], trackTimeOnElement: function (e) { var t = document.getElementById(e); t && (t.addEventListener("mouseover", function () { r.startTimer(e) }), t.addEventListener("mousemove", function () { r.startTimer(e) }), t.addEventListener("mouseleave", function () { r.stopTimer(e) }), t.addEventListener("keypress", function () { r.startTimer(e) }), t.addEventListener("focus", function () { r.startTimer(e) })) }, getTimeOnElementInSeconds: function (e) { var t = r.getTimeOnPageInSeconds(e); return t || 0 }, startTimer: function (e, t) { if (e || (e = r.currentPageName), void 0 === r.startStopTimes[e]) r.startStopTimes[e] = []; else { var n = r.startStopTimes[e], i = n[n.length - 1]; if (void 0 !== i && void 0 === i.stopTime) return } r.startStopTimes[e].push({ startTime: t || new Date, stopTime: void 0 }), r.active = !0, r.idle = !1 }, stopAllTimers: function () { for (var e = Object.keys(r.startStopTimes), t = 0; t < e.length; t++)r.stopTimer(e[t]) }, stopTimer: function (e, t) { e || (e = r.currentPageName); var n = r.startStopTimes[e]; void 0 !== n && 0 !== n.length && (void 0 === n[n.length - 1].stopTime && (n[n.length - 1].stopTime = t || new Date), r.active = !1) }, getTimeOnCurrentPageInSeconds: function () { return r.getTimeOnPageInSeconds(r.currentPageName) }, getTimeOnPageInSeconds: function (e) { var t = r.getTimeOnPageInMilliseconds(e); return void 0 === t ? void 0 : t / 1e3 }, getTimeOnCurrentPageInMilliseconds: function () { return r.getTimeOnPageInMilliseconds(r.currentPageName) }, getTimeOnPageInMilliseconds: function (e) { var t = r.startStopTimes[e]; if (void 0 !== t) { for (var n = 0, i = 0; i < t.length; i++) { var s = t[i].startTime, o = t[i].stopTime; void 0 === o && (o = new Date), n += o - s } return Number(n) } }, getTimeOnAllPagesInSeconds: function () { for (var e = [], t = Object.keys(r.startStopTimes), n = 0; n < t.length; n++) { var i = t[n], s = r.getTimeOnPageInSeconds(i); e.push({ pageName: i, timeOnPage: s }) } return e }, setIdleDurationInSeconds: function (e) { var t = parseFloat(e); if (!1 !== isNaN(t)) throw { name: "InvalidDurationException", message: "An invalid duration time (" + e + ") was provided." }; return r.idleTimeoutMs = 1e3 * e, this }, setCurrentPageName: function (e) { return r.currentPageName = e, this }, resetRecordedPageTime: function (e) { delete r.startStopTimes[e] }, resetAllRecordedPageTimes: function () { for (var e = Object.keys(r.startStopTimes), t = 0; t < e.length; t++)r.resetRecordedPageTime(e[t]) }, resetIdleCountdown: function () { r.idle && r.triggerUserHasReturned(), r.idle = !1, r.currentIdleTimeMs = 0 }, callWhenUserLeaves: function (e, t) { this.userLeftCallbacks.push({ callback: e, numberOfTimesToInvoke: t }) }, callWhenUserReturns: function (e, t) { this.userReturnCallbacks.push({ callback: e, numberOfTimesToInvoke: t }) }, triggerUserHasReturned: function () { if (!r.active) for (var e = 0; e < this.userReturnCallbacks.length; e++) { var t = this.userReturnCallbacks[e], n = t.numberOfTimesToInvoke; (isNaN(n) || void 0 === n || 0 < n) && (t.numberOfTimesToInvoke -= 1, t.callback()) } r.startTimer() }, triggerUserHasLeftPage: function () { if (r.active) for (var e = 0; e < this.userLeftCallbacks.length; e++) { var t = this.userLeftCallbacks[e], n = t.numberOfTimesToInvoke; (isNaN(n) || void 0 === n || 0 < n) && (t.numberOfTimesToInvoke -= 1, t.callback()) } r.stopAllTimers() }, callAfterTimeElapsedInSeconds: function (e, t) { r.timeElapsedCallbacks.push({ timeInSeconds: e, callback: t, pending: !0 }) }, checkState: function () { for (var e = 0; e < r.timeElapsedCallbacks.length; e++)r.timeElapsedCallbacks[e].pending && r.getTimeOnCurrentPageInSeconds() > r.timeElapsedCallbacks[e].timeInSeconds && (r.timeElapsedCallbacks[e].callback(), r.timeElapsedCallbacks[e].pending = !1); !1 === r.idle && r.currentIdleTimeMs > r.idleTimeoutMs ? (r.idle = !0, r.triggerUserHasLeftPage()) : r.currentIdleTimeMs += r.checkStateRateMs }, visibilityChangeEventName: void 0, hiddenPropName: void 0, listenForVisibilityEvents: function () { void 0 !== document.hidden ? (r.hiddenPropName = "hidden", r.visibilityChangeEventName = "visibilitychange") : void 0 !== document.mozHidden ? (r.hiddenPropName = "mozHidden", r.visibilityChangeEventName = "mozvisibilitychange") : void 0 !== document.msHidden ? (r.hiddenPropName = "msHidden", r.visibilityChangeEventName = "msvisibilitychange") : void 0 !== document.webkitHidden && (r.hiddenPropName = "webkitHidden", r.visibilityChangeEventName = "webkitvisibilitychange"), document.addEventListener(r.visibilityChangeEventName, function () { document[r.hiddenPropName] ? r.triggerUserHasLeftPage() : r.triggerUserHasReturned() }, !1), window.addEventListener("blur", function () { r.triggerUserHasLeftPage() }), window.addEventListener("focus", function () { r.triggerUserHasReturned() }), document.addEventListener("mousemove", function () { r.resetIdleCountdown() }), document.addEventListener("keyup", function () { r.resetIdleCountdown() }), document.addEventListener("touchstart", function () { r.resetIdleCountdown() }), window.addEventListener("scroll", function () { r.resetIdleCountdown() }), setInterval(function () { r.checkState() }, r.checkStateRateMs) }, websocket: void 0, websocketHost: void 0, setUpWebsocket: function (e) { if (window.WebSocket && e) { var t = e.websocketHost; try { r.websocket = new WebSocket(t), window.onbeforeunload = function () { r.sendCurrentTime(e.appId) }, r.websocket.onopen = function () { r.sendInitWsRequest(e.appId) }, r.websocket.onerror = function (e) { console && console.log("Error occurred in websocket connection: " + e) }, r.websocket.onmessage = function (e) { console && console.log(e.data) } } catch (e) { console && console.error("Failed to connect to websocket host.  Error:" + e) } } return this }, websocketSend: function (e) { r.websocket.send(JSON.stringify(e)) }, sendCurrentTime: function (e) { var t = { type: "INSERT_TIME", appId: e, timeOnPageMs: r.getTimeOnCurrentPageInMilliseconds(), pageName: r.currentPageName }; r.websocketSend(t) }, sendInitWsRequest: function (e) { var t = { type: "INIT", appId: e }; r.websocketSend(t) }, initialize: function (e) { var t = r.idleTimeoutMs || 30, n = r.currentPageName || "default-page-name", i = void 0, s = void 0; e && (t = e.idleTimeoutInSeconds || t, n = e.currentPageName || n, i = e.websocketOptions, s = e.initialStartTime), r.setIdleDurationInSeconds(t).setCurrentPageName(n).setUpWebsocket(i).listenForVisibilityEvents(), r.startTimer(void 0, s) } }; return r }, "undefined" != typeof module && module.exports ? module.exports = t() : "function" == typeof define && define.amd ? define([], function () { return e.TimeMe = t() }) : e.TimeMe = t() }).call(this);
+
+    TimeMe.initialize({
+        currentPageName: "task",
+        idleTimeoutInSeconds: 30
+    });
+
+    // update debug display
+    // setInterval(function () {
+    //     document.getElementById('timing-debug').innerText = TimeMe.getTimeOnCurrentPageInSeconds();
+    // }, 0.1);
+</script>
+
+<body>
+    <div id="qual_app">
+      <div>
+        <form-wizard @on-complete="onComplete"> 
+            <tab-content title="Instructions">
+              <div class="container card mb-3 card-body" id="bodyInstructions">
+                <p class="mt0 f2 b">Instructions</p>
+                <p class="f4">
+                    Welcome! In this project, you will read text written by an Artificial Intelligence, and mark problems you find.
+                </p>
+                <p class="f4">
+                    This <span class="b">qualification HIT</span> is to train you to mark these problems.
+                    This involves learning:
+                </p>
+                <ol class="f4">
+                    <li>Choosing which words to highlight (AKA <span class="b">"selecting spans"</span>)</li>
+                    <li>Choosing the <span class="b">severity</span> of the problem</li>
+                    <li>Choosing the problem's <span class="b">category</span> (this is most of the qual)</li>
+                </ol>
+
+                <p class="f4">
+                    We've split this qual HIT into several parts to help you work through it.
+                    The pay is set assuming you will spend two hours on the qual, so please take your time!
+                    The actual HIT will be much quicker—you'll only be selecting problems and labeling them.
+                </p>
+
+                <p class="f4">
+                    Here’s the big picture of what we’re doing:
+                </p>
+
+                <img src="https://raw.githubusercontent.com/mbforbes/oof/master/task.png?token=AMTFCLYAZ55PAVUMYO3KDGTAPHS6O">
+              </div>
+            </tab-content>
+
+            <tab-content title="Demographics">
+              <div class="container card mb-3 card-body" id="bodyDemographics">
+                  <p class="mt0 f2 b">Basic Demographics</p>
+
+                  <p class="f4">We're collecting basic demographic information for use in our research.</p>
+  
+                  <!-- Gender question -->
+                  <p class="f4 mt4 mb1  mb0 b">
+                      What gender do you identify with?
+                  </p>
+                  <ul class="f4 list mt0">
+                      <li>
+                          <input type="radio" name="gender" value="male"> Male
+                      </li>
+                      <li>
+                          <input type="radio" name="gender" value="female"> Female
+                      </li>
+                      <li>
+                          <input type="radio" name="gender" value="other"> Other:
+                          <input type="text" name="gender-manual" placeholder="Please specify if other">
+                      </li>
+                  </ul>
+  
+                  <!-- Age question -->
+                  <p class="f4 mt4 mb1 mb0 b">
+                      Which category below includes your age?
+                  </p>
+                  <ul class="f4 list mt0">
+                      <li>
+                          <input type="radio" name="age" value="-17"> 17 or younger
+                      </li>
+                      <li>
+                          <input type="radio" name="age" value="18-20"> 18-20
+                      </li>
+                      <li>
+                          <input type="radio" name="age" value="21-29"> 21-29
+                      </li>
+                      <li>
+                          <input type="radio" name="age" value="30-39"> 30-39
+                      </li>
+                      <li>
+                          <input type="radio" name="age" value="40-49"> 40-49
+                      </li>
+                      <li>
+                          <input type="radio" name="age" value="50-59"> 50-59
+                      </li>
+                      <li>
+                          <input type="radio" name="age" value="60-69"> 60-69
+                      </li>
+                      <li>
+                          <input type="radio" name="age" value="70-"> 70 or older
+                      </li>
+                  </ul>
+  
+                  <!-- Race question -->
+                  <p class="f4 mt4 mb1 mb0 b">
+                      Please select the race(s) which fit you best.
+                  </p>
+                  <ul class="f4 list mt0">
+                      <li>
+                          <input type="radio" name="race" value="white"> White
+                      </li>
+                      <li>
+                          <input type="radio" name="race" value="black"> Black or African-American
+                      </li>
+                      <li>
+                          <input type="radio" name="race" value="native"> Native American or Alaskan Native
+                      </li>
+                      <li>
+                          <input type="radio" name="race" value="asian"> Asian
+                      </li>
+                      <li>
+                          <input type="radio" name="race" value="pacific"> Native Hawaiian or other Pacific
+                          islander
+                      </li>
+                      <li>
+                          <input type="radio" name="race" value="hispanic"> Spanish, Hispanic, or Latino
+                      </li>
+                      <li>
+                          <input type="radio" name="race" value="other"> Some other race (please specify)
+                          <input type="text" name="race-manual" placeholder="Please specify if other">
+                      </li>
+                  </ul>
+  
+                  <!-- Education question -->
+                  <p class="f4 mt4 mb1  mb0 b">
+                      Which option best fits the highest level of school you have completed, or the
+                      highest degree you have received?
+                  </p>
+                  <ul class="f4 list mt0">
+                      <li>
+                          <input type="radio" name="school" value="no-hs"> Less than high school degree
+                      </li>
+                      <li>
+                          <input type="radio" name="school" value="hs"> High school degree or equivalent
+                          (e.g., GED)
+                      </li>
+                      <li>
+                          <input type="radio" name="school" value="some-college"> Some college but no degree
+                      </li>
+                      <li>
+                          <input type="radio" name="school" value="associate"> Associate degree
+                      </li>
+                      <li>
+                          <input type="radio" name="school" value="bachelor"> Bachelor degree
+                      </li>
+                      <li>
+                          <input type="radio" name="school" value="grad"> Graduate degree
+                      </li>
+                  </ul>
+  
+                  <!-- Living in US question -->
+                  <p class="f4 mt4 mb1  mb0 b">
+                      Do you live in the United States?
+                  </p>
+                  <ul class="f4 list mt0">
+                      <li>
+                          <input type="radio" name="us" value="yes"> Yes
+                      </li>
+                      <li>
+                          <input type="radio" name="us" value="no"> No
+                      </li>
+                  </ul>
+  
+                  <!-- Time in US question -->
+                  <p class="f4 mt4 mb1  mb0 b">
+                      How long have you lived in the U.S.? (if not in U.S., please pick "n/a")
+                  </p>
+                  <ul class="f4 list mt0">
+                      <li>
+                          <input type="radio" name="time-in-us" value="-1"> Less than 1 year
+                      </li>
+                      <li>
+                          <input type="radio" name="time-in-us" value="1-2"> between 1 and 2 years
+                      </li>
+                      <li>
+                          <input type="radio" name="time-in-us" value="2-5"> between 2 and 5 years
+                      </li>
+                      <li>
+                          <input type="radio" name="time-in-us" value="5-10"> between 5 and 10 years
+                      </li>
+                      <li>
+                          <input type="radio" name="time-in-us" value="10-"> 10 or more years
+                      </li>
+                      <li>
+                          <input type="radio" name="time-in-us" value="none"> n/a
+                      </li>
+                  </ul>
+  
+                  <!-- Native language question -->
+                  <p class="f4 mt4 mb1  mb0 b">
+                      Is English one of your native languages?
+                  </p>
+                  <ul class="f4 list mt0">
+                      <li>
+                          <input type="radio" name="language" value="yes"> Yes
+                      </li>
+                      <li>
+                          <input type="radio" name="language" value="no"> No
+                      </li>
+                  </ul>
+  
+              </div>
+              <!-- / basic demographics card -->
+            </tab-content>
+
+            <tab-content title="Span Selection">
+              <div class="container card mb-3 card-body" id="bodySelectingSpans">
+
+                <p class="mt0 f2 b">Selecting Spans</p>
+
+                <p class="f3 b">How to decide what to select?</p>
+
+                <p class="f4 ">
+                In this task, you are asked to highlight errors in a text.
+                The part of the text that you highlight is called a <i>span</i>.
+                One challenge is deciding how much or how little text to select.
+                </p>
+                <p class="f4 ">
+                Generally, you want to select the smallest amount of text containing the error.
+                However, if the error takes up most of a phrase or sentence that could be deleted to make the text correct, please select the whole phrase or sentence.
+                Note that we will explain the different categories of errors below, though they are used in these examples.
+                </p>
+
+
+                <p class="f3 b mt5">Examples</p>
+
+                <p class="f4 outline pa4 ">
+
+                    An easy fix for foggy car windows is
+                    <span class="bb bw2 b--moon-gray">
+                        run</span>
+                    the heater
+
+                    <br>
+                </p>
+
+                <ul class="f4 ml4  list i">
+                    <li>
+                        <span class="b">Explanation:</span>
+                        This is a grammar error.
+                        If just the word "run" was changed to "running," then the sentence would be correct. So, we mark just this one word as the error.
+                    </li>
+                </ul>
+
+                <p class="f4 outline pa4  mt5">
+                    Contrary to popular belief
+                    <span class="bb bw2 b--moon-gray">
+                        or even popular belief</span>,
+                        the moon is not made out of cheese but rocks.
+                    <br>
+                </p>
+
+                <ul class="f4 ml4  list i">
+                    <li>
+                        <span class="b">Explanation:</span>
+                        Here the error is a redundant piece of text.
+                        If we could delete the whole phrase "or even the popular belief" then the sentence would make sense.
+                        So, we select this whole phrase as the error span.
+                    </li>
+                </ul>
+
+                <p class="f4 outline pa4  mt5">
+                    The S&amp;P 500 closed slightly down on Thursday after heavy trading.
+                    <span class="bb bw2 b--moon-gray">
+                    But on Thursday, the S&amp;P rallied to gain 155 points, closing at 3855.
+                    </span>
+
+                    <br>
+                </p>
+
+                <ul class="f4 ml4  list i">
+                    <li>
+                        <span class="b">Explanation:</span>
+                        The second sentence contradicts the first. Since the whole sentence is contradictory, we select the whole second sentence as the error.
+                    </li>
+                </ul>
+
+
+              </div> 
+            </tab-content>
+
+            <tab-content title="Severity Selection">
+              <div class="container card mb-3 card-body" id="bodyGoogle">
+
+                <p class="mt0 f2 b">Severity</p>
+
+                <p class="f3 b">What is it?</p>
+
+                <p class="f4 ">
+                    Some errors are more jarring than others. We ask you to rank each error on an intuitive scale from 1 — 3.
+                </p>
+
+                <ul class="f4 ">
+                    <li>
+                        <span class="b">1 – Almost no impact.</span> There's a small problem.
+                    </li>
+                    <li>
+                        <span class="b">2 – Understandable, but difficult.</span> You still get what's being said, but there's definitely an issue.
+                    </li>
+                    <li>
+                        <span class="b">3 – Very hard to understand.</span> The error almost completely ruins the text.
+                    </li>
+                </ul>
+
+
+
+                <p class="f3 b mt5">Examples</p>
+
+                <p class="f4 outline pa4 ">
+
+                    Paul Campbell-Hughes, from the University of Aberdeen, explains how
+                    <span class="bb bw2 b--moon-gray">
+                        she
+                    </span>
+                    managed to locate colonies of honey bees in Kent.
+
+                    <br>
+                    <span class="bg-moon-gray black pv2 ph3 br-pill b dib mt4">Grammar / Usage (severity: 1)</span>
+                </p>
+
+                <ul class="f4 ml4  list i">
+                    <li>
+                        <span class="b">Explanation:</span>
+                        Since Paul us usually a male name, we can guess that the AI
+                        guessed the wrong gender pronoun here and should have written "he."
+                        But this error is pretty minor, so we mark severity 1.
+                    </li>
+                </ul>
+
+                <p class="f4 outline pa4  mt5">
+                    Paul Campbell-Smith, a PhD student from the University of Kent in the UK,
+                    claims to have discovered a clever way to explain the positive
+                    <span class="bb bw2 b--moon-gray">
+                        emoticons
+                    </span>
+                    in cats.
+
+                    <br>
+                    <span class="bg-moon-gray black pv2 ph3 br-pill b dib mt4">Grammar / Usage (severity: 2)</span>
+                </p>
+
+                <ul class="f4 ml4  list i">
+                    <li>
+                        <span class="b">Explanation:</span>
+                        The word should probably be "emotions" here. We can guess what was being said, so the meaning isn't totally lost. But it's definitely wrong.
+                    </li>
+                </ul>
+
+                <p class="f4 outline pa4  mt5">
+                    <span class="b">Prompt: </span>
+                    Whether you're on Facebook, Instagram, Snapchat or TikTok, many people make huge efforts to curate the best version of themselves online.
+                    <br>
+                    <span class="b">Continuation: </span>
+                    <span class="bb bw2 b--yellow">
+                    This year we've got something for you: a Love Match Custom Size Poster featuring Mather, Phoenix, Kashun and all her friends, divided among six different covers, creating a beautiful custom size poster for your own personal high school reunion.
+                    </span>
+
+                    <br>
+                    <span class="bg-yellow black pv2 ph3 br-pill b dib mt4">Off-prompt (severity: 3)</span>
+                </p>
+
+                <ul class="f4 ml4  list i">
+                    <li>
+                        <span class="b">Explanation:</span>
+                        Even ignoring the end of the continuation (a poster... for your own personal high school reunion?), this whole continuation is way off the prompt. I would say it's severity 3.
+                    </li>
+                </ul>
+
+                <p class="f3 b mt5">Exercise</p>
+
+                <p class="f4 ">
+                    Please pick the severity for the following error:
+                </p>
+
+                <p class="f4 outline pa4 ">
+                    <span class="bb bw2 b--moon-gray">
+                    "I'm
+                    </span>
+                    don't know," was the most common response among all the seventy-five users polled.
+
+                    <br>
+                    <span class="bg-moon-gray black pv2 ph3 br-pill b dib mt4">Grammar / Usage</span>
+
+
+                </p><p class="f4 ">
+                    The error severity is:
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="severity-quiz" value="1">
+                        <label for="1">1 – Almost no impact </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="severity-quiz" value="2">
+                        <label for="2">2 – Understandable, but difficult.</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="severity-quiz" value="3">
+                        <label for="3">3 – Very hard to understand.</label>
+                    </li>
+                </ul>
+
+              </div>
+            </tab-content>
+
+            <tab-content title="Language Error Tutorial">
+              <div class="container card mb-3 card-body" id="bodyLanguage">
+                <p class="mt0 f2 b">Language Error Tutorial</p>
+                
+                <p class="f4">In this tutorial, we'll go through five different language error types: 
+                  <span class="f4 bg-moon-gray black br-pill dib  b ph3">Grammar and Usage</span>, 
+                  <span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span>, 
+                  <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>, 
+                  <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>, and 
+                  <span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span>.
+                </p>
+                
+                <div class="single_part_error_qual mt2">
+                    <p class="f2 bg-moon-gray black br-pill dib b ph3 mb2">Grammar and Usage</p>
+                    <p class="f3 b">What is it?</p>
+
+                    <p class="f4 ">
+                        Grammar and usage mistakes are often easy to spot. This category of errors includes <span class="b">missing words,
+                        extra words, and incorrect or out of order words</span>.
+                        These should be marked as
+                        <span class="f4 bg-moon-gray black br-pill dib  b ph3">Grammar and Usage</span> errors.
+                    </p>
+
+                    <p class="f3 b mt5">Examples</p>
+
+                    <p class="f4 outline pa4 ">
+                        A PhD student from the University of Kent in the UK, claims to have discovered a clever way to
+                        explain the positive <span class="bb bw2 b--moon-gray">emoticons</span> in cats
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            The word should probably be "emotions", not "emoticons".
+                        </li>
+                    </ul>
+
+                    <p class="f4 outline pa4  mt5">
+                        A couple is facing criticism for their extravagant gender reveal party. The bewitching pair had
+                        first stripped down to fishnets <span class="bb bw2 b--moon-gray"> and backward</span>.
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            This sentence seems to be missing a noun after the word "backward", e.g. "backward hats".
+                            Note that we select the whole phrase "and backward" because it is the smallest span that we could delete to make the sentence sensible.
+                        </li>
+                    </ul>
+
+                    <p class="f3 b mt5">Exercise</p>
+
+                    <p class="f4 ">
+                        Please mark the <span class="f4 bg-moon-gray black br-pill dib  b ph3 fs-normal">Grammar and Usage</span>
+                        error or errors in the following text:
+                    </p>
+
+                    <div id="situation-0-div" class="f4 outline pa4">
+                        <p id="situation-0">After we went downtown, we said "thanks you" to the almighty coffee gods.</p>
+                    </div>
+                    <div id="situation-0-display" class="situation-display"></div>
+                    <input type="hidden" name="situation-0" id="situation-0-serialize">
+                    <!-- <input type="hidden" name="situation-0-source-id" value="${situation-0-source}"> -->
+                </div>
+                
+                <div class="single_part_error_qual mt4">
+                    <p class="f2 bg-dark-red white br-pill dib b ph3 mb2">Redudant</p>
+
+                    <p class="f3 b">What is it?</p>
+
+                    <p class="f4 ">
+                        Redundant text repeats itself.
+                        Sometimes, you will see the exact word or phrase repeated.
+                        Other times, the same idea is repeated using different words.
+                        To annotate
+                        <span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span> text,
+                        first select the extra repeating text and choose the "Redundant" error type.
+                        An additional section of the annotation box will pop up asking you to select
+                        the <span class="i">antecedents (earlier spans of text)</span>
+                        that are being repeated.
+                    </p>
+
+                    <p class="f3 b mt5">Examples</p>
+
+                    <p class="f4 outline pa4 ">
+                        Many merchants worry about the possibility of poor service <span class="bb bw2 b--dark-red">or service</span> for certain categories of customers.
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            This text includes the extra phrase “or service” that is repetitive.
+                            Note that when highlighting redundant information, please select the whole section that could be
+                            cut to make the text correct.
+                            After selecting the redundant text, please select the text that is being repeated:
+                        </li>
+                    </ul>
+                    <p class="f4 outline pa4 ">
+                        Many merchants worry about the possibility of poor <span class="bb bw2 b--light-red">service</span> <span class="bb bw2 b--dark-red">or service</span> for certain categories of customers.
+
+                    </p><ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            In this example, the word "service" is the
+                            <span class="f4 bg-light-red white br-pill dib b ph3">antecendent</span> of the
+                            <span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span> text.
+                        </li>
+                    </ul>
+
+                    <p class="f4 outline pa4  mt5">
+                        They then made decisions based on Kondo’s instructions, to the extent that they
+                            <span class="bb bw2 b--light-red">created de-cluttered spaces </span>
+                        <span class="bb bw2 b--dark-red">and got rid of clutter and clutter-filled spaces</span>.
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            Here, the antecendent phrase "created de-cluttered spaces" is repeated by the redundant phrase "and got rid of clutter and clutter-filled spaces". Note again that we select "and" as part of the redundant phrase because we could delete all this and the sentence would make sense.
+                        </li>
+                    </ul>
+
+                    <p class="f4 outline pa4  mt5">
+                            <span class="bb bw2 b--light-red">
+                        The soap production center, which was used during Roman times (around 1,200 years ago), once
+                        produced large quantities of a quality soap that was exported throughout the empire.</span>
+                        <span class="bb bw2 b--dark-red">
+                        The remains of an ancient Roman factory that produced
+                            high-quality soap have been unearthed in Israel</span>.
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            This is an example of sentence-level redundancy. The words of the second sentece are different from the first, but they repeat the same content.
+                        </li>
+                    </ul>
+
+                      <p class="f3">
+                        <span class="b red">Notice:</span> If there are multiple redundant spans in text, mark them as multiple redundant errors. Here is an example:  <a href="https://yao-dou.github.io/redundant_example/">https://yao-dou.github.io/redundant_example/</a>.
+                      </p>
+
+                    <p class="f3 b mt5">Exercise</p>
+
+                    <p class="f4 ">
+                        Please mark the <span class="f4 bg-dark-red white br-pill dib b ph3 fs-normal">Redundant</span>
+                        error or errors in the following text:
+                    </p>
+
+                    <div id="situation-1-div" class="f4 outline pa4 ">
+                        <p id="situation-1">White House spokesperson Raj Shah said Japanese businesses - or Japanese companies as they call themselves in Japan - are necessary for economic growth.</p>
+                    </div>
+                    <div id="situation-1-display" class="situation-display"></div>
+                    <input type="hidden" name="situation-1" id="situation-1-serialize">
+                    <!-- <input type="hidden" name="situation-1-source-id" value="${situation-1-source}"> -->
+                </div>
+                
+                <div class="single_part_error_qual mt4">
+                  <p class="f2 bg-yellow black br-pill dib b ph3 mb2">Off-prompt</p>
+  
+                  <p class="f3 b">What is it?</p>
+  
+                  <p class="f4 ">
+                      In this task, every example you annotate will come with a "prompt", or a piece of text written by a human that the AI is supposed to continue.
+                      Sometimes, however, the AI will write a phrase or sentence that is completely unrelated to the prompt.
+                      Other times, the text might be related, but it contradicts the prompt.
+                      In <span class="b">both</span> of these instances, you should label the span
+                      <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>.
+  
+                  </p>
+  
+                  <p class="f3 b mt5">Examples</p>
+  
+                  <p class="f4 outline pa4 ">
+                      <span class="b">Prompt:</span>  Dogs are the new kids. <br><br>
+                      <span class="b">Text:</span>
+                      Statistics suggest that most Americans would be happier with dogs than children.
+                          <span class="bb bw2 b--yellow">In fact, four out of five don't even visit the dentist
+                          annually, much less every six months.</span>
+                      Dog owners report much higher rates of happiness than non-dog owners.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          The prompt is about dogs, but the second sentence about dentists is unrelated to the prompt.
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      <span class="b">Prompt:</span>  China sets new record for Economic Growth<br><br>
+                      <span class="b">Text:</span>
+                      The Chinese economy
+                          <span class="bb bw2 b--yellow"> fell 10% this month, the third such loss this year.</span>
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          The prompt claims that China's economy is growing, but the text states the opposite.
+                          Important:
+                          even though this is a contradiction, <span class="b">because it contradicts the prompt</span>, we mark it as
+                          <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>.
+                      </li>
+                  </ul>
+                  <p class="f4 outline pa4  mt5">
+                      <span class="b">Prompt:</span> Increased awareness of Anti-Doping regulations in Sport<br><br>
+                      <span class="b">Text:</span>
+                      The practice of doping is banned by sports federations throughout the world.
+                      Athletes need to know which substances are banned in sport.
+                      The use of drugs during <span class="bb bw2 b--yellow">music festivals</span> is
+                      widespread.
+                      Furthermore, they must make sure that any product or medication they take does not contain a
+                      prohibited substance.
+  
+                  </p><ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Here, the prompt deals with the use of drugs in sports. The third sentence of the text does talk about drugs, so the whole sentence is not off-prompt. However, the part about music festivals is unrelated to the prompt about sports.
+                          This is why we select only the span "music festivals" as <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>.
+                      </li>
+                  </ul>
+  
+                  <p class="f3 b mt5">Exercise</p>
+  
+                  <p class="f4 ">
+                      Please mark the <span class="f4 bg-yellow black br-pill dib b ph3 fs-normal">Off-prompt</span>
+                      error or errors in the following text:
+                  </p>
+  
+                  <div id="situation-2-div" class="f4 outline pa4 ">
+                      <span class="b mb0">Prompt:</span>
+                      <p class="mt0">
+                          These are the top work-from-home counties in the US
+                      </p>
+  
+                      <span class="b mb0">Text:</span>
+                      <p id="situation-2" class="mt0">Looking for a new spot to work from home? You might want to give Georgia a shot. It's not like it’s going to be any better than the rest of them, but at least you know you aren't working under a dictator. And maybe, when this is all over, you can go back home…</p>
+                  </div>
+                  <div id="situation-2-display" class="situation-display"></div>
+                  <input type="hidden" name="situation-2" id="situation-2-serialize">
+                  <!-- <input type="hidden" name="situation-2-source-id" value="${situation-2-source}"> -->
+                </div>
+
+                <div class="single_part_error_qual mt4">
+                  <p class="f2 bg-dark-blue white br-pill dib b ph3 mb2">Self-Contradiction</p>
+  
+                  <p class="f3 b">What is it?</p>
+  
+                  <p class="f4 ">
+                      <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>
+                      errors occur when the AI writes something that contradicts another piece of text that the AI had previously written.
+                  </p>
+                  <p class="f4 ">
+                      When labeling
+                      <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>
+                      errors, you will make two selections, similar to how Redundant errors are annotated.
+                      First, select the
+                      <span class="bb bw2 b--dark-blue">text that is contradictory</span>.
+                      Then, you will be prompted to select the
+                      <span class="bb bw2 b--light-blue">text that is being contradicted</span>
+                      (the <span class="i">antecedent</span>).
+                  </p>
+  
+                  <p class="f3 b mt5">Watch out</p>
+  
+                  <p class=" f4">
+                      The
+                      <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>
+                      label is only used when the contradiction occurs within the text.
+                      If a span contradicts the prompt, that should be labeled as an
+                      <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>
+                      error instead.
+                  </p>
+  
+                  <p class="f3 b mt5">Examples</p>
+  
+                  <p class="f4 outline pa4 ">
+                      McDonald's is considering a design which will replace the cardboard packaging.
+                      Mr Gore-Cotter said: "We recognise the concern around waste.
+                      We are now looking at a new design that minimises the
+                      <span class="bb bw2 b--dark-blue">plastic bag</span>."
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Here, the goal of minimizing the "plastic bag" contradicts the stated goal of replacing cardboard packaging.
+                          After selecting the contradictory text, please select the text that is being contradicted:
+                      </li>
+                  </ul>
+                  <p class="f4 outline pa4 ">
+                      McDonald's is considering a design which will replace the
+                      <span class="bb bw2 b--light-blue">cardboard packaging</span>.
+                      Mr Gore-Cotter said: "We recognise the concern around waste.
+                      We are now looking at a new design that minimises the
+                      <span class="bb bw2 b--dark-blue">plastic bag</span>."
+  
+                  </p><ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          In this example, the phrase "cardboard packaging" is the
+                          <span class="f4 bg-light-blue black br-pill dib b ph3">antecendent</span> of the
+                          <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span> that occurs at "plastic bag".
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      Mall of America plans to <span class="bb bw2 b--light-blue">lay off and furlough hundreds of its employees</span>.
+                      It has <span class="bb bw2 b--dark-blue">no plans to restrict the number of hours workers can work</span>.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Workers who are laid off or furloughed are
+                          explicitly restricted from working at the Mall, so this is a self-contradiction.
+                          First you should highlight "no plans to restrict the number of hours workers can work", and then when you are prompted to select the antecedent choose "lay off and furlough hundreds of its employees".
+                      </li>
+                  </ul>
+  
+                  <p class="f3 b mt5">Exercise</p>
+  
+                  <p class="f4 ">
+                      Please mark the <span class="f4 bg-dark-blue white br-pill dib b ph3 fs-normal">Self-Contradiction</span> and its
+                    <span class="f4 bg-light-blue black br-pill dib b ph3 fs-normal">antecedent</span> in the following text:
+                  </p>
+  
+                  <div id="situation-3-div" class="f4 outline pa4 ">
+                      <p id="situation-3">There's fun for kids of all ages at Six Flags over Texas in San Antonio. Located in Greensboro, NC, the theme park has been in continuous operation since 1990.</p>
+                  </div>
+                  <div id="situation-3-display" class="situation-display"></div>
+                  <input type="hidden" name="situation-3" id="situation-3-serialize">
+                  <!-- <input type="hidden" name="situation-3-source-id" value="${situation-3-source}"> -->
+                </div>
+
+                <div class="single_part_error_qual mt4">
+                    <p class="f2 bg-pink white br-pill dib b ph3 mb2">Incoherent</p>
+    
+                    <p class="f3 b">What is it?</p>
+    
+                    <p class="f4 ">
+                        <span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span>
+                        text is text that doesn't fit into the above categories, but it still just doesn’t make
+                        any sense all.
+                    </p>
+                    <p class="f4 ">
+                        Use this label for text that is grammatical, not redundant, on prompt, not
+                        contradictory, but still confusing.
+                    </p>
+    
+                    <p class="f3 b mt5">Examples</p>
+    
+                    <p class="f4 outline pa4 ">
+                        Melody Mitsugi, 28, had never given her kids cheese toast before her husband <span class="bb bw2 b--pink">drew a map of it on her toast</span>.
+                    </p>
+    
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            There are so many things wrong here: you can’t draw a map of Cheese Toast,
+                            and you wouldn’t draw it on a piece of toast if you could!
+                            However, note that the grammar is correct and there are no redundancies.
+                            This is why it gets the
+                            <span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span>
+                            label.
+                        </li>
+                    </ul>
+                    <p class="f4 outline pa4  mt5">
+                        Cats naturally show anxiety and fear by at times
+                        <span class="bb bw2 b--pink">
+                        breaking apart different parts of the brain in an attempt to keep the others from escaping</span>.
+    
+                    </p><ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            It's hard to imagine what is happening in this passage, but the text is grammatical and
+                            non-contradictory and so we use the Incoherent label.
+                        </li>
+                    </ul>
+    
+                    <p class="f3 b mt5">Exercise</p>
+    
+                    <p class="f4 ">
+                        Please mark the <span class="f4 bg-pink white br-pill dib b ph3 fs-normal">Incoherent</span> portion of this text:
+                    </p>
+    
+                    <div id="situation-4-div" class="f4 outline pa4 ">
+                        <p id="situation-4">China’s top official acknowledged the state-controlled Chinese firm CCI’s finding that some of its own devices could infect patients or others with certain dangerous infections and civil liberties, ending more than a decade of fervent denials.</p>
+                    </div>
+                    <div id="situation-4-display" class="situation-display"></div>
+                    <input type="hidden" name="situation-4" id="situation-4-serialize">
+                    <!-- <input type="hidden" name="situation-4-source-id" value="${situation-4-source}"> -->
+                </div>
+            </div>
+            </tab-content>
+
+            <tab-content title="Language Error Label Quiz">
+              <div class="container card mb-3 card-body" id="bodyGoogle">
+
+                <p class="mt0 f2 b">Language Error Label Quiz</p>
+
+                <p class="f4 ">
+                    Now, we'll have a short quiz to review the five "language error" label types you just learned. (Hint: each one will be used once!)
+                </p>
+
+                <!--
+                    ----------------------------------------------------------------
+                    LANG QUESTION 1
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    First you will need to verify the identity of the person who is calling,
+                    <span class="bb bw2 b--black">
+                        and then determine who they are.
+                    </span>
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="language-label-quiz-q1" id="language-q1-grammar" value="grammar">
+                        <label for="language-q1-grammar">
+                            <span class="bg-moon-gray black pv2 ph3 br-pill b">Grammar and Usage</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q1" id="language-q1-redundant" value="redundant">
+                        <label for="language-q1-redundant">
+                            <span class="bg-dark-red white pv2 ph3 br-pill b">Redundant</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q1" id="language-q1-prompt" value="prompt">
+                        <label for="language-q1-prompt">
+                            <span class="bg-yellow white pv2 ph3 br-pill b">Off-Prompt</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q1" id="language-q1-contradiction" value="contradiction">
+                        <label for="language-q1-contradiction">
+                        <span class="bg-dark-blue white pv2 ph3 br-pill b">Self-Contradiction</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q1" id="language-q1-incoherent" value="incoherent">
+                        <label for="language-q1-incoherent">
+                            <span class="bg-pink white pv2 ph3 br-pill b">Incoherent</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!--
+                    ----------------------------------------------------------------
+                    langS QUESTION 2
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    It was not long before Phil became angry. "Holy moly!", he said,
+                    "I have never been so
+                    <span class="bb bw2 b--black">happy
+                    </span>
+                    to see anyone in my life!"
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="language-label-quiz-q2" id="language-q2-grammar" value="grammar">
+                        <label for="language-q2-grammar">
+                            <span class="bg-moon-gray black pv2 ph3 br-pill b">Grammar and Usage</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q2" id="language-q2-redundant" value="redundant">
+                        <label for="language-q2-redundant">
+                            <span class="bg-dark-red white pv2 ph3 br-pill b">Redundant</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q2" id="language-q2-prompt" value="prompt">
+                        <label for="language-q2-prompt">
+                            <span class="bg-yellow white pv2 ph3 br-pill b">Off-Prompt</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q2" id="language-q2-contradiction" value="contradiction">
+                        <label for="language-q2-contradiction">
+                        <span class="bg-dark-blue white pv2 ph3 br-pill b">Self-Contradiction</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q2" id="language-q2-incoherent" value="incoherent">
+                        <label for="language-q2-incoherent">
+                            <span class="bg-pink white pv2 ph3 br-pill b">Incoherent</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!--
+                    ----------------------------------------------------------------
+                    langS QUESTION 3
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    Icelandic, according to one expert, is the second
+                    <span class="bb bw2 b--black">most hard
+                    </span> language for English speakers to learn.
+
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="language-label-quiz-q3" id="language-q3-grammar" value="grammar">
+                        <label for="language-q3-grammar">
+                            <span class="bg-moon-gray black pv2 ph3 br-pill b">Grammar and Usage</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q3" id="language-q3-redundant" value="redundant">
+                        <label for="language-q3-redundant">
+                            <span class="bg-dark-red white pv2 ph3 br-pill b">Redundant</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q3" id="language-q3-prompt" value="prompt">
+                        <label for="language-q3-prompt">
+                            <span class="bg-yellow white pv2 ph3 br-pill b">Off-Prompt</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q3" id="language-q3-contradiction" value="contradiction">
+                        <label for="language-q3-contradiction">
+                        <span class="bg-dark-blue white pv2 ph3 br-pill b">Self-Contradiction</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q3" id="language-q3-incoherent" value="incoherent">
+                        <label for="language-q3-incoherent">
+                            <span class="bg-pink white pv2 ph3 br-pill b">Incoherent</span>
+                        </label>
+                    </li>
+                </ul>
+
+
+                <!--
+                    ----------------------------------------------------------------
+                    langS QUESTION 4
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    Despite finishing at the top of her class at Yale, Betsy nevertheless
+                    <span class="bb bw2 b--black">
+                        filtered into a glass jar
+                    </span>
+                    during most of her formative years.
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="language-label-quiz-q4" id="language-q4-grammar" value="grammar">
+                        <label for="language-q4-grammar">
+                            <span class="bg-moon-gray black pv2 ph3 br-pill b">Grammar and Usage</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q4" id="language-q4-redundant" value="redundant">
+                        <label for="language-q4-redundant">
+                            <span class="bg-dark-red white pv2 ph3 br-pill b">Redundant</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q4" id="language-q4-prompt" value="prompt">
+                        <label for="language-q4-prompt">
+                            <span class="bg-yellow white pv2 ph3 br-pill b">Off-Prompt</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q4" id="language-q4-contradiction" value="contradiction">
+                        <label for="language-q4-contradiction">
+                        <span class="bg-dark-blue white pv2 ph3 br-pill b">Self-Contradiction</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q4" id="language-q4-incoherent" value="incoherent">
+                        <label for="language-q4-incoherent">
+                            <span class="bg-pink white pv2 ph3 br-pill b">Incoherent</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!--
+                    ----------------------------------------------------------------
+                    langS QUESTION 5
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                <b>Prompt:</b> Summer Salad Recipes<br>
+                <b>Text:</b>
+                   It's August, and that means it's time for salads.
+                    <span class="bb bw2 b--black">
+                    And if that's not enough, you can go to the bank for a quick loan offer.
+                    </span>
+                    Though enjoying salad with friends and family is an even better way to spend the days.
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="language-label-quiz-q5" id="language-q5-grammar" value="grammar">
+                        <label for="language-q5-grammar">
+                            <span class="bg-moon-gray black pv2 ph3 br-pill b">Grammar and Usage</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q5" id="language-q5-redundant" value="redundant">
+                        <label for="language-q5-redundant">
+                            <span class="bg-dark-red white pv2 ph3 br-pill b">Redundant</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q5" id="language-q5-prompt" value="prompt">
+                        <label for="language-q5-prompt">
+                            <span class="bg-yellow white pv2 ph3 br-pill b">Off-Prompt</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q5" id="language-q5-contradiction" value="contradiction">
+                        <label for="language-q5-contradiction">
+                        <span class="bg-dark-blue white pv2 ph3 br-pill b">Self-Contradiction</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="language-label-quiz-q5" id="language-q5-incoherent" value="incoherent">
+                        <label for="language-q5-incoherent">
+                            <span class="bg-pink white pv2 ph3 br-pill b">Incoherent</span>
+                        </label>
+                    </li>
+                </ul>
+
+              </div>
+            </tab-content>
+
+            <tab-content title="Factual Error Tutorial">
+              <div class="container card mb-3 card-body" id="bodyCommonsense">
+
+                <p class="mt0 f2 b">Factual Error Tutorial</p>
+
+                <p class="f4">In this tutorial, we'll go through five different factual error types: 
+                  <span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span>,
+                  <span class="f4 bg-near-black white br-pill dib b ph3 fs-normal">Bad Math</span>, 
+                  <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>, 
+                  <span class="f4 bg-dark-green white br-pill dib b ph3 fs-normal">Wrong: Encyclopedic</span>, and 
+                  <span class="f4 bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>.
+                </p>
+                <div class="single_part_error_qual mt2">
+                  <p class="f2 bg-orange white br-pill dib b ph3 mb2">Technical Jargon</p>
+  
+                  <p class="f3 b">What is it?</p>
+  
+                  <p class="f4 ">
+                      It can be hard to understand writing simply because it uses <span class="b">jargon</span> or
+                      <span class="b">specific words from a field you’re not familiar with</span>.
+                      When this happens please mark it as
+                      <span class="f4 bg-orange white br-pill dib b ph3">Technical Jargon</span>.
+                  </p>
+  
+                  <p class="f3 b mt5">Examples</p>
+  
+                  <p class="f4 outline pa4 ">
+                      Due to the large size of the
+                      <span class="bb bw2 b--orange">
+                          heavy s-block elements, including strontium, a vast range of
+                          coordination numbers is known, from 2, 3, or 4 all the way to 22 or
+                          24 in SrCd<sub style="z-index: -1;">11</sub> and SrZn<sub style="z-index: -1;">13</sub>.
+                      </span>
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Basically every part of this sentence is confusing to me because I don't understand the words.
+                          (I think I would need to know a lot more about chemistry).
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      In Chile, an 800-megawatt
+                      <span class="bb bw2 b--orange">photovoltaic</span>
+                      plant was built for a record low cost of $129 per megawatt-hour last year.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          This word is too technical for me to know what it means without
+                          looking it up. (Though if it was explained in more detail in the text, then I wouldn't mark it.)
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      He uses a spirit
+                      <span class="bb bw2 b--orange">mash</span>
+                      made from white corn and malted barley and a
+                      <span class="bb bw2 b--orange">neutral grain,</span>
+                      which he describes as a "whiskey grain.”
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          I don’t know exactly what these terms mean without looking them up. (I think I would need to
+                          know more about making spirits.)
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      A wedding gown draped over one shoulder is not a
+                      <span class="bb bw2 b--orange">"corset,"</span>
+                          it's a
+                      <span class="bb bw2 b--orange">"camisole,"</span>
+                      according to fashion maven Diane von Furstenberg.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          It’s sort of embarrassing, but I don’t really know what a corset or a
+                          camisole are. If you did, and you knew that this was wrong,
+                          then you would mark that whole phrase as
+                          <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>.
+                          But for me, I just have to mark the individual words as
+                          <span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span>.
+                      </li>
+                  </ul>
+  
+                  <p class="f3 b mt5">Exercise</p>
+  
+                  <p class="f4 ">
+                      Please mark the <span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span>
+                      error or errors in the following text:
+                  </p>
+  
+                  <div id="situation-5-div" class="f4 outline pa4 ">
+                      <p id="situation-5">The burning sensation was described in both the olecranon and the cubital fossa, according to those familiar with the patient.</p>
+                  </div>
+                  <div id="situation-5-display" class="situation-display"></div>
+                  <input type="hidden" name="situation-5" id="situation-5-serialize">
+                  <!-- <input type="hidden" name="situation-5-source-id" value="${situation-5-source}"> -->
+                </div>
+
+                <div class="single_part_error_qual mt4">
+                  <p class="f2 bg-near-black white br-pill dib b ph3 mb2">Bad Math</p>
+    
+                  <p class="f3 b">What is it?</p>
+  
+                  <p class="f4 ">
+                      Sometimes the text will simply have <span class="f4 bg-near-black white br-pill dib b ph3">Bad Math</span>. This includes:
+                  </p>
+                  <ul class="f4 ">
+                      <li class="mb3">
+                          problems with <span class="b">basic math (+ - ✖️ ÷)</span> of known quantities (e.g., "half of 10 apples is 4," or "half of $5 is $3")
+                      </li>
+                      <li class="mb3">
+                          problems <span class="b">converting fixed units</span> (m, in, cm, kg, lbs, oz, $ → ¢, etc.)
+                      </li>
+                      <li class="mb3">
+                          problems converting currencies that are <span class="b">wildly impossible</span> (e.g., 1$ = 10£)
+                          <ul>
+                              <li class="i">
+                                  for reference 1 US Dollar ($) has varied between roughly 1.2 and 2.2 Great British Pounds (£) over the last 30 years.
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+  
+                  <p class="f3 b mt5">Examples</p>
+  
+                  <p class="f4 outline pa4 ">
+                      One account, @Iain_Rowling1, had over 500,000 followers at one point, but in just four days they fell by
+                      <span class="bb bw2 b--near-black">
+                          around half – some 4,000.&nbsp;
+                      </span>
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Half of 500,000 is not 4,000
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      Her doctor said that while her weight of 125 lbs
+                      <span class="bb bw2 b--near-black">(45 kg)</span>
+                      was normal, the bizarre creatures...
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          125 lbs = 56.7 kg
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      ... compared with just over £1,000
+                      <span class="bb bw2 b--near-black">
+                          ($18,868)
+                      </span>
+                      for previous versions of Samsung’s flagship phone.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          This conversion assumes that at some point when Samsung was making phones, £1.00 = $18.9, which is way outside the expected range of $1 – $2.5 per £.
+                      </li>
+                  </ul>
+  
+                  <p class="f3 b mt5">Watch Out</p>
+  
+                  <p class="f4 ">
+                      Not all problems with numbers are
+                      <span class="f4 bg-near-black white br-pill dib b ph3">Bad Math</span>!
+                      When you encounter
+                      <span class="b">unbelievable numbers</span>,
+                      this is usually a
+                      <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>
+                      problem. Prefer to use the
+                      <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>
+                      error when you think a number is unreasonable.
+                  </p>
+  
+                  <p class="f4 ">
+                      Here are some examples of numerical errors that fall into other categories:
+                  </p>
+  
+                  <p class="f4 outline pa4  mt5">
+                      ... compared with just over
+                      <span class="bb bw2 b--light-green">
+                          £10,000
+                      </span>
+                      ($18,868)
+                      for previous versions of Samsung’s flagship phone.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          The problem here isn't the currency conversion, which claims 1£ = $1.89 (which is believable for recent history).
+                          The problem is that this claims a Samsung phone costs £10,000 ($18,868),
+                          which is way too high for a phone. Since this isn't a specific phone,
+                          we instead rely on our commonsense knowledge of how much phones cost, and mark
+                          <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>.
+                      </li>
+                  </ul>
+  
+  
+                  <p class="f4 outline pa4  mt5">
+                      ... compared with just over
+                      £1,000
+                      ($1,868)
+                      for previous versions of Samsung’s flagship phone.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          There's no error here! The price for a phone (£1,000) is
+                          believable, and the currency conversion (1£ = $1.89) is also believable.
+                      </li>
+                  </ul>
+  
+                  <p class="f4 outline pa4  mt5">
+                      The picture is from high above the South Pole, where close to
+                      <span class="bb bw2 b--light-green">
+                          100,000
+                      </span>
+                      Astronauts&nbsp;live and work.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          It's unbelievable that there are 100,000 astronauts. This is
+                          <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>.
+                          This isn't a result of bad math (there's no math being done). The problem is that
+                          the number seems unreasonable.
+                      </li>
+                  </ul>
+  
+                  <p class="f3 b mt5">Exercise</p>
+  
+                  <p class="f4 ">
+                      Please mark the <span class="f4 bg-near-black white br-pill dib b ph3 fs-normal">Bad Math</span>
+                      error or errors in the following text:
+                  </p>
+  
+                  <div id="situation-6-div" class="f4 outline pa4 ">
+                      <p id="situation-6">The doctors said about half of the patients (33%) fell ill, while the remainder continued to be in good health for at least two weeks (14 days).</p>
+                  </div>
+                  <div id="situation-6-display" class="situation-display"></div>
+                  <input type="hidden" name="situation-6" id="situation-6-serialize">
+                  <!-- <input type="hidden" name="situation-6-source-id" value="${situation-6-source}"> -->
+                </div>
+
+                <div class="single_part_error_qual mt4">
+                    <p class="f2 bg-light-green black br-pill dib b ph3 mb2">Wrong: Commonsense</p>
+
+                    <p class="f3 b">What is it?</p>
+
+                    <p class="f4 ">
+                        The AI sometimes writes text that violates our everyday basic understanding of the world.
+                        We mark these kinds of errors with <span class="bg-light-green black dib ph3 br-pill b fs-normal">Wrong: Commonsense</span>.
+                        Commonsense errors come in many forms.
+                        Let’s look at some examples!
+                    </p>
+
+                    <p class="f3 b mt5">Examples</p>
+
+                    <p class="f4 outline pa4 ">
+                        The picture is from high above the South Pole, where close to
+                        <span class="bb bw2 b--light-green">
+                            100,000
+                        </span>
+                        Astronauts live and work.
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            There's no way that there are 100,000 astronauts currently in space! Even if we don't know the
+                            exact number, we can use our common sense to know that's way too high.
+                        </li>
+                    </ul>
+
+                    <!---
+                    NOTE(max): Skipping this example here because we have it as the quiz
+                    question in incoherent.
+
+                    <p class="f4 outline pa4  mt5">
+                        In August 2012, China’s top official acknowledged the
+                        state-controlled Chinese firm CCI’s finding
+                        that some of its own
+                        <span class="bb bw2 b--light-green">
+                            devices could
+                            infect patients or others with certain dangerous
+                            infections and civil liberties
+                        </span>, ending more than a decade of fervent denials.
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            There actually seem to be two commonsense errors wrapped up in this sentence:
+                            (1) "Devices" typically refers to technological hardware, which can't cause infections in people.
+                            (2) Civil liberties is not an infection.
+                        </li>
+                    </ul>
+                    --->
+
+                    <p class="f4 outline pa4  mt5">
+                        The thinness of women's bodies isn't an answer to all common human health problems like
+                        <span class="bb bw2 b--light-green">
+                            obesity
+                        </span>
+                        or diabetes
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            While “thinness” may not be an answer, it’s impossible to be "thin" and "obese" at the same time.
+                            The AI confuses this commonsense fact.
+                        </li>
+                    </ul>
+
+                    <p class="f4 outline pa4  mt5">
+                        Every person who holds a high school- or college-level diploma is
+                        <span class="bb bw2 b--light-green">
+                            unhappy.
+                        </span>
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            This doesn't make sense. We know that a diploma doesn't make it impossible for someone to be happy.
+                        </li>
+                    </ul>
+
+                    <p class="f4 outline pa4  mt5">
+                        You can get the dress custom-made and stitched at your favorite
+                        <span class="bb bw2 b--light-green">
+                            spa.
+                        </span>
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            Spas don't offer stitching.
+                        </li>
+                    </ul>
+
+                    <p class="f4 outline pa4  mt5">
+                        Now in 2020, NASA is measuring California wildfire temperatures using an instrument on the
+                        International Space Station. This year's record-shattering heat has had global repercussions in
+                        <span class="bb bw2 b--light-green">
+                            2017</span>,
+                        forcing sea level rise on California and increasing the risk of deadly wildfires.
+                    </p>
+
+                    <ul class="f4 ml4  list i">
+                        <li>
+                            <span class="b">Explanation:</span>
+                            It doesn't make sense that something in 2020 could affect something in 2017. That's backwards in time!
+                        </li>
+                    </ul>
+
+                    <p class="f3 b mt5">Exercise</p>
+
+                    <p class="f4 ">
+                        Please mark the <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>
+                        error or errors in the following text:
+                    </p>
+
+
+                    <div id="situation-7-div" class="f4 outline pa4 ">
+                        <p id="situation-7">In addition, obese women who obtain abortions are significantly more likely to die from childbirth than women who don't end up terminating their pregnancies, the researchers found.</p>
+                    </div>
+                    <div id="situation-7-display" class="situation-display"></div>
+                    <input type="hidden" name="situation-7" id="situation-7-serialize">
+                    <!-- <input type="hidden" name="situation-7-source-id" value="${situation-7-source}"> -->
+                </div>
+
+                <div class="single_part_error_qual mt4">
+                  <p class="f2 bg-dark-green white br-pill dib b ph3 mb2">Wrong: Encyclopedic</p>
+  
+                  <p class="f3 b">What is it?</p>
+  
+                  <p class="f4 ">
+                      The AI sometimes writes things that are just plain factually wrong. We use
+                      <span class="f4 bg-dark-green white br-pill dib b ph3">Wrong: Encyclopedic</span>
+                      to mark errors where the correct information is written down in a fact table somewhere,
+                      like a textbook, a wikipedia sidebar, or an encyclopedia.
+                  </p>
+  
+                  <p class="f3 b mt5">Examples</p>
+  
+                  <p class="f4 outline pa4 ">
+                      <span class="bb bw2 b--dark-green">
+                          Japanese Prime Minister Justin Trudeau
+                      </span>
+                      said he will be halting all imports and exports until the current
+                      situation can be contained.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Justin Trudeau is the Prime Minister of Canada, not Japan. This
+                          is a clear fact that's written down in numerous places.
+                      </li>
+                  </ul>
+  
+  
+                  <p class="f4 outline pa4  mt5">
+                      The gas contains something known as
+                      <span class="bb bw2 b--dark-green">
+                          phyto-romatic
+                          acid, a common chemical element in the periodic table
+                      </span>.
+                  </p>
+  
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Phyto-romatic acid is not an element on the periodic table. (If
+                          you didn't know this, but you suspected it might be wrong, you
+                          would use
+                          <span class="bg-purple white pv2 ph3 br-pill b">Needs Google</span>
+                          instead.)
+                      </li>
+                  </ul>
+  
+  
+                  <p class="f3 b mt5">Watch out</p>
+  
+                  <p class="f4 ">
+                      For
+                      <span class="f4 bg-dark-green white br-pill dib b ph3">Wrong: Encyclopedic</span>,
+                      we want to mark errors that we
+                      <span class="b i">know</span>
+                      are factually wrong.
+                      These are things we could look up in Wikipedia, but we don’t have to, because we already know it.
+                  </p>
+  
+                  <p class="f4 ">
+                      Here is how to distinguish this from other kinds of errors:
+                  </p>
+                  <ul class="f4 ">
+                      <li class="mb3">
+                          Pick
+                          <span class="bg-light-green black pv2 ph3 br-pill b">Wrong: Commonsense</span>
+                          if you know something is wrong, but it would probably be awkward
+                          to find it written down in Wikipedia. For example, knowing that
+                          <span class="i">a toaster is smaller than a person</span>,
+                          or that
+                          <span class="i">doctors usually help patients</span>, would both fall under
+                          commonsense knowledge.
+                      </li>
+                      <li class="mb3">
+                          Pick
+                          <span class="bg-purple white pv2 ph3 br-pill b">Needs Google</span>
+                          if you suspect something might be wrong, but you would need to check online to be sure.
+                          (Remember, no need to actually Google anything!)
+                      </li>
+                  </ul>
+  
+                  <p class="f3 b mt5">Exercise</p>
+  
+                  <p class="f4 ">
+                      Please mark the
+                      <span class="f4 bg-dark-green white br-pill dib b ph3">Wrong: Encyclopedic</span>
+                      error or errors in the following text:
+                  </p>
+  
+                  <div id="situation-8-div" class="f4 outline pa4 ">
+                      <p id="situation-8">In Japan, where Apple does most of its manufacturing, conditions for workers are a frequent focus for civil rights activists.</p>
+                  </div>
+                  <div id="situation-8-display" class="situation-display"></div>
+                  <input type="hidden" name="situation-8" id="situation-8-serialize">
+                  <!-- <input type="hidden" name="situation-8-source-id" value="${situation-8-source}"> -->
+
+                </div>
+
+                <div class="single_part_error_qual mt4">
+                  <p class="f2 bg-purple white br-pill dib b ph3 mb2">Needs Google</p>
+
+                  <p class="f3 b">What is it?</p>
+
+                  <p class="f4 ">
+                      When there’s a fact or figure that you suspect might be true,
+                      but you would need to Google it to be sure, don’t google it!
+                      Instead, mark the
+                      <span class="bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>
+                      error type.
+                  </p>
+
+                  <p class="f4 ">
+                      Here are the kinds of things you'll typically use the
+                      <span class="bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>
+                      tag for:
+                  </p>
+
+                  <ul class="f4 ">
+                      <li>Specific people and their roles (e.g., does X have Y job?)</li>
+                      <li>Specific events (e.g., did X win award Y on year Z?)</li>
+                      <li>Specific dates (e.g., did X happen in year Z?)</li>
+                      <li>Specific numbers (e.g., did X actually cost Y?) </li>
+                  </ul>
+
+
+                  <p class="f3 b mt5">Examples</p>
+
+                  <p class="f4 outline pa4 ">
+                      It was promoted by
+                      <span class="bb bw2 b--purple">
+                          Dr. Michael Fanning, the Executive Director of the Foundation for Mental Health Awareness, Inc.&nbsp;
+                      </span>
+                  </p>
+
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Do you know off the top of your head whether Dr. Michael
+                          Fanning is actually the Executive Director of the Foundation
+                          for Mental Health Awareness, Inc? I don’t, so I would mark
+                          this
+                          <span class="bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>
+                      </li>
+                  </ul>
+
+                  <p class="f4 outline pa4  mt5">
+                      <span class="bb bw2 b--purple">
+                      Paul Farmer, who was Chief Executive of the International Fund
+                      for Agricultural Development (IFAD) in 2010 when it won the
+                      Nobel Peace Prize
+                      </span>
+                  </p>
+
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          There’s actually two things I would need to Google here:
+                          <ol>
+                              <li>
+                                  Was Paul Farmer the Chief Executive of the International Fund for Agricultural Development (IFAD) in 2010?
+                              </li>
+                              <li>
+                                  Did the International Fund for Agricultural Development (IFAD) win the Nobel Peace Prize in 2010?
+                              </li>
+                          </ol>
+                      </li>
+                  </ul>
+
+                  <p class="f4 outline pa4  mt5">
+                      an
+                      <span class="bb bw2 b--purple">
+                      800-megawatt photovoltaic plant was built for a record low cost of $129 per megawatt-hour last year.&nbsp;
+                  </span>
+                  </p>
+
+                  <ul class="f4 ml4  list i">
+                      <li>
+                          <span class="b">Explanation:</span>
+                          Again, I would mark two
+                          <span class="bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>
+                          errors here (along with a
+                          <span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span>
+                          error for the word “photovoltaic”).
+                          Here are the two
+                          <span class="bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>
+                          errors I would use:
+                          <ol>
+                              <li>
+                                  Can a photovoltaic plant be roughly 800-megawatt?
+                              </li>
+                              <li>
+                                  Is $129 per megawatt-hour an actual reasonable cost for a power plant?
+                              </li>
+                          </ol>
+                      </li>
+                  </ul>
+
+                  <p class="f3 b mt5">Watch out</p>
+
+                  <p class="f4 ">
+                      You don't need to rigorously fact-check every single sentence.
+                      Instead, just mark
+                      <span class="bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>
+                      for text that makes a <span class="b">specific claim</span> that
+                      you're not sure is true.
+                  </p>
+
+                  <p class="f3 b mt5">Exercise</p>
+
+                  <p class="f4 ">
+                      Please mark the
+                      <span class="bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>
+                      error or errors in the following text:
+                  </p>
+
+                  <div id="situation-9-div" class="f4 outline pa4 ">
+                      <p id="situation-9">Tomorrow, on July 9, Argentines will celebrate the country's over 100 years of independence from Spain in 1916.</p>
+                  </div>
+                  <div id="situation-9-display" class="situation-display"></div>
+                  <input type="hidden" name="situation-9" id="situation-9-serialize">
+                  <!-- <input type="hidden" name="situation-9-source-id" value="${situation-9-source}"> -->
+                </div>
+              </div>
+            </tab-content>
+
+            <tab-content title="Factual Error Label Quiz">
+              <div class="container card mb-3 card-body" id="bodyGoogle">
+
+                <p class="mt0 f2 b">Facts Label Quiz</p>
+
+                <p class="f4 ">
+                    Now, we'll have a short quiz to review the five "factual error" label types. (Hint: each one will be used once!)
+                </p>
+
+                <!--
+                    ----------------------------------------------------------------
+                    FACTS QUESTION 1
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    The committee unanimously voted to build a statue of Jesse Owens,
+                    <span class="bb bw2 b--black">
+                        four-time gold medalist
+                    </span>
+                    in the 1936 Olympic Games.
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="facts-label-quiz-q1" id="facts-q1-jargon" value="jargon">
+                        <label for="facts-q1-jargon">
+                            <span class="bg-orange white pv2 ph3 br-pill b">Technical Jargon</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q1" id="facts-q1-numerical" value="numerical">
+                        <label for="facts-q1-numerical">
+                            <span class="bg-near-black white pv2 ph3 br-pill b">Bad Math</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q1" id="facts-q1-encyclopedic" value="encyclopedic">
+                        <label for="facts-q1-encyclopedic">
+                            <span class="bg-dark-green white pv2 ph3 br-pill b">Wrong: Encyclopedic</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q1" id="facts-q1-commonsense" value="commonsense">
+                        <label for="facts-q1-commonsense">
+                        <span class="bg-light-green black pv2 ph3 br-pill b">Wrong: Commonsense</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q1" id="facts-q1-google" value="google">
+                        <label for="facts-q1-google">
+                            <span class="bg-purple white pv2 ph3 br-pill b">Needs Google</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!--
+                    ----------------------------------------------------------------
+                    FACTS QUESTION 2
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    This one weird trick may be added to standard heath advice,
+                    such as aiming for eight hours of sleep and
+                    <span class="bb bw2 b--black">
+                        drinking six to eight cocktails per day.
+                    </span>
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="facts-label-quiz-q2" id="facts-q2-jargon" value="jargon">
+                        <label for="facts-q2-jargon">
+                            <span class="bg-orange white pv2 ph3 br-pill b">Technical Jargon</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q2" id="facts-q2-numerical" value="numerical">
+                        <label for="facts-q2-numerical">
+                            <span class="bg-near-black white pv2 ph3 br-pill b">Bad Math</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q2" id="facts-q2-encyclopedic" value="encyclopedic">
+                        <label for="facts-q2-encyclopedic">
+                            <span class="bg-dark-green white pv2 ph3 br-pill b">Wrong: Encyclopedic</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q2" id="facts-q2-commonsense" value="commonsense">
+                        <label for="facts-q2-commonsense">
+                        <span class="bg-light-green black pv2 ph3 br-pill b">Wrong: Commonsense</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q2" id="facts-q2-google" value="google">
+                        <label for="facts-q2-google">
+                            <span class="bg-purple white pv2 ph3 br-pill b">Needs Google</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!--
+                    ----------------------------------------------------------------
+                    FACTS QUESTION 3
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    This simple policy is responsible for the rapid population growth of the United States,
+                    <span class="bb bw2 b--black">
+                        which, as of 2020, is the most populated country in the world.
+                    </span>
+
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="facts-label-quiz-q3" id="facts-q3-jargon" value="jargon">
+                        <label for="facts-q3-jargon">
+                            <span class="bg-orange white pv2 ph3 br-pill b">Technical Jargon</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q3" id="facts-q3-numerical" value="numerical">
+                        <label for="facts-q3-numerical">
+                            <span class="bg-near-black white pv2 ph3 br-pill b">Bad Math</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q3" id="facts-q3-encyclopedic" value="encyclopedic">
+                        <label for="facts-q3-encyclopedic">
+                            <span class="bg-dark-green white pv2 ph3 br-pill b">Wrong: Encyclopedic</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q3" id="facts-q3-commonsense" value="commonsense">
+                        <label for="facts-q3-commonsense">
+                        <span class="bg-light-green black pv2 ph3 br-pill b">Wrong: Commonsense</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q3" id="facts-q3-google" value="google">
+                        <label for="facts-q3-google">
+                            <span class="bg-purple white pv2 ph3 br-pill b">Needs Google</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!--
+                    ----------------------------------------------------------------
+                    FACTS QUESTION 4
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    Surprisingly, this policy lasted nearly
+                    <span class="bb bw2 b--black">
+                        100
+                    </span>
+                    years, from 1941 through 1975.
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="facts-label-quiz-q4" id="facts-q4-jargon" value="jargon">
+                        <label for="facts-q4-jargon">
+                            <span class="bg-orange white pv2 ph3 br-pill b">Technical Jargon</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q4" id="facts-q4-numerical" value="numerical">
+                        <label for="facts-q4-numerical">
+                            <span class="bg-near-black white pv2 ph3 br-pill b">Bad Math</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q4" id="facts-q4-encyclopedic" value="encyclopedic">
+                        <label for="facts-q4-encyclopedic">
+                            <span class="bg-dark-green white pv2 ph3 br-pill b">Wrong: Encyclopedic</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q4" id="facts-q4-commonsense" value="commonsense">
+                        <label for="facts-q4-commonsense">
+                        <span class="bg-light-green black pv2 ph3 br-pill b">Wrong: Commonsense</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q4" id="facts-q4-google" value="google">
+                        <label for="facts-q4-google">
+                            <span class="bg-purple white pv2 ph3 br-pill b">Needs Google</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!--
+                    ----------------------------------------------------------------
+                    FACTS QUESTION 5
+                    ----------------------------------------------------------------
+                -->
+
+                <p class="f4 outline pa4  mt5">
+                    The most important factor, revealed by
+                    <span class="bb bw2 b--black">
+                        principal component analysis (PCA),
+                    </span>
+                    was the presence or absence of close childhood friends.
+                </p>
+
+                <p class="f4 ">
+                    Please choose the error type (the labels are clickable):
+                </p>
+
+                <ul class="list f4">
+                    <li>
+                        <input type="radio" name="facts-label-quiz-q5" id="facts-q5-jargon" value="jargon">
+                        <label for="facts-q5-jargon">
+                            <span class="bg-orange white pv2 ph3 br-pill b">Technical Jargon</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q5" id="facts-q5-numerical" value="numerical">
+                        <label for="facts-q5-numerical">
+                            <span class="bg-near-black white pv2 ph3 br-pill b">Bad Math</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q5" id="facts-q5-encyclopedic" value="encyclopedic">
+                        <label for="facts-q5-encyclopedic">
+                            <span class="bg-dark-green white pv2 ph3 br-pill b">Wrong: Encyclopedic</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q5" id="facts-q5-commonsense" value="commonsense">
+                        <label for="facts-q5-commonsense">
+                        <span class="bg-light-green black pv2 ph3 br-pill b">Wrong: Commonsense</span>
+                        </label>
+                    </li>
+                    <li class="mt3">
+                        <input type="radio" name="facts-label-quiz-q5" id="facts-q5-google" value="google">
+                        <label for="facts-q5-google">
+                            <span class="bg-purple white pv2 ph3 br-pill b">Needs Google</span>
+                        </label>
+                    </li>
+                </ul>
+
+              </div>
+            </tab-content>
+
+            <tab-content title="Real Task Question">
+              <div class="container card mb-3 card-body" id="bodyTask">
+                <p class="mt0 f2 b">Actual Task</p>
+                <p class="f4">
+                    Now it's time for you to apply what you learn in an actual task that you will do soon in the future.
+                    This text continuation is truncated from a longer text continuation.
+                    Please annotate any kind of "badness" in the text continuation, and if you think this text
+                    continuation doesn't have any "badness",
+                    please check the box below. (Hint: There are about 8 errors in this text continuation.)
+                </p>
+
+                <!-- Example situation to be annotated -->
+                <div id="situation-10-div" class="outline">
+                    <div id="situation-10-prompt-div">
+                        <p class="f5 pl4 pr4 pt1 mt0 mb0">Sytem Prompt (Human Written): </p>
+                        <p id="situation-10-prompt" class="f3 pl4 pr4 pa1 mt0 mb0 prompt">
+                            If you spied a fiery red star close to the full moon over the weekend, it was actually Mars shining its bright red light in the night sky.
+                        </p>
+                    </div>
+                    <div id="situation-10-generation-div">
+                        <p class="f5 pl4 pr4 pt4 mt0 mb0">Continuation (Human or AI Model Written): </p>
+                        <p id="situation-10" class="f3 pl4 pr4 pa1 mt0 paragraph">The red-shaded, fire-sickened star was seen shining low in the southern sky at about the same time as the full moon was dipping below the horizon at around 3 a.m. on Oct. 22. The fiery red star was seen at about the same time the Mars moon Phobos was closest to the sun. Credit: Skylab.org Phobos, the smallest and brightest of the three moons of Mars, is the smallest planet's satellite. Mars has four, larger moons, all of which orbit around the planet at various distances and in varying degrees of alignment with it.</p>
+                    </div>
+                </div>
+                <div class="pl4">
+                    <input type="checkbox" id="no_badness" name="no_badness">
+                    <label for="no_badness">There is no "badness" in this text!</label>
+                </div>
+                <div id="situation-10-display" class="situation-display"></div>
+                <input type="hidden" name="situation-10" id="situation-10-serialize">
+                <!-- <input type="hidden" name="situation-10-source-id" value="${situation-10-source}"> -->
+              </div>
+            </tab-content>
+
+            <tab-content title="Optional Feedback">
+              <div class="container card mb-3 card-body" id="bodyFeedback">
+
+                <!--Motivation text -->
+                <p class="mt0 f2 b">Optional Feedback</p>
+
+                <p class=" lh-copy f4">
+                    If you have any feedback about improving this task, you can let
+                    us know here! Completely optional / not required.
+                </p>
+                <textarea id="feedback" name="feedback" class="mf-textarea"></textarea>
+              </div>
+            </tab-content>
+        </form-wizard>
+      </div>
+
+      <div id="quality-selection" class="quality-selection gradient-border">
+        <i class="fa fa-close" id="close-icon"></i>
+        <p id="selection_text" class="selection_text"></p>
+        <!-- <input type="text" id="text_input" name="quality" placeholder="type your problem"> -->   
+        <div id="dropdown-button-container">
+                <!-- <input class="checkbox" type="checkbox" name="general" id="general">
+                <label class="for-checkbox" for="general"></label> -->
+                <div class="single_part section over-hide z-bigger">
+                    <p class="b mb2">Select the error.</p>
+                    <div class="quality_selection_container">
+                        <p class="f6 mb2">Factual</p>
+                        <div class="row">
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-1" value="Technical_Jargon">
+                                <label class="b for-checkbox-tools" for="error-1" id="error-1-label">
+                                    Technical Jargon
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-2" value="Bad_Math">
+                                <label class="b for-checkbox-tools" for="error-2" id="error-2-label">
+                                    Bad Math
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-3" value="Encyclopedic">
+                                <label class="b for-checkbox-tools" for="error-3" id="error-3-label">
+                                    Wrong: Encyclopedic
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-4" value="Commonsense">
+                                <label class="b for-checkbox-tools" for="error-4" id="error-4-label">
+                                    Wrong: Commonsense
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-5" value="Needs_Google">
+                                <label class="b for-checkbox-tools" for="error-5" id="error-5-label">
+                                    Needs Google
+                                </label>
+                            </div>
+                        </div>
+                        <p class="f6 mb2">Language</p>
+                        <div class="row">
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-6" value="Grammar_Usage">
+                                <label class="b for-checkbox-tools" for="error-6" id="error-6-label">
+                                    Grammar / Usage
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-7" value="Off-prompt">
+                                <label class="b for-checkbox-tools" for="error-7" id="error-7-label">
+                                    Off-prompt
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_able" type="radio" name="error_type" id="error-8" value="Redundant">
+                                <label class="b for-checkbox-tools" for="error-8" id="error-8-label">
+                                    Redundant
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_able" type="radio" name="error_type" id="error-9" value="Self-contradiction">
+                                <label class="b for-checkbox-tools" for="error-9" id="error-9-label">
+                                    Self-contradiction
+                                </label>
+                            </div>
+                            <div class="column">
+                                <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-10" value="Incoherent">
+                                <label class="b for-checkbox-tools" for="error-10" id="error-10-label">
+                                    Incoherent
+                                </label>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+    
+            <div class="single_part" id="antecedent_selection" style="display:none;">
+                <p id="antecedent_select_text" class="b mb2" >Select the antecedent.</p>
+                <p id="selection_antecedent" class="selection_text">Selected antecedents: </p>
+            </div>
+            <!-- <div class="form__group field">
+                <input type="text" class="form__field" placeholder="Explanation" name="explanation" id='explanation'/>
+                <label for="explanation" class="form__label">Explanation *</label>
+            </div> -->
+            <div class="disable single_part" id="explanation_div">
+                <p class="b mb2">Explain your selection.</p>
+                <textarea id="explanation" name="explanation" placeholder="Please write down your explanation!" rows="4" style="width: 100%; resize: none; overflow-y: hidden;"></textarea>
+            </div>
+            
+    
+            <div class="disable single_part section over-hide z-bigger" id="severity_div">
+                <div class="quality_selection_container">
+                    <p class="radio-instruction mb2 b">Select the severity <i>(how severe is this error?).</i></p>
+                    <div class="row">
+                        <div class="column-severity">
+                            <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-1" value="1">
+                            <label class="b for-checkbox-tools-severity" for="severity-1" id="severity-1-label">
+                                1 - Almost no impact
+                            </label>
+                        </div>
+                        <div class="column-severity">
+                            <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-2" value="2">
+                            <label class="b for-checkbox-tools-severity" for="severity-2" id="severity-2-label">
+                                2 - Understandable, but difficult
+                            </label>
+                        </div>
+                        <div class="column-severity">
+                            <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-3" value="3">
+                            <label class="b for-checkbox-tools-severity" for="severity-3" id="severity-3-label">
+                                3 - Very hard to understand
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="disable buttons" id="button_div">
+                <!-- <input type="button" id="clear_button" class="clear quality_button" value="Clear"> -->
+                <button id="confirm_button" class="b confirm quality_button" type="button">Confirm</button>
+            </div>
+        </div>
+      </div>
+
+      <input type='submit' id='submitButton' class="db center mb4 pa3 f4 pointer hover-bg-yellow" style="visibility: hidden;"
+      value='Submit this Qual' />
+       <input type="hidden" id="time_record" name="te" value="0">
+    </div>
+    <!-- built files will be auto injected -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.js"></script>
+    <script>
+        Vue.use(VueFormWizard)
+new Vue({
+  el: '#qual_app',
+  methods: {
+      onComplete: function(){
+        $("#submitButton").click();
+      }
+  },
+  mounted(){
+    var wizard = this.$refs.wizard
+    wizard.activateAll()
+   }
+})
+
+var button_text = "Next"
+$(document).ready(function () {
+    $('#submitButton').click(function () {
+        try {
+            $('input[name=te]').attr('value', TimeMe.getTimeOnCurrentPageInSeconds());
+            // console.log(TimeMe.getTimeOnCurrentPageInSeconds())
+        } catch {
+
+        }
+        // NOTE: Can add validation here if desired.
+        return true;
+    });
+
+    $( ".wizard-header" ).remove();
+
+    $(".wizard-progress-with-circle").css({top: '50px'});
+
+    $(".wizard-tab-content").css("padding-top", '15px');
+
+    $("li a").click(function() {
+        // $("html, body").animate({ scrollTop: 0 });
+        // return false;
+        window.scrollTo(0, 0)
+    });
+
+    $(".wizard-footer-right").on('mousedown', function() {
+        button_text = $(".wizard-footer-right .wizard-btn").text()
+        button_text = button_text.replace(/\s/g, "");
+    });
+
+    $(".wizard-footer-right").on('click', function() {
+        // $("html, body").animate({ scrollTop: 0 });
+        // return false;
+        window.scrollTo(0, 0)
+        // var button_text = $(".wizard-footer-right .wizard-btn").text()
+        // button_text = button_text.replace(/\s/g, "");
+        // console.log(button_text)
+        // if (button_text == "Finish") {
+        //     $("#submitButton").click();
+        // }
+    });
+
+    $(".wizard-footer-left").click(function() {
+        // $("html, body").animate({ scrollTop: 0 });
+        // return false;
+        window.scrollTo(0, 0)
+    });
+
+    $(window).scroll(function() { 
+        $('.wizard-nav').css('top', $(this).scrollTop() - 5);
+        $('.wizard-progress-with-circle').css('top', $(this).scrollTop() + 45);
+    });
+    
+});
+    </script>
+    <script>
+        /**
+ * Map from selection id (e.g., "selection-1") to the Characters
+ */
+let original_ontologies = ["Technical_Jargon", "Bad_Math", "Encyclopedic", "Commonsense", "Needs_Google", "Grammar_Usage", "Off-prompt", "Redundant", "Self-contradiction", "Incoherent"]
+let black_text_errors_types = ["Commonsense", "Grammar_Usage", "Off-prompt"]
+var error_types_dict = {
+    "Technical_Jargon": "Technical Jargon",
+    "Bad_Math" : "Bad Math",
+    "Encyclopedic" : "Wrong: Encyclopedic",
+    "Commonsense" : "Wrong: Commonsense",
+    "Needs_Google" : "Needs Google",
+    "Grammar_Usage" : "Grammar / Usage",
+    "Off-prompt" : "Off-prompt",
+    "Redundant" : "Redundant",
+    "Self-contradiction" : "Self-contradiction",
+    "Incoherent" : "Incoherent"
+};
+var situation_text = {};
+var old_value = ""
+
+function substitute(input_text) {
+    let new_input_text = input_text.replace(/,/g, "_SEP_");
+    new_input_text = new_input_text.replace(/"/g, "_QUOTE_");
+    new_input_text = new_input_text.replace(/</g, "_LEFT_");
+    new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
+    return new_input_text
+}
+
+/**
+ * All selected spans
+ */
+class Characters {
+    constructor(situationID, num) {
+        this.situationID = situationID;
+        this.data = [];
+        this.displayID = situationID + '-display';
+        this.serializeID = situationID + '-serialize';
+    }
+    add(newCS) {
+        // check for duplicates and add if it's not there.
+        for (let oldCS of this.data) {
+            if (oldCS == null) {
+                continue;
+            }
+            if (oldCS.equals(newCS)) {
+                // animate it to show it exists.
+                oldCS.noticeMeSenpai = true;
+                return;
+            }
+        }
+        this.data.push(newCS);
+    }
+    remove(cs) {
+        for (let i = this.data.length - 1; i >= 0; i--) {
+            if (this.data[i] == null) {
+                continue;
+            }
+            if (this.data[i].equals(cs)) {
+                this.data[i] = null
+            }
+        }
+    }
+    update() {
+        this.render();
+        this.serialize();
+    }
+    render() {
+        let display = $('#' + this.displayID).empty();
+        for (let i = 0; i < this.data.length; i++) {
+            // console.log(this.data)
+            if (this.data[i] == null) {
+                continue;
+            }
+            display.append(this.data[i].render(this.situationID, i));
+        }
+    }
+    serialize() {
+        let strings = [];
+        for (let character of this.data) {
+            if (character == null) {
+                continue;
+            }
+            strings.push(character.serialize());
+        }
+        let vals = strings.join(',');
+        if ($("#no_badness").is(':not(:checked)')) {
+            var situationID = this.situationID
+            let serialize = $('#' + situationID + '-serialize');
+            serialize.attr('value', '[' + vals + ']');
+        } else {
+            old_value = '[' + vals + ']';
+        }
+    }
+}
+class CharacterSelection {
+    constructor(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, num) {
+        this.error_type = error_type;
+        this.explanation = explanation;
+        this.severity = severity
+        this.start_end_pairs = start_end_pairs
+        this.antecedent_start_end_pairs = antecedent_start_end_pairs
+        this.num = num
+        this.noticeMeSenpai = false;
+    }
+    equals(other) {
+        return this.error_type == other.error_type && this.explanation == other.explanation 
+            && this.severity == other.severity && JSON.stringify(this.start_end_pairs) === JSON.stringify(other.start_end_pairs) && JSON.stringify(this.antecedent_start_end_pairs) === JSON.stringify(other.antecedent_start_end_pairs);
+    }
+    render(situationID, num) {
+        let error_type = this.error_type, explanation = this.explanation, severity = this.severity, start_end_pairs = this.start_end_pairs, antecedent_start_end_pairs = this.antecedent_start_end_pairs; // so they go in the closure
+        // let txt = $('#' + situationID).text().substring(start, end);
+        let txt = error_types_dict[error_type] + " (" + severity + "): " + explanation;
+        // let new_input_text = txt.replace(/"/g, "_QUOTE_");
+        // new_input_text = new_input_text.replace(/</g, "_LEFT_");
+        // new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
+        let color_class= error_type
+        let text_color = "white"
+        let opposite_color = "black"
+        if (black_text_errors_types.includes(color_class)) {
+            text_color = "black"
+            opposite_color = "white"
+        }
+
+        let removeButton = $('<button></button>')
+            .addClass('bg-transparent ' + text_color +' bn hover-' + opposite_color + ' hover-bg-' + text_color + ' br-pill mr1 pointer')
+            .append('✘')
+            .on('click', function () {
+                document.getElementById(situationID).innerHTML = situation_text[situationID]
+                C = C_map[situationID]
+                C.remove(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs));
+                annotate(C, situation_text[situationID])
+                C.update();
+            });
+
+        let span = $('<span></span>')
+            .addClass('b grow bg-' + color_class + " " + text_color +' pa2 ma1 br-pill dib quality-span')
+            .append(removeButton)
+            .append(txt);
+        span.attr('id', 'quality-span-'+num)
+        // span.addClass('quality-span-'+num)
+        span.attr('data-situation-id', situationID)
+        span.attr('data-error-type', error_type)
+        span.attr('data-severity', severity)
+        span.attr('data-explanation', explanation)
+        span.attr('data-start-end-pairs', start_end_pairs)
+        span.attr('data-antecedent-start-end-pairs', antecedent_start_end_pairs)
+        // console.log(antecedent_start_end_pairs)
+        span.attr('data-num', num)
+        // span.attr('data-num', characters_num)
+        // if the character needs to be noticed, abide.
+        if (this.noticeMeSenpai) {
+            this.noticeMeSenpai = false;
+            span.addClass("animated bounce faster");
+            setTimeout(function () {
+                span.removeClass('animated bounce faster');
+            }, 1000);
+        }
+        return span;
+    }
+    serialize() {
+        // let txt = $('#' + situationID).text().substring(start, end);
+        // let quality_name = quality_map[situationID][this.num]
+        // let new_quality_name = quality_name.replace(/,/g, "_SEP_");
+        // new_quality_name = new_quality_name.replace(/"/g, "_QUOTE_");
+        // console.log($('#' + situationID).text())
+        // // console.log($('#' + situationID).text().substring(0, 5))
+        // console.log($('#' + situationID).text().length)
+        // console.log($('#' + situationID).text())
+        // console.log($('#' + situationID).text().substring(0, 5))
+        // console.log($('#' + situationID).text().length)
+        var filtered = this.antecedent_start_end_pairs.filter(function (el) {
+            return el != null;
+          });
+          return '["' + substitute(this.error_type) + '","' + substitute(this.explanation) + '",' + this.severity + ','+ this.start_end_pairs[0][0] + ',' + this.start_end_pairs[0][1] + ',[' + filtered + ']]';
+    }
+}
+
+// globals
+let C_map = {"situation-0": new Characters("situation-0", 0), "situation-1": new Characters("situation-1", 0), "situation-2":new Characters("situation-2", 0),
+                "situation-3":new Characters("situation-3", 0), "situation-4":new Characters("situation-4", 0), "situation-5":new Characters("situation-5", 0),
+                "situation-6":new Characters("situation-6", 0), "situation-7":new Characters("situation-7", 0), "situation-8":new Characters("situation-8", 0),
+                "situation-9":new Characters("situation-9", 0), "situation-10":new Characters("situation-10", 0)}
+// provided externally to the script!
+// let start;
+// let end;
+let start_end_pairs = []
+let antecedent_start_end_pairs = []
+let n_situations = 11;
+let situationID;
+
+function comparespan(span_a, span_b) {
+    let index_a = span_a[1]
+    let index_b = span_b[1]
+    if(index_a == index_b) {
+        return span_a[3] - span_b[3]
+    }
+    return index_a - index_b;
+}
+
+function annotate(character, text) {
+    let character_selections = character.data
+    let span_list = []
+    for(selection of character_selections) {
+        if (selection == null) {
+            continue;
+        }
+        let num = selection.num
+        let p_span_id = character.situationID + "p-span-" + num
+        let start_end_pair = selection.start_end_pairs[0]
+        span_list.push([p_span_id, start_end_pair[0], true, num, selection.error_type]);
+        span_list.push([p_span_id, start_end_pair[1], false, num, selection.error_type]);
+        let antecedent_start_end_pairs = selection.antecedent_start_end_pairs
+        if (antecedent_start_end_pairs.length > 0) {
+            for(antecedent of antecedent_start_end_pairs) {
+                if (antecedent) {
+                    span_list.push([p_span_id + "_antecedent", antecedent[0], true, num, selection.error_type + "_antecedent"]);
+                    span_list.push([p_span_id + "_antecedent", antecedent[1], false, num, selection.error_type + "_antecedent"]);
+                }
+            }
+        }
+    }
+    // console
+    // console.log(span_list)
+    span_list.sort(comparespan)
+    // console.log(span_list)
+    let new_text = ""
+    for(i in span_list) {
+        span = span_list[i]
+        var before_pair_end;
+        if(i == 0) {
+            before_pair_end = 0
+        } else{
+            before_pair_end = span_list[i - 1][1]
+        }
+        start_temp = span[1]
+        subtxt = text.substring(before_pair_end, start_temp)
+        var span_to_add;
+        var color_class = span[4]
+
+        if(span[2]) {
+            // span_to_add = "<span id=\"p-span-" + span[3]+ "\"class=\"annotation border-" + color_class + "\">"
+            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0]+ "\">"
+        } else {
+            span_to_add = "</span>"
+            // multiple spans cross together (intersect)
+            for (j = i; j >0; j--) {
+                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
+                    var previous_color_class = span_list[j-1][4]
+                    span_to_add += "</span>"
+                } else {
+                    break
+                }
+            }
+            for (j = i; j >0; j--) {
+                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
+                    var previous_color_class = span_list[j-1][4]
+                    span_to_add += "<span class=\"annotation border-" + previous_color_class + " p-span-" + span_list[j-1][3]+ "\">"
+                } else {
+                    break
+                }
+            }
+        }
+        new_text += subtxt + span_to_add
+    }
+    if (span_list.length == 0) {
+        new_text += text
+    } else {
+        new_text += text.substring(span_list[span_list.length - 1][1])
+    }
+    document.getElementById(character.situationID).innerHTML = new_text
+};
+
+function annotate_select_span(character, text, select_span, select_antecedents, only) {
+    let character_selections = character.data
+    let span_list = []
+    if (!only) {
+        for(selection of character_selections) {
+            if (selection == null) {
+                continue;
+            }
+            let num = selection.num
+            let p_span_id = character.situationID + "p-span-" + num
+            let start_end_pair = selection.start_end_pairs[0]
+            span_list.push([p_span_id, start_end_pair[0], true, num, selection.error_type]);
+            span_list.push([p_span_id, start_end_pair[1], false, num, selection.error_type]);
+        }
+    }
+    for(l in select_antecedents) {
+        if (select_antecedents[l] != null) {
+            span_list.push(["select-antecedent--" + (l+1), select_antecedents[l][0], true, -1, "select-antecedent"]);
+            span_list.push(["select-antecedent--" + (l+1), select_antecedents[l][1], false, -1, "select-antecedent"]);
+        }
+    }
+    if (select_span !== undefined) {
+        span_list.push(["select-span--1", select_span[0], true, -1, "select-span"]);
+        span_list.push(["select-span--1", select_span[1], false, -1, "select-span"]);
+    }
+    // console.log(span_list)
+    span_list.sort(comparespan)
+    // console.log(span_list)
+    let new_text = ""
+    for(i in span_list) {
+        span = span_list[i]
+        var before_pair_end;
+        if(i == 0) {
+            before_pair_end = 0
+        } else{
+            before_pair_end = span_list[i - 1][1]
+        }
+        start_temp = span[1]
+        subtxt = text.substring(before_pair_end, start_temp)
+        var span_to_add;
+        var color_class = span[4]
+        if(span[2]) {
+            // span_to_add = "<span id=\"p-span-" + span[3]+ "\"class=\"annotation border-" + color_class + "\">"
+            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0]+ "\">"
+            if (span[4] == "select-span") {
+                span_to_add = "<span class=\"annotation bg-yellow " + span[0]+ "\">"
+            }
+            if (span[4] == "select-antecedent") {
+                span_to_add = "<span class=\"annotation bg-light-yellow " + span[0]+ "\">"
+            }
+        } else {
+            span_to_add = "</span>"
+            // multiple spans cross together (intersect)
+            for (j = i; j >0; j--) {
+                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
+                    var previous_color_class = span_list[j-1][4]
+                    span_to_add += "</span>"
+                } else {
+                    break
+                }
+            }
+            for (j = i; j >0; j--) {
+                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
+                    var previous_color_class = span_list[j-1][4]
+                    if (span_list[j - 1][4] == "select-span") {
+                        span_to_add += "<span class=\"annotation bg-yellow " + span_list[j-1][0] + "\">"
+                    }
+                    if (span_list[j - 1][4] == "select-antecedent") {
+                        span_to_add += "<span class=\"annotation bg-light-yellow " + span_list[j-1][0] + "\">"
+                    }
+                    else {
+                        span_to_add += "<span class=\"annotation border-" + previous_color_class + " " + span_list[j-1][0]+ "\">"
+                    }
+                } else {
+                    break
+                }
+            }
+        }
+        new_text += subtxt + span_to_add
+    }
+    if (span_list.length == 0) {
+        new_text += text
+    } else {
+        new_text += text.substring(span_list[span_list.length - 1][1])
+    }
+    document.getElementById(character.situationID).innerHTML = new_text
+};
+
+function list_antecedents(situationID) {
+    let display = $('#selection_antecedent').text("Selected antecedents: ");
+    // console.log(antecedent_start_end_pairs)
+    for (a in antecedent_start_end_pairs) {
+        pair = antecedent_start_end_pairs[a]
+        if (pair != null) {
+            start = pair[0]
+            end = pair[1]
+            let txt = situation_text[situationID].substring(start, end)
+            let removeButton = $('<button></button>')
+                .addClass('bg-transparent black bn hover-white hover-bg-black br-pill mr1')
+                .attr('antecedent-num', a)
+                .append('✘')
+                .on('click', function () {
+                    antecedent_start_end_pairs[$(this).attr('antecedent-num')] = null
+                    list_antecedents(situationID);
+                    // C.remove(new CharacterSelection(error_type, explanation, severity, start_end_pairs));
+                    annotate_select_span(C, situation_text[situationID], start_end_pairs[0], antecedent_start_end_pairs, true)
+                    // C.update();
+                });
+            let span = $('<span></span>')
+                .addClass('bg-light-yellow black pa2 ma1 dib quality-span')
+                .append(removeButton)
+                .append(txt);
+            display.append(span);
+        }
+    }
+}
+
+function disable_everything() {
+    // $('#confirm_button').prop('disabled', true);
+    $("input[name='error_type']").removeClass("selected")
+    $("input:radio[name='severity']").prop('checked', false);
+    $("input:radio[name='error_type']").prop('checked', false);
+    $('#explanation').val('');
+    $("#button_div").addClass("disable");
+    $("#severity_div").addClass("disable");
+    $("#explanation_div").addClass("disable");
+    $("#antecedent_selection").slideUp("fast");
+    // antecedent_start_end_pairs = []
+    // annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
+}
+
+// script
+$(document).ready(function () {
+    // build up elements we're working with
+    // situation_text['situation-0'] = $('#' + 'situation-0').text()
+    // initialize our data structures NOTE: later we'll have to add data that's loaded
+    // into the page (the machine's default guesses). or... maybe we won't?
+    let situationIDs = [], situationIDsJquery = [];
+    // we have 2 as default for running this script independently during development
+    let local_n_situations = n_situations;
+    for (let i = 0; i < local_n_situations; i++) {
+        situationIDs.push('situation-' + i);
+        situationIDsJquery.push('#situation-' + i);
+        // quality_map['situation-' + i] = []
+        situation_text['situation-' + i] = $('#' + 'situation-' + i).text()
+    }
+    var pageX;
+    var pageY;
+    // $(document).on('mousedown', function(e){
+    //     var selector = $("#quality-selection");
+    //     if (!selector.is(e.target) &&
+    //         !selector.has(e.target).length) {
+    //             selector.fadeOut(1);
+    //     }
+    // });
+
+    $('#close-icon').on("click", function(e) {
+        $("input:radio[name='severity']").prop('checked', false);
+        $('#error_type').val('');
+        $('#explanation').val('');
+        $("#quality-selection").fadeOut(0.2);
+        start_end_pairs = []
+        antecedent_start_end_pairs = []
+        C = C_map[situationID]
+        annotate(C, situation_text[situationID])
+        disable_everything();
+    });
+    $(situationIDsJquery.join(',')).on("mousedown", function(e){
+        var situationID_temp = e.target.id;
+        if (situationID_temp) {
+            situationID = situationID_temp;
+        }
+        // if(!situationID) {
+        //     situationID = e.target.getAttribute("data-situation-id")
+        // }
+        pageX = e.pageX;
+        pageY = e.pageY;
+        // console.log(situationID)
+        document.getElementById(situationID).innerHTML = situation_text[situationID]
+    });
+    $(situationIDsJquery.join(',')).on('mouseup', function (e) {
+        var situationID_temp = e.target.id;
+        if (situationID_temp) {
+            situationID = situationID_temp;
+        }
+        // situationID = e.target.id;
+        C = C_map[situationID]
+        let selection = window.getSelection();
+        if (selection.anchorNode != selection.focusNode || selection.anchorNode == null) {
+            // highlight across spans
+            return;
+        }
+        // $('#quality-selection').fadeOut(1);
+        let range = selection.getRangeAt(0);
+        let [start, end] = [range.startOffset, range.endOffset];
+        if (start == end) {
+            // disable on single clicks
+            annotate(C, situation_text[situationID])
+            return;
+        }
+        // manipulate start and end to try to respect word boundaries and remove
+        // whitespace.
+        end -= 1; // move to inclusive model for these computations.
+        let txt = $('#' + situationID).text();
+        while (txt.charAt(start) == ' ') {
+            start += 1; // remove whitespace
+        }
+        while (start - 1 >= 0 && txt.charAt(start - 1) != ' ') {
+            start -= 1; // find word boundary
+        }
+        while (txt.charAt(end) == ' ') {
+            end -= 1; // remove whitespace
+        }
+        while (end + 1 <= txt.length - 1 && txt.charAt(end + 1) != ' ') {
+            end += 1; // find word boundary
+        }
+        // move end back to exclusive model
+        end += 1;
+        // stop if empty or invalid range after movement
+        if (start >= end) {
+            return;
+        }
+        console.log([start, end])
+        if ($("#antecedent_selection").first().is(":hidden")) {
+            start_end_pairs = []
+            antecedent_start_end_pairs = []
+            start_end_pairs.push([start, end])
+            let selection_text = "<b>Selected span:</b> <a class=\"selection_a\">";
+            start = start_end_pairs[0][0]
+            end = start_end_pairs[0][1]
+            let select_text = $('#' + situationID).text().substring(start, end)
+            selection_text += select_text + "</a>"
+            // if (start_end_pairs.length != 1) {
+            //     for (pair of start_end_pairs.slice(1)) {
+            //         start = pair[0]
+            //         end = pair[1]
+            //         let select_text = $('#' + situationID).text().substring(start, end)
+            //         selection_text += ", <a class=\"selection_a\">" + select_text + "</a>"
+            //     }
+            // }
+            document.getElementById("selection_text").innerHTML = selection_text
+            $('#quality-selection').css({
+                'display': "inline-block",
+                'left': pageX - 45,
+                'top' : pageY + 20
+            }).fadeIn(200, function() {
+                disable_everything()
+            });
+            annotate_select_span(C, situation_text[situationID], [start, end], antecedent_start_end_pairs, true)
+        } else {  
+            $("#explanation_div").removeClass("disable");
+            antecedent_start_end_pairs.push([start, end])
+            list_antecedents(situationID)
+            // let selection_text = "Selected antecedents: <a class=\"selection_a_antecedent\">";
+            // start = antecedent_start_end_pairs[0][0]
+            // end = antecedent_start_end_pairs[0][1]
+            // let select_text = $('#' + situationID).text().substring(start, end)
+            // selection_text += select_text + "</a>"
+            // if (antecedent_start_end_pairs.length != 1) {
+            //     for (pair of antecedent_start_end_pairs.slice(1)) {
+            //         start = pair[0]
+            //         end = pair[1]
+            //         let select_text = $('#' + situationID).text().substring(start, end)
+            //         selection_text += ", <a class=\"selection_a_antecedent\">" + select_text + "</a>"
+            //         annotate_select_span(C, situation_text["situation-0"], [start, end])
+            //     }
+            // }
+            // document.getElementById("selection_antecedent").innerHTML = selection_text
+            annotate_select_span(C, situation_text[situationID], start_end_pairs[0], antecedent_start_end_pairs, true)
+        }
+    });
+    $('#confirm_button').on("click", function(e) {
+        // var disabled = $(this).prop("disabled")
+
+        // get text input value
+        var error_type = $('input[name="error_type"]:checked').val();
+        var explanation = $("textarea#explanation").val();
+        var severity = $('input[name="severity"]:checked').val();
+        if (error_type === "" || explanation === "" ||  severity === undefined) {
+            alert("Error Type, Explanation, and Severity are required!")
+            return false
+        }
+        let display = $('#' + situationID + "-display")
+        display.attr('id', situationID + '-display')
+        display.attr('data-situation-id', situationID)
+        C = C_map[situationID]
+        C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, C.data.length));
+
+        C.update();
+        $('#quality-selection').fadeOut(1, function() {
+           disable_everything()
+        });
+        start_end_pairs = []
+        antecedent_start_end_pairs = []
+        annotate(C, situation_text[situationID])
+        // console.log(C)
+    });
+    // $(document).on('focusout','.quality',function(e){
+    //     var situation_id = $(this).attr("data-situation-id")
+    //     var quality_num = $(this).attr("data-quality-num")
+    //     var new_quality = $(this).text()
+    //     let new_input_text = new_quality.replace(/"/g, "_QUOTE_");
+    //     new_input_text = new_input_text.replace(/</g, "_LEFT_");
+    //     new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
+    //     quality_map[situation_id][quality_num] = new_input_text
+    //     AC.update()
+    // });
+    $(document).on('mouseover','.quality-span',function(e){
+        // $(this).css("color","black")
+        // $(this).css("background-color","white")
+        var color_class = $(this).attr("data-error-type")
+        // $(this).removeClass(color_class)
+        var quality_id = e.target.id
+        var situation_id = $(this).attr("data-situation-id")
+        var span_num = $(this).attr("data-num")
+        var p_span_id = "." + situation_id + "p-span-" + span_num
+        $(p_span_id).addClass("bg-"+color_class);
+        var antecedent_color_class= color_class+"_antecedent"
+        var antecedent_p_span_id = "." + situation_id + "p-span-" + span_num + "_antecedent"
+        $(antecedent_p_span_id).addClass("bg-"+antecedent_color_class);
+        if (black_text_errors_types.includes(color_class)) {
+            $(p_span_id).addClass("black");
+            $(antecedent_p_span_id).addClass("black")
+        } else {
+            $(p_span_id).addClass("white");
+            $(antecedent_p_span_id).addClass("white")
+        }
+
+        // cs = C.data[span_num]
+        // var start_end_pair = cs.start_end_pairs[0]
+        // let text = document.getElementById(situation_id).innerHTML
+        // start_temp = start_end_pair[0]
+        // end_temp = start_end_pair[1]
+        // subtxt = text.substring(start_temp, end_temp)
+        // front_part = text.substring(0, start_temp)
+        // end_part = text.substring(end_temp)
+        // old_text = text
+        // text = front_part + "<span class=\""+color_class+"\">" + subtxt + "</span>" + end_part
+        // document.getElementById(situation_id).innerHTML = text
+    });
+    $(document).on('mouseout','.quality-span',function(e){
+        // $(this).css("color","white")
+        var color_class = $(this).attr("data-error-type")
+        // $(this).addClass(color_class)
+        var quality_id = e.target.id
+        var situation_id = $(this).attr("data-situation-id")
+        var span_num = $(this).attr("data-num")
+        var p_span_id = "." + situation_id + "p-span-" + span_num
+        $(p_span_id).removeClass("bg-"+color_class);
+        var antecedent_color_class= color_class+"_antecedent"
+        var antecedent_p_span_id = "." + situation_id + "p-span-" + span_num + "_antecedent"
+        $(antecedent_p_span_id).removeClass("bg-"+antecedent_color_class);
+        if (black_text_errors_types.includes(color_class)) {
+            $(p_span_id).removeClass("black");
+            $(antecedent_p_span_id).removeClass("black")
+        } else {
+            $(p_span_id).removeClass("white");
+            $(antecedent_p_span_id).removeClass("white")
+        }
+
+        // document.getElementById(situation_id).innerHTML = situation_text[situation_id]
+    });
+   
+    $("#no_badness").on("change", function(){
+        if($(this).is(':checked')) {
+            old_value = $("#situation-10-serialize").attr("value")
+            $("#situation-10-serialize").attr("value", "There is no badeness in text.")
+        } else {
+            $("#situation-10-serialize").attr("value", old_value)
+        }
+     });
+    
+    // clear button in the quality select box
+    $("#clear_button").on("click", function(){
+        $("input:radio[name='error_type']").prop('checked', false);
+        $("input:radio[name='severity']").prop('checked', false);
+        $('#error_type').val('');
+        $('#explanation').val('');
+    });
+
+    $(".antecedent_able").on('click',function(e){
+        if (!$(this).hasClass("selected")) {
+            $("input[name='error_type']").removeClass("selected")
+            $(this).addClass("selected")
+            $("#antecedent_selection").slideDown("fast");
+            antecedent_start_end_pairs = []
+            annotate_select_span(C, situation_text[situationID], start_end_pairs[0], antecedent_start_end_pairs, true)
+            var id = $(this).attr("id")
+            if (id == "error-8") {
+                document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being repeated."
+            } else if (id == "error-9") {
+                document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being contradicted."
+            }
+            document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
+            $("input:radio[name='severity']").prop('checked', false);
+            $('#explanation').val('');
+            $("#button_div").addClass("disable");
+            $("#severity_div").addClass("disable");
+            $("#explanation_div").addClass("disable");
+        }
+    });
+
+    $(".antecedent_no_able").on('click',function(e){
+        $("input[name='error_type']").removeClass("selected")
+        $("#antecedent_selection").slideUp("fast");
+        antecedent_start_end_pairs = []
+        annotate_select_span(C, situation_text[situationID], start_end_pairs[0], antecedent_start_end_pairs, true)
+        document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
+        $("input:radio[name='severity']").prop('checked', false);
+        $('#explanation').val('');
+        $("#button_div").addClass("disable");
+        $("#severity_div").addClass("disable");
+        $("#explanation_div").removeClass("disable");
+    });
+
+    $("#explanation").on('change keyup paste', function() {
+        $("#severity_div").removeClass("disable");
+    });
+
+    $(document).on('click','.checkbox-tools-severity',function(e){
+        $("#button_div").removeClass("disable");
+    });
+
+
+
+
+    // $("#quality-selection").on('keydown',function(e) {
+    //     var disabled = $('#confirm_button').prop("disabled")
+    //     if(e.key === "Enter" && !disabled) {
+    //         e.preventDefault();
+    //         $('#confirm_button').click();
+    //     }
+    // });
+    $(document).on("keypress", function(e){
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+    });
+
+    $( function() {
+        $( "#quality-selection" ).draggable();
+      } );
+});
+    </script>
+</body>
