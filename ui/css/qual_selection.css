@@ -1,0 +1,231 @@
+.container {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 1rem;
+}
+
+.card {
+  margin: 1rem;
+  /* background-color: #f8f9fa;
+  border: 1px solid #d9dadb; */
+  border-radius: 4px;
+
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-header {
+  width: 100%;
+  background-color: rgba(0, 0, 0, .03);
+  text-decoration: none;
+  padding: .75rem 1.25rem;
+  border-bottom: 1px solid #d9dadb;
+  display: flex;
+}
+
+.link {
+  color: #157ffb;
+}
+
+.link:hover {
+  color: #0a4d99;
+  text-decoration: underline;
+
+}
+
+.card-body {
+  /* padding: 1rem; */
+  margin-left: auto!important;
+  margin-right: auto!important;
+}
+
+.mf-textarea {
+  width: 100%;
+  /* max-width: 500px; */
+  height: 80px;
+  margin-top: 0px;
+}
+
+.inputs li {
+  /* float: left; */
+  list-style-type: none;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.f7 {
+  font-size: 0.5 rem;
+}
+
+hr {
+  border-top: 1px solid #dfe0e1;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+
+.form__group {
+  position  : relative;
+  padding   : 20px 0 0;
+  margin    : auto;
+  margin-top: 5px;
+  max-width : 400px;
+}
+
+.form__field {
+  width        : 100%;
+  border       : 0;
+  border-bottom: 2px solid;
+  border-image : linear-gradient(to right, #2B32B2, #1488CC) 0 0 100% 0/0 0 2px 0;
+  /* outline   : 0; */
+  color        : #283048;
+  padding      : 4px 0;
+  background   : transparent;
+  transition   : border-color 0.2s;
+}
+
+.form__field::placeholder {
+  color: transparent;
+}
+
+.form__field:placeholder-shown~.form__label {
+  /* font-size: 1.3rem; */
+  cursor: text;
+  top   : 20px;
+}
+
+.form__label {
+  position  : absolute;
+  top       : 0;
+  display   : block;
+  transition: 0.2s;
+  font-size : 1rem;
+  color     : #707070;
+}
+
+.form__field:focus {
+  padding-bottom    : 4px;
+  border-image      : linear-gradient(to right, #2B32B2, #1488CC);
+  border-image-slice: 1;
+}
+
+.form__field:focus~.form__label {
+  position  : absolute;
+  top       : 0;
+  display   : block;
+  transition: 0.2s;
+  font-size : 1rem;
+  color     : #2B32B2;
+}
+
+/* reset input */
+.form__field:required,
+.form__field:invalid {
+  box-shadow: none;
+}
+
+.radio-instruction {
+  text-align: left;
+}
+
+.radios {
+  box-sizing: border-box;
+  display   : inline-block;
+  width     : 100%;
+}
+
+.radios *,
+.radios *:before,
+.radios *:after {
+  box-sizing: border-box;
+}
+
+.radio {
+  /* float: left; */
+  display            : block;
+  cursor             : pointer;
+  -webkit-user-select: none;
+  -moz-user-select   : none;
+  -ms-user-select    : none;
+  user-select        : none;
+  text-align         : left;
+}
+
+/* .radio + .radio {
+    margin-left: 10px;
+  } */
+.radio input {
+  display: none;
+}
+
+.radio input+span {
+  display     : inline-block;
+  position    : relative;
+  padding-left: 20px;
+}
+
+.radio input+span:before {
+  content      : '';
+  display      : block;
+  position     : absolute;
+  top          : 0px;
+  left         : 0px;
+  border-radius: 50%;
+  margin-right : 5px;
+  width        : 16px;
+  height       : 16px;
+  border       : 1px solid #ccc;
+  background   : #fff;
+}
+
+.radio input+span:after {
+  content           : '';
+  display           : block;
+  width             : 10px;
+  height            : 10px;
+  background        : #222;
+  position          : absolute;
+  border-radius     : 50%;
+  top               : 3px;
+  left              : 3px;
+  opacity           : 0;
+  -webkit-transform : scale(0, 0);
+  transform         : scale(0, 0);
+  -webkit-transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+  transition        : all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+}
+
+.radio input:checked+span:after {
+  opacity          : 1;
+  -webkit-transform: scale(1, 1);
+  transform        : scale(1, 1);
+}
+
+.situation-display {
+  margin-top: 4px;
+}
+
+#p_button {
+  max-width   : 1140px;
+  margin-left : auto;
+  margin-right: auto;
+}
+
+.wizard-navigation {
+  top: 0;
+}
+
+.wizard-nav {
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.wizard-progress-with-circle {
+  z-index: 2;
+}
+
+.wizard-icon-circle {
+  z-index: 3;
+}

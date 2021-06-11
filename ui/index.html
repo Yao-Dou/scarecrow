@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Real OOF Task</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="css/selection.css">
+    <link rel="stylesheet" href="css/select_box.css">
+    <link rel="stylesheet" href="css/qual_selection.css">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <div id="task_app">
+        <div>
+          <form-wizard @on-complete="onComplete" ref="wizard"> 
+              <tab-content title="Instructions">
+                <div class="container card mb-3 card-body" id="bodyInstructions">
+                  <p class="mt0 f2 b">Instructions</p>
+                  <p class="f4">
+                        Congratulation! You did very well in the new OOF qualification! 
+                  </p>
+                  
+                  <p class="f4">
+                    In this task (same as the real task question in the qual), you will read text written by an Artificial Intelligence and note the errors or things you don't understand
+                    in the text. Please carefully read the text and take your time, since the pay is set assuming you will spend 20 mintues on one task.
+                  </p>
+
+                  <p class="f4">
+                    Notice: Each hit only contains one task, so feel free to do more hits.
+                  </p>
+
+                  <p class="f4">
+                    Here is the link for the qual solution <a href="https://yao-dou.github.io/qual-solution/" target="_blank">https://yao-dou.github.io/qual-solution/</a>, you are highly encouraged to look at it while doing the task.
+                  </p>
+  
+                  <p class="f4">
+                     Here’s the big picture of what we’re doing:
+                  </p>
+  
+                  <img src="https://raw.githubusercontent.com/mbforbes/oof/master/task.png?token=AMTFCLZT3NYGQCYUFIUXYODAGZ3Q4">
+                </div>
+              </tab-content>
+  
+  
+              <tab-content title="Real Task">
+                <div class="container card mb-3 card-body" id="bodyTask">
+                  <p class="mt0 f2 b">Task</p>
+                  <p class="f4">
+                      Now it's time for you to apply what you learn in the qual (<a href="https://yao-dou.github.io/qual-solution/" target="_blank">https://yao-dou.github.io/qual-solution/</a>) to this task.
+                      This text continuation is truncated from a longer text continuation.
+                      Please annotate any kind of "badness" (no matter how small the error is) in the text continuation, and if you think this text
+                      continuation doesn't have any "badness", please check the box below.
+                  </p>
+                  <p class="f4 red">
+                      You are very encouraged to check this webpage (<a href="https://yao-dou.github.io/oof-feedbacks/" target="_blank">https://yao-dou.github.io/oof-feedbacks/</a>), which has many feedbacks and answers common questions you may have. Also feel Free to email us if you have other questions!
+                  </p>
+  
+                  <!-- Example situation to be annotated -->
+                  <div id="situation-0-div" class="outline">
+                      <div id="situation-0-prompt-div">
+                          <p class="f5 pl4 pr4 pt1 mt0 mb0">Sytem Prompt (Human Written): </p>
+                          <p id="situation-0-prompt" class="f3 pl4 pr4 pa1 mt0 mb0 prompt">
+                            The long-rumored Apple car might finally become a reality.
+                          </p>
+                      </div>
+                      <div id="situation-0-generation-div">
+                          <p class="f5 pl4 pr4 pt4 mt0 mb0">Continuation written by <b>GPT-3 DaVinci (top-p = 0.96, temperature = 1.0)</b>: </p>
+                          <p id="situation-0" class="f3 pl4 pr4 pa1 mt0 paragraph">According to the Financial Times, Apple's been talking to "a small group of contract manufacturers to explore making an electric vehicle," which would ostensibly be an autonomous car. All this does sound like the loose ends of Apple's CarPlay rollout: hiring 1,200 engineers for the iOS team, building the CarPlay-specific testing track, developing a Lincoln Navigator, then poaching Burberry‚Äôs head of product design to lead the integration of software and hardware. WWDC 2015 We know what you're thinking: Another Monday?</p>
+                      </div>
+                  </div>
+                  <div class="pl4">
+                      <input type="checkbox" id="no_badness" name="no_badness">
+                      <label for="no_badness">There is no "badness" in this text!</label>
+                  </div>
+                  <div id="situation-0-display" class="situation-display" data-situation-id="situation-0"></div>
+                  <input type="hidden" name="situation-0" id="situation-0-serialize">
+                  <!-- <input type="hidden" name="situation-0-source-id" value="${situation-0-source}"> -->
+                </div>
+              </tab-content>
+  
+              <tab-content title="Optional Feedback">
+                <div class="container card mb-3 card-body" id="bodyFeedback">
+  
+                  <!--Motivation text -->
+                  <p class="mt0 f2 b">Optional Feedback</p>
+  
+                  <p class=" lh-copy f4">
+                      If you have any feedback about improving this task, you can let
+                      us know here! Completely optional / not required.
+                  </p>
+                  <textarea id="feedback" name="feedback" class="mf-textarea"></textarea>
+                </div>
+              </tab-content>
+          </form-wizard>
+        </div>
+  
+        <div id="quality-selection" class="quality-selection gradient-border">
+          <i class="fa fa-close" id="close-icon"></i>
+          <p id="selection_text" class="selection_text"></p>
+          <!-- <input type="text" id="text_input" name="quality" placeholder="type your problem"> -->   
+          <div id="dropdown-button-container">
+                  <!-- <input class="checkbox" type="checkbox" name="general" id="general">
+                  <label class="for-checkbox" for="general"></label> -->
+                  <div class="single_part section over-hide z-bigger">
+                      <p class="b mb2">Select the error.</p>
+                      <div class="quality_selection_container">
+                          <p class="f6 mb2">Factual</p>
+                          <div class="row">
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-1" value="Technical_Jargon">
+                                  <label class="b for-checkbox-tools" for="error-1" id="error-1-label">
+                                      Technical Jargon
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-2" value="Bad_Math">
+                                  <label class="b for-checkbox-tools" for="error-2" id="error-2-label">
+                                      Bad Math
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-3" value="Encyclopedic">
+                                  <label class="b for-checkbox-tools" for="error-3" id="error-3-label">
+                                      Wrong: Encyclopedic
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-4" value="Commonsense">
+                                  <label class="b for-checkbox-tools" for="error-4" id="error-4-label">
+                                      Wrong: Commonsense
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-5" value="Needs_Google">
+                                  <label class="b for-checkbox-tools" for="error-5" id="error-5-label">
+                                      Needs Google
+                                  </label>
+                              </div>
+                          </div>
+                          <p class="f6 mb2">Language</p>
+                          <div class="row">
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-6" value="Grammar_Usage">
+                                  <label class="b for-checkbox-tools" for="error-6" id="error-6-label">
+                                      Grammar / Usage
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-7" value="Off-prompt">
+                                  <label class="b for-checkbox-tools" for="error-7" id="error-7-label">
+                                      Off-prompt
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_able" type="radio" name="error_type" id="error-8" value="Redundant">
+                                  <label class="b for-checkbox-tools" for="error-8" id="error-8-label">
+                                      Redundant
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_able" type="radio" name="error_type" id="error-9" value="Self-contradiction">
+                                  <label class="b for-checkbox-tools" for="error-9" id="error-9-label">
+                                      Self-contradiction
+                                  </label>
+                              </div>
+                              <div class="column">
+                                  <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-10" value="Incoherent">
+                                  <label class="b for-checkbox-tools" for="error-10" id="error-10-label">
+                                      Incoherent
+                                  </label>
+                              </div>
+                          </div>
+                      </div>	
+                  </div>
+      
+              <div class="single_part" id="antecedent_selection" style="display:none;">
+                  <p id="antecedent_select_text" class="b mb2" >Select the antecedent.</p>
+                  <p id="selection_antecedent" class="selection_text">Selected antecedents: </p>
+              </div>
+              <!-- <div class="form__group field">
+                  <input type="text" class="form__field" placeholder="Explanation" name="explanation" id='explanation'/>
+                  <label for="explanation" class="form__label">Explanation *</label>
+              </div> -->
+              <div class="disable single_part" id="explanation_div">
+                  <p class="b mb2">Explain your selection.</p>
+                  <textarea id="explanation" name="explanation" placeholder="Please write down your explanation!" rows="4" style="width: 100%; resize: none; overflow-y: hidden;"></textarea>
+              </div>
+              
+      
+              <div class="disable single_part section over-hide z-bigger" id="severity_div">
+                  <div class="quality_selection_container">
+                      <p class="radio-instruction mb2 b">Select the severity <i>(how severe is this error?).</i></p>
+                      <div class="row">
+                          <div class="column-severity">
+                              <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-1" value="1">
+                              <label class="b for-checkbox-tools-severity" for="severity-1" id="severity-1-label">
+                                  1 - Almost no impact
+                              </label>
+                          </div>
+                          <div class="column-severity">
+                              <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-2" value="2">
+                              <label class="b for-checkbox-tools-severity" for="severity-2" id="severity-2-label">
+                                  2 - Understandable, but difficult
+                              </label>
+                          </div>
+                          <div class="column-severity">
+                              <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-3" value="3">
+                              <label class="b for-checkbox-tools-severity" for="severity-3" id="severity-3-label">
+                                  3 - Very hard to understand
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="disable buttons" id="button_div">
+                  <!-- <input type="button" id="clear_button" class="clear quality_button" value="Clear"> -->
+                  <button id="confirm_button" class="b confirm quality_button" type="button">Confirm</button>
+              </div>
+          </div>
+        </div>
+  
+        <input type='submit' id='submitButton' class="db center mb4 pa3 f4 pointer hover-bg-yellow" style="visibility: hidden;"
+        value='Submit this Qual' />
+         <input type="hidden" id="time_record" name="te" value="0">
+      </div>
+    <!-- built files will be auto injected -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/selection.js"></script>
+  </body>
+</html>

@@ -3034,17 +3034,18 @@ hr {
        <input type="hidden" id="time_record" name="te" value="0">
     </div>
     <!-- built files will be auto injected -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
-    <script src="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vue@2.4.2"></script>
+    <script src="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.js"></script> -->
     <script>
         Vue.use(VueFormWizard)
-new Vue({
-  el: '#qual_app',
-  methods: {
-      onComplete: function(){
-        $("#submitButton").click();
-      }
-  },
+        new Vue({
+        el: '#qual_app',
+        methods: {
+            onComplete: function(){
+                $("#submitButton").click();
+            }
+        },
   mounted(){
     var wizard = this.$refs.wizard
     wizard.activateAll()
