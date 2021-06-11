@@ -3,29 +3,24 @@
  */
 
 
-function readTextFile(file)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                alert(allText);
-            }
-        }
-    }
-    rawFile.send(null);
-}
+// function readTextFile(file)
+//     {
+//         var rawFile = new XMLHttpRequest();
+//         rawFile.open("GET", file, false);
+//         rawFile.onreadystatechange = function ()
+//         {
+//             if(rawFile.readyState === 4)
+//             {
+//                 if(rawFile.status === 200 || rawFile.status == 0)
+//                 {
+//                     var allText = rawFile.responseText;
+//                 }
+//             }
+//         }
+//         rawFile.send(null);
+//     }
 
-csv = readTextFile("file:///Users/yaod/Desktop/scarecrow/data/data.csv")
-
-data = $.csv.toObjects(csv);
-console.log(data)
-
+var filename = "https://raw.githubusercontent.com/Yao-Dou/scarecrow/main/data/data.csv"
 
 let original_ontologies = ["Technical_Jargon", "Bad_Math", "Encyclopedic", "Commonsense", "Needs_Google", "Grammar_Usage", "Off-prompt", "Redundant", "Self-contradiction", "Incoherent"]
 let black_text_errors_types = ["Commonsense", "Grammar_Usage", "Off-prompt"]
@@ -424,289 +419,300 @@ function disable_everything() {
 
 // script
 $(document).ready(function () {
-    // build up elements we're working with
-    situation_text['situation-0'] = $('#' + 'situation-0').text()
-    // initialize our data structures NOTE: later we'll have to add data that's loaded
-    // into the page (the machine's default guesses). or... maybe we won't?
-    var pageX;
-    var pageY;
-    // $(document).on('mousedown', function(e){
-    //     var selector = $("#quality-selection");
-    //     if (!selector.is(e.target) &&
-    //         !selector.has(e.target).length) {
-    //             selector.fadeOut(1);
-    //     }
-    // });
-
-    $('#close-icon').on("click", function(e) {
-        $("input:radio[name='severity']").prop('checked', false);
-        $('#error_type').val('');
-        $('#explanation').val('');
-        $("#quality-selection").fadeOut(0.2);
-        start_end_pairs = []
-        antecedent_start_end_pairs = []
-        annotate(C, situation_text["situation-0"])
-        disable_everything();
-    });
-    $("#situation-0").on("mousedown", function(e){
-        pageX = e.pageX;
-        pageY = e.pageY;
-        document.getElementById("situation-0").innerHTML = situation_text["situation-0"]
-    });
-    $("#situation-0").on('mouseup', function (e) {
-        situationID = e.target.id;
-        let selection = window.getSelection();
-        if (selection.anchorNode != selection.focusNode || selection.anchorNode == null) {
-            // highlight across spans
-            return;
-        }
-        // $('#quality-selection').fadeOut(1);
-        let range = selection.getRangeAt(0);
-        let [start, end] = [range.startOffset, range.endOffset];
-        if (start == end) {
-            // disable on single clicks
-            annotate(C, situation_text["situation-0"])
-            return;
-        }
-        // manipulate start and end to try to respect word boundaries and remove
-        // whitespace.
-        end -= 1; // move to inclusive model for these computations.
-        let txt = $('#' + situationID).text();
-        while (txt.charAt(start) == ' ') {
-            start += 1; // remove whitespace
-        }
-        while (start - 1 >= 0 && txt.charAt(start - 1) != ' ') {
-            start -= 1; // find word boundary
-        }
-        while (txt.charAt(end) == ' ') {
-            end -= 1; // remove whitespace
-        }
-        while (end + 1 <= txt.length - 1 && txt.charAt(end + 1) != ' ') {
-            end += 1; // find word boundary
-        }
-        // move end back to exclusive model
-        end += 1;
-        // stop if empty or invalid range after movement
-        if (start >= end) {
-            return;
-        }
-        console.log([start, end])
-        if ($("#antecedent_selection").first().is(":hidden")) {
-            start_end_pairs = []
-            antecedent_start_end_pairs = []
-            start_end_pairs.push([start, end])
-            let selection_text = "<b>Selected span:</b> <a class=\"selection_a\">";
-            start = start_end_pairs[0][0]
-            end = start_end_pairs[0][1]
-            let select_text = $('#' + situationID).text().substring(start, end)
-            selection_text += select_text + "</a>"
-            // if (start_end_pairs.length != 1) {
-            //     for (pair of start_end_pairs.slice(1)) {
-            //         start = pair[0]
-            //         end = pair[1]
-            //         let select_text = $('#' + situationID).text().substring(start, end)
-            //         selection_text += ", <a class=\"selection_a\">" + select_text + "</a>"
+    Papa.parse(filename, {
+        worker:true,
+        download: true,
+        complete: function(results) {
+            console.log(results["data"][0])
+            // ["gid", "prompt", "generation", "model", "p", "temperature", "frequency_penalty", "worker", "response"]
+            var prompt = results["data"][1][1]
+            var generation =  results["data"][1][2]
+            console.log(results["data"][1][8])
+            console.log(eval(results["data"][2][8]))
+            // build up elements we're working with
+            $('#situation-0-prompt').text(prompt)
+            $('#situation-0').text(generation)
+            situation_text['situation-0'] = generation
+            // initialize our data structures NOTE: later we'll have to add data that's loaded
+            // into the page (the machine's default guesses). or... maybe we won't?
+            var pageX;
+            var pageY;
+            // $(document).on('mousedown', function(e){
+            //     var selector = $("#quality-selection");
+            //     if (!selector.is(e.target) &&
+            //         !selector.has(e.target).length) {
+            //             selector.fadeOut(1);
             //     }
-            // }
-            document.getElementById("selection_text").innerHTML = selection_text
-            $('#quality-selection').css({
-                'display': "inline-block",
-                'left': pageX - 45,
-                'top' : pageY + 20
-            }).fadeIn(200, function() {
-                disable_everything()
+            // });
+
+            $('#close-icon').on("click", function(e) {
+                $("input:radio[name='severity']").prop('checked', false);
+                $('#error_type').val('');
+                $('#explanation').val('');
+                $("#quality-selection").fadeOut(0.2);
+                start_end_pairs = []
+                antecedent_start_end_pairs = []
+                annotate(C, situation_text["situation-0"])
+                disable_everything();
             });
-            annotate_select_span(C, situation_text["situation-0"], [start, end], antecedent_start_end_pairs)
-        } else {  
-            $("#explanation_div").removeClass("disable");
-            antecedent_start_end_pairs.push([start, end])
-            list_antecedents()
-            // let selection_text = "Selected antecedents: <a class=\"selection_a_antecedent\">";
-            // start = antecedent_start_end_pairs[0][0]
-            // end = antecedent_start_end_pairs[0][1]
-            // let select_text = $('#' + situationID).text().substring(start, end)
-            // selection_text += select_text + "</a>"
-            // if (antecedent_start_end_pairs.length != 1) {
-            //     for (pair of antecedent_start_end_pairs.slice(1)) {
-            //         start = pair[0]
-            //         end = pair[1]
-            //         let select_text = $('#' + situationID).text().substring(start, end)
-            //         selection_text += ", <a class=\"selection_a_antecedent\">" + select_text + "</a>"
-            //         annotate_select_span(C, situation_text["situation-0"], [start, end])
+            $("#situation-0").on("mousedown", function(e){
+                pageX = e.pageX;
+                pageY = e.pageY;
+                document.getElementById("situation-0").innerHTML = situation_text["situation-0"]
+            });
+            $("#situation-0").on('mouseup', function (e) {
+                situationID = e.target.id;
+                let selection = window.getSelection();
+                if (selection.anchorNode != selection.focusNode || selection.anchorNode == null) {
+                    // highlight across spans
+                    return;
+                }
+                // $('#quality-selection').fadeOut(1);
+                let range = selection.getRangeAt(0);
+                let [start, end] = [range.startOffset, range.endOffset];
+                if (start == end) {
+                    // disable on single clicks
+                    annotate(C, situation_text["situation-0"])
+                    return;
+                }
+                // manipulate start and end to try to respect word boundaries and remove
+                // whitespace.
+                end -= 1; // move to inclusive model for these computations.
+                let txt = $('#' + situationID).text();
+                while (txt.charAt(start) == ' ') {
+                    start += 1; // remove whitespace
+                }
+                while (start - 1 >= 0 && txt.charAt(start - 1) != ' ') {
+                    start -= 1; // find word boundary
+                }
+                while (txt.charAt(end) == ' ') {
+                    end -= 1; // remove whitespace
+                }
+                while (end + 1 <= txt.length - 1 && txt.charAt(end + 1) != ' ') {
+                    end += 1; // find word boundary
+                }
+                // move end back to exclusive model
+                end += 1;
+                // stop if empty or invalid range after movement
+                if (start >= end) {
+                    return;
+                }
+                console.log([start, end])
+                if ($("#antecedent_selection").first().is(":hidden")) {
+                    start_end_pairs = []
+                    antecedent_start_end_pairs = []
+                    start_end_pairs.push([start, end])
+                    let selection_text = "<b>Selected span:</b> <a class=\"selection_a\">";
+                    start = start_end_pairs[0][0]
+                    end = start_end_pairs[0][1]
+                    let select_text = $('#' + situationID).text().substring(start, end)
+                    selection_text += select_text + "</a>"
+                    // if (start_end_pairs.length != 1) {
+                    //     for (pair of start_end_pairs.slice(1)) {
+                    //         start = pair[0]
+                    //         end = pair[1]
+                    //         let select_text = $('#' + situationID).text().substring(start, end)
+                    //         selection_text += ", <a class=\"selection_a\">" + select_text + "</a>"
+                    //     }
+                    // }
+                    document.getElementById("selection_text").innerHTML = selection_text
+                    $('#quality-selection').css({
+                        'display': "inline-block",
+                        'left': pageX - 45,
+                        'top' : pageY + 20
+                    }).fadeIn(200, function() {
+                        disable_everything()
+                    });
+                    annotate_select_span(C, situation_text["situation-0"], [start, end], antecedent_start_end_pairs)
+                } else {  
+                    $("#explanation_div").removeClass("disable");
+                    antecedent_start_end_pairs.push([start, end])
+                    list_antecedents()
+                    // let selection_text = "Selected antecedents: <a class=\"selection_a_antecedent\">";
+                    // start = antecedent_start_end_pairs[0][0]
+                    // end = antecedent_start_end_pairs[0][1]
+                    // let select_text = $('#' + situationID).text().substring(start, end)
+                    // selection_text += select_text + "</a>"
+                    // if (antecedent_start_end_pairs.length != 1) {
+                    //     for (pair of antecedent_start_end_pairs.slice(1)) {
+                    //         start = pair[0]
+                    //         end = pair[1]
+                    //         let select_text = $('#' + situationID).text().substring(start, end)
+                    //         selection_text += ", <a class=\"selection_a_antecedent\">" + select_text + "</a>"
+                    //         annotate_select_span(C, situation_text["situation-0"], [start, end])
+                    //     }
+                    // }
+                    // document.getElementById("selection_antecedent").innerHTML = selection_text
+                    annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
+                }
+            });
+            $('#confirm_button').on("click", function(e) {
+                // var disabled = $(this).prop("disabled")
+
+                // get text input value
+                var error_type = $('input[name="error_type"]:checked').val();
+                var explanation = $("textarea#explanation").val();
+                var severity = $('input[name="severity"]:checked').val();
+                if (error_type === "" || explanation === "" ||  severity === undefined) {
+                    alert("Error Type, Explanation, and Severity are required!")
+                    return false
+                }
+                let display = $('#' + situationID + "-display")
+                display.attr('id', situationID + '-display')
+                display.attr('data-situation-id', situationID)
+                C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, C.data.length));
+
+                C.update();
+                $('#quality-selection').fadeOut(1, function() {
+                disable_everything()
+                });
+                start_end_pairs = []
+                antecedent_start_end_pairs = []
+                annotate(C, situation_text["situation-0"])
+                // console.log(C)
+            });
+            // $(document).on('focusout','.quality',function(e){
+            //     var situation_id = $(this).attr("data-situation-id")
+            //     var quality_num = $(this).attr("data-quality-num")
+            //     var new_quality = $(this).text()
+            //     let new_input_text = new_quality.replace(/"/g, "_QUOTE_");
+            //     new_input_text = new_input_text.replace(/</g, "_LEFT_");
+            //     new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
+            //     quality_map[situation_id][quality_num] = new_input_text
+            //     AC.update()
+            // });
+            $(document).on('mouseover','.quality-span',function(e){
+                // $(this).css("color","black")
+                // $(this).css("background-color","white")
+                var color_class = $(this).attr("data-error-type")
+                // $(this).removeClass(color_class)
+                var quality_id = e.target.id
+                var situation_id = $(this).attr("data-situation-id")
+                var span_num = $(this).attr("data-num")
+                var p_span_id = ".p-span-" + span_num
+                $(p_span_id).addClass("bg-"+color_class);
+                var antecedent_color_class= color_class+"_antecedent"
+                var antecedent_p_span_id = ".p-span-" + span_num + "_antecedent"
+                $(antecedent_p_span_id).addClass("bg-"+antecedent_color_class);
+                if (black_text_errors_types.includes(color_class)) {
+                    $(p_span_id).addClass("black");
+                    $(antecedent_p_span_id).addClass("black")
+                } else {
+                    $(p_span_id).addClass("white");
+                    $(antecedent_p_span_id).addClass("white")
+                }
+
+                // cs = C.data[span_num]
+                // var start_end_pair = cs.start_end_pairs[0]
+                // let text = document.getElementById(situation_id).innerHTML
+                // start_temp = start_end_pair[0]
+                // end_temp = start_end_pair[1]
+                // subtxt = text.substring(start_temp, end_temp)
+                // front_part = text.substring(0, start_temp)
+                // end_part = text.substring(end_temp)
+                // old_text = text
+                // text = front_part + "<span class=\""+color_class+"\">" + subtxt + "</span>" + end_part
+                // document.getElementById(situation_id).innerHTML = text
+            });
+            $(document).on('mouseout','.quality-span',function(e){
+                // $(this).css("color","white")
+                var color_class = $(this).attr("data-error-type")
+                // $(this).addClass(color_class)
+                var quality_id = e.target.id
+                var situation_id = $(this).attr("data-situation-id")
+                var span_num = $(this).attr("data-num")
+                var p_span_id = ".p-span-" + span_num
+                $(p_span_id).removeClass("bg-"+color_class);
+                var antecedent_color_class= color_class+"_antecedent"
+                var antecedent_p_span_id = ".p-span-" + span_num + "_antecedent"
+                $(antecedent_p_span_id).removeClass("bg-"+antecedent_color_class);
+                if (black_text_errors_types.includes(color_class)) {
+                    $(p_span_id).removeClass("black");
+                    $(antecedent_p_span_id).removeClass("black")
+                } else {
+                    $(p_span_id).removeClass("white");
+                    $(antecedent_p_span_id).removeClass("white")
+                }
+
+                // document.getElementById(situation_id).innerHTML = situation_text[situation_id]
+            });
+        
+            $("#no_badness").on("change", function(){
+                if($(this).is(':checked')) {
+                    old_value = $("#situation-0-serialize").attr("value")
+                    $("#situation-0-serialize").attr("value", "There is no badeness in text.")
+                } else {
+                    $("#situation-0-serialize").attr("value", old_value)
+                }
+            });
+            
+            // clear button in the quality select box
+            $("#clear_button").on("click", function(){
+                $("input:radio[name='error_type']").prop('checked', false);
+                $("input:radio[name='severity']").prop('checked', false);
+                $('#error_type').val('');
+                $('#explanation').val('');
+            });
+
+            $(".antecedent_able").on('click',function(e){
+                if (!$(this).hasClass("selected")) {
+                    $("input[name='error_type']").removeClass("selected")
+                    $(this).addClass("selected")
+                    $("#antecedent_selection").slideDown("fast");
+                    antecedent_start_end_pairs = []
+                    annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
+                    var id = $(this).attr("id")
+                    if (id == "error-8") {
+                        document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being repeated."
+                    } else if (id == "error-9") {
+                        document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being contradicted."
+                    }
+                    document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
+                    $("input:radio[name='severity']").prop('checked', false);
+                    $('#explanation').val('');
+                    $("#button_div").addClass("disable");
+                    $("#severity_div").addClass("disable");
+                    $("#explanation_div").addClass("disable");
+                }
+            });
+
+            $(".antecedent_no_able").on('click',function(e){
+                $("input[name='error_type']").removeClass("selected")
+                $("#antecedent_selection").slideUp("fast");
+                antecedent_start_end_pairs = []
+                annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
+                document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
+                $("input:radio[name='severity']").prop('checked', false);
+                $('#explanation').val('');
+                $("#button_div").addClass("disable");
+                $("#severity_div").addClass("disable");
+                $("#explanation_div").removeClass("disable");
+            });
+
+            $("#explanation").on('change keyup paste', function() {
+                $("#severity_div").removeClass("disable");
+            });
+
+            $(document).on('click','.checkbox-tools-severity',function(e){
+                $("#button_div").removeClass("disable");
+            });
+
+            // $("#quality-selection").on('keydown',function(e) {
+            //     var disabled = $('#confirm_button').prop("disabled")
+            //     if(e.key === "Enter" && !disabled) {
+            //         e.preventDefault();
+            //         $('#confirm_button').click();
             //     }
-            // }
-            // document.getElementById("selection_antecedent").innerHTML = selection_text
-            annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
+            // });
+            $(document).on("keypress", function(e){
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                }
+            });
+
+            $( function() {
+                $( "#quality-selection" ).draggable();
+            } );
         }
     });
-    $('#confirm_button').on("click", function(e) {
-        // var disabled = $(this).prop("disabled")
-
-        // get text input value
-        var error_type = $('input[name="error_type"]:checked').val();
-        var explanation = $("textarea#explanation").val();
-        var severity = $('input[name="severity"]:checked').val();
-        if (error_type === "" || explanation === "" ||  severity === undefined) {
-            alert("Error Type, Explanation, and Severity are required!")
-            return false
-        }
-        let display = $('#' + situationID + "-display")
-        display.attr('id', situationID + '-display')
-        display.attr('data-situation-id', situationID)
-        C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, C.data.length));
-
-        C.update();
-        $('#quality-selection').fadeOut(1, function() {
-           disable_everything()
-        });
-        start_end_pairs = []
-        antecedent_start_end_pairs = []
-        annotate(C, situation_text["situation-0"])
-        // console.log(C)
-    });
-    // $(document).on('focusout','.quality',function(e){
-    //     var situation_id = $(this).attr("data-situation-id")
-    //     var quality_num = $(this).attr("data-quality-num")
-    //     var new_quality = $(this).text()
-    //     let new_input_text = new_quality.replace(/"/g, "_QUOTE_");
-    //     new_input_text = new_input_text.replace(/</g, "_LEFT_");
-    //     new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
-    //     quality_map[situation_id][quality_num] = new_input_text
-    //     AC.update()
-    // });
-    $(document).on('mouseover','.quality-span',function(e){
-        // $(this).css("color","black")
-        // $(this).css("background-color","white")
-        var color_class = $(this).attr("data-error-type")
-        // $(this).removeClass(color_class)
-        var quality_id = e.target.id
-        var situation_id = $(this).attr("data-situation-id")
-        var span_num = $(this).attr("data-num")
-        var p_span_id = ".p-span-" + span_num
-        $(p_span_id).addClass("bg-"+color_class);
-        var antecedent_color_class= color_class+"_antecedent"
-        var antecedent_p_span_id = ".p-span-" + span_num + "_antecedent"
-        $(antecedent_p_span_id).addClass("bg-"+antecedent_color_class);
-        if (black_text_errors_types.includes(color_class)) {
-            $(p_span_id).addClass("black");
-            $(antecedent_p_span_id).addClass("black")
-        } else {
-            $(p_span_id).addClass("white");
-            $(antecedent_p_span_id).addClass("white")
-        }
-
-        // cs = C.data[span_num]
-        // var start_end_pair = cs.start_end_pairs[0]
-        // let text = document.getElementById(situation_id).innerHTML
-        // start_temp = start_end_pair[0]
-        // end_temp = start_end_pair[1]
-        // subtxt = text.substring(start_temp, end_temp)
-        // front_part = text.substring(0, start_temp)
-        // end_part = text.substring(end_temp)
-        // old_text = text
-        // text = front_part + "<span class=\""+color_class+"\">" + subtxt + "</span>" + end_part
-        // document.getElementById(situation_id).innerHTML = text
-    });
-    $(document).on('mouseout','.quality-span',function(e){
-        // $(this).css("color","white")
-        var color_class = $(this).attr("data-error-type")
-        // $(this).addClass(color_class)
-        var quality_id = e.target.id
-        var situation_id = $(this).attr("data-situation-id")
-        var span_num = $(this).attr("data-num")
-        var p_span_id = ".p-span-" + span_num
-        $(p_span_id).removeClass("bg-"+color_class);
-        var antecedent_color_class= color_class+"_antecedent"
-        var antecedent_p_span_id = ".p-span-" + span_num + "_antecedent"
-        $(antecedent_p_span_id).removeClass("bg-"+antecedent_color_class);
-        if (black_text_errors_types.includes(color_class)) {
-            $(p_span_id).removeClass("black");
-            $(antecedent_p_span_id).removeClass("black")
-        } else {
-            $(p_span_id).removeClass("white");
-            $(antecedent_p_span_id).removeClass("white")
-        }
-
-        // document.getElementById(situation_id).innerHTML = situation_text[situation_id]
-    });
-   
-    $("#no_badness").on("change", function(){
-        if($(this).is(':checked')) {
-            old_value = $("#situation-0-serialize").attr("value")
-            $("#situation-0-serialize").attr("value", "There is no badeness in text.")
-        } else {
-            $("#situation-0-serialize").attr("value", old_value)
-        }
-     });
-    
-    // clear button in the quality select box
-    $("#clear_button").on("click", function(){
-        $("input:radio[name='error_type']").prop('checked', false);
-        $("input:radio[name='severity']").prop('checked', false);
-        $('#error_type').val('');
-        $('#explanation').val('');
-    });
-
-    $(".antecedent_able").on('click',function(e){
-        if (!$(this).hasClass("selected")) {
-            $("input[name='error_type']").removeClass("selected")
-            $(this).addClass("selected")
-            $("#antecedent_selection").slideDown("fast");
-            antecedent_start_end_pairs = []
-            annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
-            var id = $(this).attr("id")
-            if (id == "error-8") {
-                document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being repeated."
-            } else if (id == "error-9") {
-                document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being contradicted."
-            }
-            document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
-            $("input:radio[name='severity']").prop('checked', false);
-            $('#explanation').val('');
-            $("#button_div").addClass("disable");
-            $("#severity_div").addClass("disable");
-            $("#explanation_div").addClass("disable");
-        }
-    });
-
-    $(".antecedent_no_able").on('click',function(e){
-        $("input[name='error_type']").removeClass("selected")
-        $("#antecedent_selection").slideUp("fast");
-        antecedent_start_end_pairs = []
-        annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
-        document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
-        $("input:radio[name='severity']").prop('checked', false);
-        $('#explanation').val('');
-        $("#button_div").addClass("disable");
-        $("#severity_div").addClass("disable");
-        $("#explanation_div").removeClass("disable");
-    });
-
-    $("#explanation").on('change keyup paste', function() {
-        $("#severity_div").removeClass("disable");
-    });
-
-    $(document).on('click','.checkbox-tools-severity',function(e){
-        $("#button_div").removeClass("disable");
-    });
-
-
-
-
-    // $("#quality-selection").on('keydown',function(e) {
-    //     var disabled = $('#confirm_button').prop("disabled")
-    //     if(e.key === "Enter" && !disabled) {
-    //         e.preventDefault();
-    //         $('#confirm_button').click();
-    //     }
-    // });
-    $(document).on("keypress", function(e){
-          if (e.key === "Enter") {
-            e.preventDefault();
-          }
-    });
-
-    $( function() {
-        $( "#quality-selection" ).draggable();
-      } );
 });
