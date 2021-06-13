@@ -1,0 +1,41 @@
+#situation {
+    padding: 30px 20px 10px;
+}
+
+#content {
+  margin: auto;
+  width: 90%;
+  
+}
+
+#headline {
+    text-align: center;
+}
+
+#subheadline {
+    text-align: center;
+}
+
+#buttons {
+    width: 90%;
+    margin: auto;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+}
+
+.stretch {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
+
+.situation-0-part {
+    float: left; 
+    width: 50%;
+}
+
+#situation-0-displays {
+    overflow-y: scroll; 
+}

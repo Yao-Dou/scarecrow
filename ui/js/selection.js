@@ -20,7 +20,7 @@
 //         rawFile.send(null);
 //     }
 
-var filename = "https://raw.githubusercontent.com/Yao-Dou/scarecrow/main/data/data.csv"
+var filename = "https://raw.githubusercontent.com/Yao-Dou/scarecrow/main/data/grouped_data.csv"
 
 let original_ontologies = ["Technical_Jargon", "Bad_Math", "Encyclopedic", "Commonsense", "Needs_Google", "Grammar_Usage", "Off-prompt", "Redundant", "Self-contradiction", "Incoherent"]
 let black_text_errors_types = ["Commonsense", "Grammar_Usage", "Off-prompt"]
@@ -48,14 +48,23 @@ function substitute(input_text) {
     return new_input_text
 }
 
+function reverse_substitute(input_text) {
+    let new_input_text = input_text.replace(/_SEP_/g, ",");
+    new_input_text = new_input_text.replace(/_QUOTE_/g, "\"");
+    new_input_text = new_input_text.replace(/_LEFT_/g, "<");
+    new_input_text = new_input_text.replace(/_RIGHT_/g, ">");
+    return new_input_text
+}
+
 /**
  * All selected spans
  */
 class Characters {
     constructor(situationID, num) {
         this.situationID = situationID;
+        this.num = num;
         this.data = [];
-        this.displayID = situationID + '-display';
+        this.displayID = situationID + '-display-' + num;
         this.serializeID = situationID + '-serialize';
     }
     add(newCS) {
@@ -83,17 +92,36 @@ class Characters {
         }
     }
     update() {
-        this.render();
-        this.serialize();
+        this.render(this.num);
+        this.serialize(this.num);
     }
-    render() {
+    render(num) {
         let display = $('#' + this.displayID).empty();
-        for (let i = 0; i < this.data.length; i++) {
-            // console.log(this.data)
-            if (this.data[i] == null) {
-                continue;
+        let annotator_p = $('<p></p>')
+        annotator_p.append($('<input>').prop({
+                type: 'radio',
+                id: 'annotator-' + num,
+                name: 'annotator',
+                value: num
+              }).css({'margin-right':'6px'})
+            ).append(
+              $('<label>').prop({
+                for: 'annotator'
+              }).html('Annotator ' + num)
+            ).append(
+              $('<br>')
+            );
+        display.append(annotator_p)
+        if (this.data.length == 0) {
+            display.append($('<span>There is no "badness" in this text!</span>'))
+        } else {
+            for (let i = 0; i < this.data.length; i++) {
+                // console.log(this.data)
+                if (this.data[i] == null) {
+                    continue;
+                }
+                display.append(this.data[i].render(this.situationID, num, i));
             }
-            display.append(this.data[i].render(this.situationID, i));
         }
     }
     serialize() {
@@ -128,7 +156,7 @@ class CharacterSelection {
         return this.error_type == other.error_type && this.explanation == other.explanation 
             && this.severity == other.severity && JSON.stringify(this.start_end_pairs) === JSON.stringify(other.start_end_pairs) && JSON.stringify(this.antecedent_start_end_pairs) === JSON.stringify(other.antecedent_start_end_pairs);
     }
-    render(situationID, num) {
+    render(situationID, annotator_num, num) {
         let error_type = this.error_type, explanation = this.explanation, severity = this.severity, start_end_pairs = this.start_end_pairs, antecedent_start_end_pairs = this.antecedent_start_end_pairs; // so they go in the closure
         // let txt = $('#' + situationID).text().substring(start, end);
         let txt = error_types_dict[error_type] + " (" + severity + "): " + explanation;
@@ -143,21 +171,20 @@ class CharacterSelection {
             opposite_color = "white"
         }
 
-        let removeButton = $('<button></button>')
-            .addClass('bg-transparent ' + text_color +' bn hover-' + opposite_color + ' hover-bg-' + text_color + ' br-pill mr1 pointer')
-            .append('✘')
-            .on('click', function () {
-                document.getElementById(situationID).innerHTML = situation_text[situationID]
-                C.remove(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs));
-                annotate(C, situation_text["situation-0"])
-                C.update();
-            });
+        // let removeButton = $('<button></button>')
+        //     .addClass('bg-transparent ' + text_color +' bn hover-' + opposite_color + ' hover-bg-' + text_color + ' br-pill mr1 pointer')
+        //     .append('✘')
+        //     .on('click', function () {
+        //         document.getElementById(situationID).innerHTML = situation_text[situationID]
+        //         C.remove(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs));
+        //         annotate(C, situation_text["situation-0"])
+        //         C.update();
+        //     });
 
         let span = $('<span></span>')
             .addClass('b grow bg-' + color_class + " " + text_color +' pa2 ma1 br-pill dib quality-span')
-            .append(removeButton)
             .append(txt);
-        span.attr('id', 'quality-span-'+num)
+        span.attr('id', 'quality-span-' + annotator_num + '-' +num)
         // span.addClass('quality-span-'+num)
         span.attr('data-situation-id', situationID)
         span.attr('data-error-type', error_type)
@@ -167,6 +194,7 @@ class CharacterSelection {
         span.attr('data-antecedent-start-end-pairs', antecedent_start_end_pairs)
         console.log(antecedent_start_end_pairs)
         span.attr('data-num', num)
+        span.attr('data-annotator-num', annotator_num)
         // span.attr('data-num', characters_num)
         // if the character needs to be noticed, abide.
         if (this.noticeMeSenpai) {
@@ -198,6 +226,7 @@ class CharacterSelection {
 
 // globals
 let C = new Characters("situation-0", 0);
+let C_list = []
 // provided externally to the script!
 // let start;
 // let end;
@@ -215,15 +244,16 @@ function comparespan(span_a, span_b) {
     return index_a - index_b;
 }
 
-function annotate(character, text) {
+function annotate(character, annotator_num, text) {
     let character_selections = character.data
+    console.log(character_selections)
     let span_list = []
     for(selection of character_selections) {
         if (selection == null) {
             continue;
         }
         let num = selection.num
-        let p_span_id = "p-span-" + num
+        let p_span_id = "p-span-" + annotator_num + "-" + num
         let start_end_pair = selection.start_end_pairs[0]
         span_list.push([p_span_id, start_end_pair[0], true, num, selection.error_type]);
         span_list.push([p_span_id, start_end_pair[1], false, num, selection.error_type]);
@@ -237,9 +267,8 @@ function annotate(character, text) {
             }
         }
     }
-    // console
-    console.log(span_list)
     span_list.sort(comparespan)
+    console.log(span_list)
     // console.log(span_list)
     let new_text = ""
     for(i in span_list) {
@@ -424,19 +453,57 @@ $(document).ready(function () {
         download: true,
         complete: function(results) {
             console.log(results["data"][0])
-            // ["gid", "prompt", "generation", "model", "p", "temperature", "frequency_penalty", "worker", "response"]
+            // ["gid", "prompt", "generation", "model", "p", "temperature", "frequency_penalty", "responses"]
             var prompt = results["data"][1][1]
             var generation =  results["data"][1][2]
-            console.log(results["data"][1][8])
-            console.log(eval(results["data"][2][8]))
+            console.log(results["data"][1][7])
+            console.log(eval(results["data"][1][7])[3])
+            var responses = eval(results["data"][1][7])
+
+            console.log(results["data"][1][0] +56)
+
             // build up elements we're working with
             $('#situation-0-prompt').text(prompt)
             $('#situation-0').text(generation)
             situation_text['situation-0'] = generation
+
+            $('#situation-0-displays').height($('#situation-0-div').height())
+
+            for (var i in responses) {
+                C = new Characters("situation-0", i)
+                if (responses[i].length == 0) {
+                    C_list.push(C);
+                    C.update()
+                    continue;
+                }
+                for (var error of responses[i]) {
+                    var error_type = error[0]
+                    var explanation = reverse_substitute(error[1])
+                    var severity = error[2]
+                    var start_end_pairs = [[error[3], error[4]]]
+                    var antecedent_start_end_pairs = [error[5]]
+                    if (error[5].length == 0) {
+                        antecedent_start_end_pairs = []
+                    }
+
+                    C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, C.data.length));
+                }
+                C_list.push(C);
+                C.update()
+            }
+
+            var annotator_num = 0
+            console.log(C_list[annotator_num])
+            $("#annotator-" + annotator_num).prop("checked", true);
+            // C_list[3].update()
+            annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
+
+            console.log(C_list.length)
+            // 
+
+            // C.update();
             // initialize our data structures NOTE: later we'll have to add data that's loaded
             // into the page (the machine's default guesses). or... maybe we won't?
-            var pageX;
-            var pageY;
             // $(document).on('mousedown', function(e){
             //     var selector = $("#quality-selection");
             //     if (!selector.is(e.target) &&
@@ -444,133 +511,6 @@ $(document).ready(function () {
             //             selector.fadeOut(1);
             //     }
             // });
-
-            $('#close-icon').on("click", function(e) {
-                $("input:radio[name='severity']").prop('checked', false);
-                $('#error_type').val('');
-                $('#explanation').val('');
-                $("#quality-selection").fadeOut(0.2);
-                start_end_pairs = []
-                antecedent_start_end_pairs = []
-                annotate(C, situation_text["situation-0"])
-                disable_everything();
-            });
-            $("#situation-0").on("mousedown", function(e){
-                pageX = e.pageX;
-                pageY = e.pageY;
-                document.getElementById("situation-0").innerHTML = situation_text["situation-0"]
-            });
-            $("#situation-0").on('mouseup', function (e) {
-                situationID = e.target.id;
-                let selection = window.getSelection();
-                if (selection.anchorNode != selection.focusNode || selection.anchorNode == null) {
-                    // highlight across spans
-                    return;
-                }
-                // $('#quality-selection').fadeOut(1);
-                let range = selection.getRangeAt(0);
-                let [start, end] = [range.startOffset, range.endOffset];
-                if (start == end) {
-                    // disable on single clicks
-                    annotate(C, situation_text["situation-0"])
-                    return;
-                }
-                // manipulate start and end to try to respect word boundaries and remove
-                // whitespace.
-                end -= 1; // move to inclusive model for these computations.
-                let txt = $('#' + situationID).text();
-                while (txt.charAt(start) == ' ') {
-                    start += 1; // remove whitespace
-                }
-                while (start - 1 >= 0 && txt.charAt(start - 1) != ' ') {
-                    start -= 1; // find word boundary
-                }
-                while (txt.charAt(end) == ' ') {
-                    end -= 1; // remove whitespace
-                }
-                while (end + 1 <= txt.length - 1 && txt.charAt(end + 1) != ' ') {
-                    end += 1; // find word boundary
-                }
-                // move end back to exclusive model
-                end += 1;
-                // stop if empty or invalid range after movement
-                if (start >= end) {
-                    return;
-                }
-                console.log([start, end])
-                if ($("#antecedent_selection").first().is(":hidden")) {
-                    start_end_pairs = []
-                    antecedent_start_end_pairs = []
-                    start_end_pairs.push([start, end])
-                    let selection_text = "<b>Selected span:</b> <a class=\"selection_a\">";
-                    start = start_end_pairs[0][0]
-                    end = start_end_pairs[0][1]
-                    let select_text = $('#' + situationID).text().substring(start, end)
-                    selection_text += select_text + "</a>"
-                    // if (start_end_pairs.length != 1) {
-                    //     for (pair of start_end_pairs.slice(1)) {
-                    //         start = pair[0]
-                    //         end = pair[1]
-                    //         let select_text = $('#' + situationID).text().substring(start, end)
-                    //         selection_text += ", <a class=\"selection_a\">" + select_text + "</a>"
-                    //     }
-                    // }
-                    document.getElementById("selection_text").innerHTML = selection_text
-                    $('#quality-selection').css({
-                        'display': "inline-block",
-                        'left': pageX - 45,
-                        'top' : pageY + 20
-                    }).fadeIn(200, function() {
-                        disable_everything()
-                    });
-                    annotate_select_span(C, situation_text["situation-0"], [start, end], antecedent_start_end_pairs)
-                } else {  
-                    $("#explanation_div").removeClass("disable");
-                    antecedent_start_end_pairs.push([start, end])
-                    list_antecedents()
-                    // let selection_text = "Selected antecedents: <a class=\"selection_a_antecedent\">";
-                    // start = antecedent_start_end_pairs[0][0]
-                    // end = antecedent_start_end_pairs[0][1]
-                    // let select_text = $('#' + situationID).text().substring(start, end)
-                    // selection_text += select_text + "</a>"
-                    // if (antecedent_start_end_pairs.length != 1) {
-                    //     for (pair of antecedent_start_end_pairs.slice(1)) {
-                    //         start = pair[0]
-                    //         end = pair[1]
-                    //         let select_text = $('#' + situationID).text().substring(start, end)
-                    //         selection_text += ", <a class=\"selection_a_antecedent\">" + select_text + "</a>"
-                    //         annotate_select_span(C, situation_text["situation-0"], [start, end])
-                    //     }
-                    // }
-                    // document.getElementById("selection_antecedent").innerHTML = selection_text
-                    annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
-                }
-            });
-            $('#confirm_button').on("click", function(e) {
-                // var disabled = $(this).prop("disabled")
-
-                // get text input value
-                var error_type = $('input[name="error_type"]:checked').val();
-                var explanation = $("textarea#explanation").val();
-                var severity = $('input[name="severity"]:checked').val();
-                if (error_type === "" || explanation === "" ||  severity === undefined) {
-                    alert("Error Type, Explanation, and Severity are required!")
-                    return false
-                }
-                let display = $('#' + situationID + "-display")
-                display.attr('id', situationID + '-display')
-                display.attr('data-situation-id', situationID)
-                C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, C.data.length));
-
-                C.update();
-                $('#quality-selection').fadeOut(1, function() {
-                disable_everything()
-                });
-                start_end_pairs = []
-                antecedent_start_end_pairs = []
-                annotate(C, situation_text["situation-0"])
-                // console.log(C)
-            });
             // $(document).on('focusout','.quality',function(e){
             //     var situation_id = $(this).attr("data-situation-id")
             //     var quality_num = $(this).attr("data-quality-num")
@@ -581,6 +521,16 @@ $(document).ready(function () {
             //     quality_map[situation_id][quality_num] = new_input_text
             //     AC.update()
             // });
+
+            // $(document).on('change','input.annotator',function(e){
+            //     alert("fuck")
+            // });
+
+            $('input[type=radio][name=annotator]').on('change', function() {
+                var annotator_num = $(this).val()
+                annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
+            });
+
             $(document).on('mouseover','.quality-span',function(e){
                 // $(this).css("color","black")
                 // $(this).css("background-color","white")
@@ -589,10 +539,11 @@ $(document).ready(function () {
                 var quality_id = e.target.id
                 var situation_id = $(this).attr("data-situation-id")
                 var span_num = $(this).attr("data-num")
-                var p_span_id = ".p-span-" + span_num
+                var span_annotator_num = $(this).attr("data-annotator-num")
+                var p_span_id = ".p-span-" +span_annotator_num + "-" +span_num
                 $(p_span_id).addClass("bg-"+color_class);
                 var antecedent_color_class= color_class+"_antecedent"
-                var antecedent_p_span_id = ".p-span-" + span_num + "_antecedent"
+                var antecedent_p_span_id = ".p-span-" + span_annotator_num + "-" + span_num + "_antecedent"
                 $(antecedent_p_span_id).addClass("bg-"+antecedent_color_class);
                 if (black_text_errors_types.includes(color_class)) {
                     $(p_span_id).addClass("black");
@@ -621,10 +572,11 @@ $(document).ready(function () {
                 var quality_id = e.target.id
                 var situation_id = $(this).attr("data-situation-id")
                 var span_num = $(this).attr("data-num")
-                var p_span_id = ".p-span-" + span_num
+                var span_annotator_num = $(this).attr("data-annotator-num")
+                var p_span_id = ".p-span-" +span_annotator_num + "-" +span_num
                 $(p_span_id).removeClass("bg-"+color_class);
                 var antecedent_color_class= color_class+"_antecedent"
-                var antecedent_p_span_id = ".p-span-" + span_num + "_antecedent"
+                var antecedent_p_span_id = ".p-span-" + span_annotator_num + "-" + span_num + "_antecedent"
                 $(antecedent_p_span_id).removeClass("bg-"+antecedent_color_class);
                 if (black_text_errors_types.includes(color_class)) {
                     $(p_span_id).removeClass("black");
@@ -635,66 +587,6 @@ $(document).ready(function () {
                 }
 
                 // document.getElementById(situation_id).innerHTML = situation_text[situation_id]
-            });
-        
-            $("#no_badness").on("change", function(){
-                if($(this).is(':checked')) {
-                    old_value = $("#situation-0-serialize").attr("value")
-                    $("#situation-0-serialize").attr("value", "There is no badeness in text.")
-                } else {
-                    $("#situation-0-serialize").attr("value", old_value)
-                }
-            });
-            
-            // clear button in the quality select box
-            $("#clear_button").on("click", function(){
-                $("input:radio[name='error_type']").prop('checked', false);
-                $("input:radio[name='severity']").prop('checked', false);
-                $('#error_type').val('');
-                $('#explanation').val('');
-            });
-
-            $(".antecedent_able").on('click',function(e){
-                if (!$(this).hasClass("selected")) {
-                    $("input[name='error_type']").removeClass("selected")
-                    $(this).addClass("selected")
-                    $("#antecedent_selection").slideDown("fast");
-                    antecedent_start_end_pairs = []
-                    annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
-                    var id = $(this).attr("id")
-                    if (id == "error-8") {
-                        document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being repeated."
-                    } else if (id == "error-9") {
-                        document.getElementById("antecedent_select_text").innerHTML = "Select the antecedents (earlier spans of text) that are being contradicted."
-                    }
-                    document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
-                    $("input:radio[name='severity']").prop('checked', false);
-                    $('#explanation').val('');
-                    $("#button_div").addClass("disable");
-                    $("#severity_div").addClass("disable");
-                    $("#explanation_div").addClass("disable");
-                }
-            });
-
-            $(".antecedent_no_able").on('click',function(e){
-                $("input[name='error_type']").removeClass("selected")
-                $("#antecedent_selection").slideUp("fast");
-                antecedent_start_end_pairs = []
-                annotate_select_span(C, situation_text["situation-0"], start_end_pairs[0], antecedent_start_end_pairs)
-                document.getElementById("selection_antecedent").innerHTML = "Selected antecedents: "
-                $("input:radio[name='severity']").prop('checked', false);
-                $('#explanation').val('');
-                $("#button_div").addClass("disable");
-                $("#severity_div").addClass("disable");
-                $("#explanation_div").removeClass("disable");
-            });
-
-            $("#explanation").on('change keyup paste', function() {
-                $("#severity_div").removeClass("disable");
-            });
-
-            $(document).on('click','.checkbox-tools-severity',function(e){
-                $("#button_div").removeClass("disable");
             });
 
             // $("#quality-selection").on('keydown',function(e) {
@@ -710,9 +602,7 @@ $(document).ready(function () {
                 }
             });
 
-            $( function() {
-                $( "#quality-selection" ).draggable();
-            } );
+
         }
     });
 });
