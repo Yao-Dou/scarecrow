@@ -453,14 +453,14 @@ $(document).ready(function () {
         download: true,
         complete: function(results) {
             console.log(results["data"][0])
-            // ["gid", "prompt", "generation", "model", "p", "temperature", "frequency_penalty", "responses"]
-            var prompt = results["data"][1][1]
-            var generation =  results["data"][1][2]
-            console.log(results["data"][1][7])
-            console.log(eval(results["data"][1][7])[3])
-            var responses = eval(results["data"][1][7])
+            // ["id", "gid", "prompt", "generation", "model", "p", "temperature", "frequency_penalty", "responses"]
+            var prompt = results["data"][1][2]
+            var generation =  results["data"][1][3]
+            console.log(results["data"][1][8])
+            console.log(eval(results["data"][1][8])[3])
+            var responses = eval(results["data"][1][8])
 
-            console.log(results["data"][1][0] +56)
+            console.log(results["data"][1][0])
 
             // build up elements we're working with
             $('#situation-0-prompt').text(prompt)
