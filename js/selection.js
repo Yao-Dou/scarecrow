@@ -192,7 +192,7 @@ class CharacterSelection {
         span.attr('data-explanation', explanation)
         span.attr('data-start-end-pairs', start_end_pairs)
         span.attr('data-antecedent-start-end-pairs', antecedent_start_end_pairs)
-        console.log(antecedent_start_end_pairs)
+        // console.log(antecedent_start_end_pairs)
         span.attr('data-num', num)
         span.attr('data-annotator-num', annotator_num)
         // span.attr('data-num', characters_num)
@@ -246,7 +246,7 @@ function comparespan(span_a, span_b) {
 
 function annotate(character, annotator_num, text) {
     let character_selections = character.data
-    console.log(character_selections)
+    // console.log(character_selections)
     let span_list = []
     for(selection of character_selections) {
         if (selection == null) {
@@ -268,7 +268,7 @@ function annotate(character, annotator_num, text) {
         }
     }
     span_list.sort(comparespan)
-    console.log(span_list)
+    // console.log(span_list)
     // console.log(span_list)
     let new_text = ""
     for(i in span_list) {
@@ -452,53 +452,89 @@ $(document).ready(function () {
         worker:true,
         download: true,
         complete: function(results) {
-            console.log(results["data"][0])
+            // console.log(results["data"][0])
             // ["id", "gid", "prompt", "generation", "model", "p", "temperature", "frequency_penalty", "responses"]
-            var prompt = results["data"][1][2]
-            var generation =  results["data"][1][3]
-            console.log(results["data"][1][8])
-            console.log(eval(results["data"][1][8])[3])
-            var responses = eval(results["data"][1][8])
 
-            console.log(results["data"][1][0])
-
-            // build up elements we're working with
-            $('#situation-0-prompt').text(prompt)
-            $('#situation-0').text(generation)
-            situation_text['situation-0'] = generation
-
-            $('#situation-0-displays').height($('#situation-0-div').height())
-
-            for (var i in responses) {
-                C = new Characters("situation-0", i)
-                if (responses[i].length == 0) {
-                    C_list.push(C);
-                    C.update()
-                    continue;
-                }
-                for (var error of responses[i]) {
-                    var error_type = error[0]
-                    var explanation = reverse_substitute(error[1])
-                    var severity = error[2]
-                    var start_end_pairs = [[error[3], error[4]]]
-                    var antecedent_start_end_pairs = [error[5]]
-                    if (error[5].length == 0) {
-                        antecedent_start_end_pairs = []
-                    }
-
-                    C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, C.data.length));
-                }
-                C_list.push(C);
-                C.update()
+            function getRandomIntInclusive(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
             }
 
-            var annotator_num = 0
-            console.log(C_list[annotator_num])
-            $("#annotator-" + annotator_num).prop("checked", true);
-            // C_list[3].update()
-            annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
+            
 
-            console.log(C_list.length)
+            function view_example(situation_num) {
+                var prompt = results["data"][situation_num][2]
+                var generation =  results["data"][situation_num][3]
+                // console.log(results["data"][situation_num][8])
+                // console.log(eval(results["data"][situation_num][8])[3])
+                var responses = eval(results["data"][situation_num][8])
+                var model = results["data"][situation_num][4]
+
+
+                $('#situation-0-model').text("Continuation written by " + model + ":")
+                $('#situation-0-example-id').text("Example id: " + (situation_num - 1))
+
+                // console.log(results["data"][1][0])
+                // console.log(results["data"][1107])
+                
+                // $("#id-input").attr({
+                //     "max":parseInt(results["data"][results["data"].length - 1][0])
+                // });
+
+                // build up elements we're working with
+                $('#situation-0-prompt').text(prompt)
+                $('#situation-0').text(generation)
+                situation_text['situation-0'] = generation
+
+                $('#situation-0-displays').height($('#situation-0-div').height())
+
+                for (var i in responses) {
+                    C = new Characters("situation-0", i)
+                    if (responses[i].length == 0) {
+                        C_list.push(C);
+                        C.update()
+                        continue;
+                    }
+                    for (var error of responses[i]) {
+                        var error_type = error[0]
+                        var explanation = reverse_substitute(error[1])
+                        var severity = error[2]
+                        var start_end_pairs = [[error[3], error[4]]]
+                        var antecedent_start_end_pairs = [error[5]]
+                        if (error[5].length == 0) {
+                            antecedent_start_end_pairs = []
+                        }
+
+                        C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs, antecedent_start_end_pairs, C.data.length));
+                    }
+                    C_list.push(C);
+                    C.update()
+                }
+
+                var annotator_num = 0
+                // console.log(C_list[annotator_num])
+                $("#annotator-" + annotator_num).prop("checked", true);
+                // C_list[3].update()
+                annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
+
+                // console.log(C_list.length)
+            }
+
+            var situation_num = getRandomIntInclusive(0, 1106) + 1
+
+            view_example(situation_num)
+
+            $('#view-button').click(function(e){
+                var situation_num = parseInt($("#id-input").val());
+                // console.log(situation_num +1)
+                if (isNaN(situation_num) || situation_num < 0 || situation_num > 1106) {
+                    alert("Example id must be in [0, 1106]")
+                } else {
+                    view_example(situation_num + 1)
+                }
+            });
+
             // 
 
             // C.update();

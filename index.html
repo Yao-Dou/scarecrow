@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- JS -->
+
+    <!-- The ol big boy, jQ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://unpkg.com/papaparse@5.3.1/papaparse.min.js"></script>    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Our custom selection script -->
+    <script src="js/selection.js"></script>
+
+    <!--CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <link rel="stylesheet" href="css/selection.css">
+    <link rel="stylesheet" href="css/new_index.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- HTML -->
+
+
+    <div id="content">
+        <div id="headline" class="pt2 f-subheadline">
+            Scarecrow
+        </div>
+
+        <p id="subheadline" class="f4 i">
+            A new framework for quantitative and qualitative analysis of errors in machine generated text from crowd annotations.
+        </p>
+
+
+        <div id="buttons">
+            <button class="custom-btn btn-1 f4">Read Paper</button>
+            <button class="custom-btn btn-2 f4">Download Dataset</button>
+            <button onclick="window.open('https://mybinder.org/v2/gh/Yao-Dou/scarecrow-binder/main?filepath=index.ipynb','_blank')" class="custom-btn btn-3 f4">View Dataset</button>
+            <button onclick="window.open('https://yao-dou.github.io/qual-solution/','_blank')" class="custom-btn btn-4 f4">Check Qualification</button>
+            <span class="stretch"></span>
+        </div>
+
+        <div id="example-text" class="f2">
+            Example <span class="f4 i">(Click "View Dataset" to find example that you are interested in and view it by entering the id)</span>
+        </div>
+
+        <div id="id-selection" class="mt2">
+            <label class="f4" for="example-id">Example id (0-1106):</label>
+            <input id="id-input" type="number" name="example-id" min="0" max="1106">
+            <button id="view-button" class="small-btn btn-10 f4">View</button>
+        </div>
+
+        <!-- Example situation to be annotated -->
+        <div id="situation">
+            <div id="situation-0-div" class="outline situation-0-part">
+                <div id="situation-0-prompt-div">
+                    <p id="situation-0-example-id" class="f5 pl4 pr4 pt1 mt0 mb0">Example id: </p>
+                    <p class="f5 pl4 pr4 pt1 mt1 mb0">Sytem Prompt (Human Written): </p>
+                    <p id="situation-0-prompt" class="f3 pl4 pr4 pa1 mt0 mb0 prompt">
+                        
+                    </p>
+                </div>
+                <div id="situation-0-generation-div">
+                    <p id="situation-0-model" class="f5 pl4 pr4 pt4 mt0 mb0">Continuation (Human or AI Model Written): </p>
+                    <p id="situation-0" class="f3 pl4 pr4 pa1 mt0 paragraph"></p>
+                </div>
+            </div>
+            <div id="situation-0-displays" class="situation-0-part">
+                <div id="situation-0-display-0" class="situation-display"></div>
+                <div id="situation-0-display-1" class="situation-display"></div>
+                <div id="situation-0-display-2" class="situation-display"></div>
+                <div id="situation-0-display-3" class="situation-display"></div>
+                <div id="situation-0-display-4" class="situation-display"></div>
+                <div id="situation-0-display-5" class="situation-display"></div>
+                <div id="situation-0-display-6" class="situation-display"></div>
+                <div id="situation-0-display-7" class="situation-display"></div>
+                <div id="situation-0-display-8" class="situation-display"></div>
+                <div id="situation-0-display-9" class="situation-display"></div>
+            </div>
+        </div>
+        <div id="empty-div">
+            &nbsp;
+        </div>
+    </div>
+    <input type="hidden" name="situation-0" id="situation-0-serialize">
+    <!-- <input type="hidden" name="situation-0-source-id" value="${situation-0-source}"> -->
+    </body>
+</html>

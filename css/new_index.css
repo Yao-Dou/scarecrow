@@ -1,15 +1,26 @@
 #situation {
-    padding: 30px 20px 10px;
+    padding: 20px 20px 10px;
+}
+
+#example-text {
+    padding: 0px 20px 0px;
+}
+
+#id-selection {
+    padding: 0px 20px 0px;
 }
 
 #content {
   margin: auto;
   width: 90%;
-  
 }
 
 #headline {
     text-align: center;
+}
+
+#id-input{
+    height: 30px;
 }
 
 #subheadline {
