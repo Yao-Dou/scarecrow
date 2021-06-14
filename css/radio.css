@@ -29,7 +29,7 @@
     outline: none;
   }
   .l-radio input:checked {
-    box-shadow: inset 0 0 0 6px #6743ee;
+    box-shadow: inset 0 0 0 6px #0383ebde;
   }
   .l-radio span {
     vertical-align: middle;
