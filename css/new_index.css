@@ -2,12 +2,8 @@
     padding: 20px 20px 10px;
 }
 
-#example-text {
-    padding: 0px 20px 0px;
-}
-
-#id-selection {
-    padding: 0px 20px 0px;
+#example, #author-div, #institution-div {
+    padding: 20px 20px 0px;
 }
 
 #content {
@@ -49,4 +45,8 @@
 
 #situation-0-displays {
     overflow-y: scroll; 
+}
+
+#author-div {
+    clear: both;
 }

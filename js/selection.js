@@ -116,7 +116,6 @@ class Characters {
             display.append($('<span>There is no "badness" in this text!</span>'))
         } else {
             for (let i = 0; i < this.data.length; i++) {
-                // console.log(this.data)
                 if (this.data[i] == null) {
                     continue;
                 }
@@ -461,9 +460,14 @@ $(document).ready(function () {
                 return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
             }
 
-            
+            function compareResponse(r1, r2) {
+                let start1 = r1[3]
+                let start2 = r2[3]
+                return start1 - start2;
+            }
 
             function view_example(situation_num) {
+                C_list = []
                 var prompt = results["data"][situation_num][2]
                 var generation =  results["data"][situation_num][3]
                 // console.log(results["data"][situation_num][8])
@@ -496,6 +500,7 @@ $(document).ready(function () {
                         C.update()
                         continue;
                     }
+                    responses[i].sort(compareResponse)
                     for (var error of responses[i]) {
                         var error_type = error[0]
                         var explanation = reverse_substitute(error[1])
@@ -562,8 +567,10 @@ $(document).ready(function () {
             //     alert("fuck")
             // });
 
-            $('input[type=radio][name=annotator]').on('change', function() {
+            $(document).on('change', 'input[type=radio][name=annotator]', function() {
                 var annotator_num = $(this).val()
+                // console.log(annotator_num)
+                // console.log(C_list)
                 annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
             });
 

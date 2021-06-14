@@ -47,16 +47,18 @@
             <span class="stretch"></span>
         </div>
 
-        <div id="example-text" class="f2">
-            Example <span class="f4 i">(Click "View Dataset" to find example that you are interested in and view it by entering the id)</span>
+        <div id="example">
+            <div id="example-text" class="f2">
+                Example <span class="f4 i">(Click "View Dataset" to find example that you are interested in and view it by entering the id)</span>
+            </div>
+    
+            <div id="id-selection" class="mt2">
+                <label class="f4" for="example-id">Example id (0-1106):</label>
+                <input id="id-input" type="number" name="example-id" min="0" max="1106">
+                <button id="view-button" class="small-btn btn-10 f4">View</button>
+            </div>
         </div>
-
-        <div id="id-selection" class="mt2">
-            <label class="f4" for="example-id">Example id (0-1106):</label>
-            <input id="id-input" type="number" name="example-id" min="0" max="1106">
-            <button id="view-button" class="small-btn btn-10 f4">View</button>
-        </div>
-
+        
         <!-- Example situation to be annotated -->
         <div id="situation">
             <div id="situation-0-div" class="outline situation-0-part">
@@ -85,8 +87,25 @@
                 <div id="situation-0-display-9" class="situation-display"></div>
             </div>
         </div>
-        <div id="empty-div">
-            &nbsp;
+        <div id="author-div" class="f2">
+            Authors
+            <p class="mt1 f4 mb0">
+                <a href='https://yao-dou.github.io/' class="link dim black" target="_blank">Yao Dou</a>*, 
+                <a href='https://maxwellforbes.com/' class="link dim black" target="_blank">Maxwell Forbes</a>*, 
+                <a href='https://rikdz.github.io/' class="link dim black" target="_blank">Rik Koncel-Kedziorski</a>, 
+                <a href='https://nasmith.github.io/' class="link dim black" target="_blank">Noah A.Smith</a>, 
+                <a href='https://homes.cs.washington.edu/~yejin/' class="link dim black" target="_blank">Yejin Choi</a> 
+            </p>
+            <p class="mt1 f5 mb0">
+                *Equal contribution
+            </p>
+        </div>
+        <div id="institution-div" class="f2">
+            Institutions
+            <p class="mt1 f4">
+                <a href='https://www.cs.washington.edu/' class="link dim black" target="_blank">University of Washington</a>, 
+                <a href='https://allenai.org/' class="link dim black" target="_blank">Allen Institute for AI</a>
+            </p>
         </div>
     </div>
     <input type="hidden" name="situation-0" id="situation-0-serialize">
