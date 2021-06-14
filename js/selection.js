@@ -97,20 +97,38 @@ class Characters {
     }
     render(num) {
         let display = $('#' + this.displayID).empty();
-        let annotator_p = $('<p></p>')
-        annotator_p.append($('<input>').prop({
+        let annotator_p = $('<span></span>')
+        // annotator_p.append($('<input>').prop({
+        //         type: 'radio',
+        //         id: 'annotator-' + num,
+        //         name: 'annotator',
+        //         value: num
+        //       }).css({'margin-right':'6px'})
+        //     ).append(
+        //       $('<label>').prop({
+        //         for: 'annotator'
+        //       }).html('Annotator ' + num)
+        //     ).append(
+        //       $('<br>')
+        //     );
+        annotator_p.append($('<label>').prop({
+            for: 'annotator',
+            class: 'l-radio'
+          }).append(
+            $('<input>').prop({
                 type: 'radio',
                 id: 'annotator-' + num,
                 name: 'annotator',
                 value: num
               }).css({'margin-right':'6px'})
             ).append(
-              $('<label>').prop({
-                for: 'annotator'
-              }).html('Annotator ' + num)
-            ).append(
-              $('<br>')
-            );
+                $('<span>').text('Annotator ' + num)
+            )
+        ).append(
+          $('<br>')
+        );
+
+        
         display.append(annotator_p)
         if (this.data.length == 0) {
             display.append($('<span>There is no "badness" in this text!</span>'))
@@ -567,10 +585,10 @@ $(document).ready(function () {
             //     alert("fuck")
             // });
 
-            $(document).on('change', 'input[type=radio][name=annotator]', function() {
-                var annotator_num = $(this).val()
-                // console.log(annotator_num)
-                // console.log(C_list)
+            $(document).on('click', '.l-radio', function() {
+                var radio = $(this).children('input')
+                radio.prop("checked", true);
+                var annotator_num = radio.val()
                 annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
             });
 
