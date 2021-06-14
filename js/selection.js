@@ -122,7 +122,7 @@ class Characters {
                 value: num
               }).css({'margin-right':'6px'})
             ).append(
-                $('<span>').text('Annotator ' + num)
+                $('<span>').text('Annotator ' + num).addClass("f4")
             )
         ).append(
           $('<br>')
@@ -131,7 +131,7 @@ class Characters {
         
         display.append(annotator_p)
         if (this.data.length == 0) {
-            display.append($('<span>There is no "badness" in this text!</span>'))
+            display.append($("<span class='f4 pl2'>There is no \"badness\" in this text!</span>"))
         } else {
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i] == null) {
