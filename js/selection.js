@@ -581,15 +581,12 @@ $(document).ready(function () {
             //     AC.update()
             // });
 
-            // $(document).on('change','input.annotator',function(e){
-            //     alert("fuck")
-            // });
-
             $(document).on('click', '.l-radio', function() {
                 var radio = $(this).children('input')
                 radio.prop("checked", true);
                 var annotator_num = radio.val()
                 annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
+                
             });
 
             $(document).on('mouseover','.quality-span',function(e){
