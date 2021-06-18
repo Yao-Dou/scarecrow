@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/new_index.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/radio.css">
+    <link rel="stylesheet" href="css/dropdown.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
   </head>
@@ -30,47 +31,76 @@
     <!-- HTML -->
 
 
-    <div id="content">
-        <div id="headline" class="pt2 f-subheadline">
+    <div id="content" class="box">
+        <div id="headline" class="pt2 f-subheadline row">
             Scarecrow
         </div>
+        
+        <div class="f4 i row">
+            <p id="subheadline">
+                A new framework for quantitative and qualitative analysis of errors in machine generated text from crowd annotations.
+            </p>
+        </div>
 
-        <p id="subheadline" class="f4 i">
-            A new framework for quantitative and qualitative analysis of errors in machine generated text from crowd annotations.
-        </p>
-
-
-        <div id="buttons">
+        <div id="buttons" class="row">
             <button class="custom-btn btn-1 f4">Read Paper</button>
             <button class="custom-btn btn-1 f4">Download Dataset</button>
             <button onclick="window.open('https://yao-dou.github.io/qual-solution/','_blank')" class="custom-btn btn-1 f4">View Qualification</button>
             <span class="stretch"></span>
         </div>
 
-        <div id="example">
+        <div id="example" class="row">
             <div id="example-text" class="f2">
-                Browse Dataset <span class="f4 i">(Click "View Dataset" to find example that you are interested in and view it by entering the id)</span>
-            </div>
-    
-            <div id="id-selection" class="mt2">
-                <label class="f4" for="example-id">Example id (0-1106):</label>
-                <input id="id-input" type="number" name="example-id" min="0" max="1106">
-                <button id="view-button" class="small-btn btn-1 f4">View</button>
-            </div>
+                Browse Dataset
+            </div>            
+        </div>
+
+        <div id="search" class="row">
+            <div id="model-dropdown" class="dropdown">
+                <div class="select">
+                  <span class="f4">Select Model</span>
+                  <i class="fa fa-chevron-left"></i>
+                </div>
+                <input type="hidden" name="model">
+                <ul class="dropdown-menu f5">
+                  <li data-model-type="gpt2">GPT-2 Small</li>
+                  <li data-model-type="gpt2-xl">GPT-2 XL</li>
+                  <li data-model-type="grover-mega">Grover-Mega</li>
+                  <li data-model-type="gpt3">GPT-3 Davinci</li>
+                  <li data-model-type="human">Human</li>
+                </ul>
+              </div>
+
+              <div id="prompt-dropdown" class="dropdown">
+                <div class="select">
+                  <span class="f4">Select Prompt</span>
+                  <i class="fa fa-chevron-left"></i>
+                </div>
+                <input type="hidden" name="prompt">
+                <ul class="dropdown-menu f5">
+                  <!-- <li id="gpt2-small">GPT-2 Small</li>
+                  <li id="gpt2-xl">GPT-2 XL</li>
+                  <li id="grover-mega">Grover-Mega</li>
+                  <li id="gpt3">GPT-3 Davinci</li>
+                  <li id="human">Human</li> -->
+                </ul>
+              </div>
+
+            <button id="view-button" class="small-btn btn-1 f4">View</button>
         </div>
         
         <!-- Example situation to be annotated -->
-        <div id="situation">
+        <div id="situation" class="row">
             <div id="situation-0-div" class="outline situation-0-part">
                 <div id="situation-0-prompt-div">
                     <p id="situation-0-example-id" class="f4 pl4 pr4 pt3 mt0 mb0">Example id: </p>
-                    <p class="f4 pl4 pr4 pt1 mt1 mb0">Sytem Prompt (Human Written): </p>
+                    <p class="f4 pl4 pr4 pt1 mt1 mb0">Sytem Prompt written by human: </p>
                     <p id="situation-0-prompt" class="f3 pl4 pr4 pa1 mt1 mb0 prompt">
                         
                     </p>
                 </div>
                 <div id="situation-0-generation-div">
-                    <p id="situation-0-model" class="f4 pl4 pr4 pt4 mt0 mb0">Continuation (Human or AI Model Written): </p>
+                    <p id="situation-0-model" class="f4 pl4 pr4 pt4 mt0 mb0">Continuation written by : </p>
                     <p id="situation-0" class="f3 pl4 pr4 pa1 mt0 mb2 paragraph"></p>
                 </div>
             </div>
@@ -87,7 +117,12 @@
                 <div id="situation-0-display-9" class="situation-display"></div>
             </div>
         </div>
-        <div id="author-div" class="f2">
+
+        <div id="demo" class="row">
+
+        </div>
+
+        <div id="author-div" class="f2 row">
             Authors
             <p class="mt1 f4 mb0">
                 <a href='https://yao-dou.github.io/' class="link dim black" target="_blank">Yao Dou</a>*, 
@@ -100,7 +135,7 @@
                 *Equal contribution
             </p>
         </div>
-        <div id="institution-div" class="f2">
+        <div id="institution-div" class="f2 row">
             Institutions
             <p class="mt1 f4">
                 <a href='https://www.cs.washington.edu/' class="link dim black" target="_blank">University of Washington</a>, 

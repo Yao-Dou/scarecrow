@@ -199,7 +199,7 @@ class CharacterSelection {
         //     });
 
         let span = $('<span></span>')
-            .addClass('b grow bg-' + color_class + " " + text_color +' pa2 ma1 br-pill dib quality-span')
+            .addClass('b bg-' + color_class + " " + text_color +' pa2 ma1 br-pill dib quality-span')
             .append(txt);
         span.attr('id', 'quality-span-' + annotator_num + '-' +num)
         // span.addClass('quality-span-'+num)
@@ -263,6 +263,8 @@ function comparespan(span_a, span_b) {
 
 function annotate(character, annotator_num, text) {
     let character_selections = character.data
+    $('.quality-span').removeClass("grow")
+    $("#situation-0-display-" + annotator_num).children('.quality-span').addClass("grow")
     // console.log(character_selections)
     let span_list = []
     for(selection of character_selections) {
@@ -484,6 +486,16 @@ $(document).ready(function () {
                 return start1 - start2;
             }
 
+            function selectDataByModel(data, model) {
+                var new_data = []
+                for (row of data) {
+                    if (row[4] == model) {
+                        new_data.push(row)
+                    }
+                }
+                return new_data
+            }
+
             function view_example(situation_num) {
                 C_list = []
                 var prompt = results["data"][situation_num][2]
@@ -492,9 +504,12 @@ $(document).ready(function () {
                 // console.log(eval(results["data"][situation_num][8])[3])
                 var responses = eval(results["data"][situation_num][8])
                 var model = results["data"][situation_num][4]
+                var p = results["data"][situation_num][5]
+                var temperature = results["data"][situation_num][6]
+                var frequency_penalty = results["data"][situation_num][7]
 
 
-                $('#situation-0-model').text("Continuation written by " + model + ":")
+                $('#situation-0-model').text("Continuation written by " + model.toUpperCase() + " (p = " + p + ", temperature = " + temperature + ", frequency penalty = " + frequency_penalty + "):")
                 $('#situation-0-example-id').text("Example id: " + (situation_num - 1))
 
                 // console.log(results["data"][1][0])
@@ -509,7 +524,16 @@ $(document).ready(function () {
                 $('#situation-0').text(generation)
                 situation_text['situation-0'] = generation
 
+                // height
+
                 $('#situation-0-displays').height($('#situation-0-div').height())
+                var remain_space_height = $(window).height() - $('#situation-0-div').position().top;
+                if ($('#situation-0-div').height() > remain_space_height) {
+                    $('#situation-0-displays').height($('#situation-0-div').height())
+                } else {
+                    $('#situation-0-displays').height(remain_space_height)
+                }
+                
 
                 for (var i in responses) {
                     C = new Characters("situation-0", i)
@@ -544,13 +568,27 @@ $(document).ready(function () {
                 // console.log(C_list.length)
             }
 
+            function load_dropdown_menu(model){
+                $("#prompt-dropdown > .dropdown-menu").empty()
+                var data = results["data"].slice(1, results["data"].length - 1)
+                if (model != "") {
+                    data = selectDataByModel(data, model)
+                }
+                for (var row of data) {
+                    $("#prompt-dropdown > .dropdown-menu").append(
+                        $('<li>').attr('data-situation-num', row[0]).text(row[0] + ": " + row[2]))
+                }
+            }
+
+            load_dropdown_menu("")
+
             var situation_num = getRandomIntInclusive(0, 1106) + 1
 
             view_example(situation_num)
 
-            $('#view-button').click(function(e){
-                var situation_num = parseInt($("#id-input").val());
-                // console.log(situation_num +1)
+            $(document).on('click', '#view-button', function(e){
+                var situation_num = parseInt($("#prompt-dropdown > input").attr('data-situation-num'))
+                console.log(situation_num +1)
                 if (isNaN(situation_num) || situation_num < 0 || situation_num > 1106) {
                     alert("Example id must be in [0, 1106]")
                 } else {
@@ -558,35 +596,11 @@ $(document).ready(function () {
                 }
             });
 
-            // 
-
-            // C.update();
-            // initialize our data structures NOTE: later we'll have to add data that's loaded
-            // into the page (the machine's default guesses). or... maybe we won't?
-            // $(document).on('mousedown', function(e){
-            //     var selector = $("#quality-selection");
-            //     if (!selector.is(e.target) &&
-            //         !selector.has(e.target).length) {
-            //             selector.fadeOut(1);
-            //     }
-            // });
-            // $(document).on('focusout','.quality',function(e){
-            //     var situation_id = $(this).attr("data-situation-id")
-            //     var quality_num = $(this).attr("data-quality-num")
-            //     var new_quality = $(this).text()
-            //     let new_input_text = new_quality.replace(/"/g, "_QUOTE_");
-            //     new_input_text = new_input_text.replace(/</g, "_LEFT_");
-            //     new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
-            //     quality_map[situation_id][quality_num] = new_input_text
-            //     AC.update()
-            // });
-
             $(document).on('click', '.l-radio', function() {
                 var radio = $(this).children('input')
                 radio.prop("checked", true);
                 var annotator_num = radio.val()
                 annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
-                
             });
 
             $(document).on('mouseover','.quality-span',function(e){
@@ -660,6 +674,35 @@ $(document).ready(function () {
                 }
             });
 
+            // dropdown js
+            $(document).on('click', '.dropdown', function (e) {
+                $(this).attr('tabindex', 1).focus();
+                $(this).toggleClass('active');
+                $(this).find('.dropdown-menu').slideToggle(300);
+            });
+            $(document).on('focusout', '.dropdown', function (e) {
+                $(this).removeClass('active');
+                $(this).find('.dropdown-menu').slideUp(300);
+            });
+
+            $(document).on("click", '#prompt-dropdown .dropdown-menu li', function(e) {
+                $(this).parents('.dropdown').find('span').text($(this).text().substring(0, 80) + "...");
+                $(this).parents('.dropdown').find('input').attr('data-situation-num', $(this).attr('data-situation-num'));
+                console.log($(this).parents('.dropdown').find('span'))
+            });
+
+            $(document).on("click", '#model-dropdown .dropdown-menu li', function(e) {
+                $(this).parents('.dropdown').find('span').text($(this).text());
+                $(this).parents('.dropdown').find('input').attr('value', $(this).attr('data-model-type'));
+                load_dropdown_menu($(this).attr('data-model-type'))
+            });
+            /*End Dropdown Menu*/
+
+            // $('.dropdown-menu li').click(function () {
+            // var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+            // msg = '<span class="msg">Hidden input value: ';
+            // $('.msg').html(msg + input + '</span>');
+            // }); 
 
         }
     });
