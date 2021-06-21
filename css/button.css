@@ -3,6 +3,86 @@
     outline: none;
   }
 
+  .quality_button{
+    /* margin: auto; */
+    display: inline-block;
+    background: white;
+    border: 0.125em solid black;
+    cursor: pointer;
+    margin: 0em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    letter-spacing: 0.125em;
+    /* margin: 0.5rem; */
+    padding: 0.4em 0.55em;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .s_quality_button{
+    /* margin: auto; */
+    display: inline-block;
+    background: white;
+    border: 0.125em solid black;
+    cursor: pointer;
+    margin: 0em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    letter-spacing: 0.1em;
+    /* margin: 0.5rem; */
+    padding: 0.4em 0.55em;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 1;
+    /* width: 30%; */
+    text-align: center;
+  }
+
+  .xs_quality_button{
+    /* margin: auto; */
+    display: inline-block;
+    background: white;
+    border: 0.125em solid black;
+    cursor: pointer;
+    margin: 0em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    letter-spacing: 0.125em;
+    /* margin: 0.5rem; */
+    padding: 0.4em 0.55em;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 1;
+    width: 8%;
+    text-align: center;
+  }
+
+
+
+  .btn:before, .btn:after {
+    content: '';
+    position: absolute;
+    transition: all 0.135s ease-in-out;
+  }
+  
+  .confirm:after {
+    border: 0.125em dashed black;
+    bottom: -0.125em;
+    left: -0.125em;
+    right: -0.125em;
+    top: -0.125em;
+  }
+  
+  .confirm:hover:after, .confirm:focus:after {
+    bottom: 0.125em;
+    left: 0.125em;
+    right: 0.125em;
+    top: 0.125em;
+  }
+
   .custom-btn {
     width: 230px;
     height: 60px;

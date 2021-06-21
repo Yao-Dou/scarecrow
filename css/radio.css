@@ -1,10 +1,13 @@
+.annotator-radio {
+  padding: 6px;
+  margin: 8px 0;
+}
+
 .l-radio {
-    padding: 6px;
     border-radius: 50px;
     display: inline-flex;
     cursor: pointer;
     transition: background 0.2s ease;
-    margin: 8px 0;
     -webkit-tap-highlight-color: transparent;
   }
   .l-radio:hover, .l-radio:focus-within {
