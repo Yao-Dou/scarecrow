@@ -235,6 +235,11 @@ span[data-uid="005"] { border-color:#add8e6; } */
   background-color: #C0C0C0;
 }
 
+.float-l {
+  float: left;
+  width: 40%;
+}
+
 /* ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 6px;
