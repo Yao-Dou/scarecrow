@@ -4,6 +4,36 @@
     height: 100%;
   }
 
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a{
+    display: block;
+    text-align: center;
+    color: black;
+    /* padding: 14px 16px; */
+    text-decoration: none;
+}
+
+/* #table-div {
+    overflow-y: scroll;
+} */
+
+.table-paragraph {
+    line-height: 1
+  }
+
+.first-li {
+    padding-left: 20px;
+}
+
 .situation {
     padding: 20px 20px 10px;
 }
@@ -12,16 +42,8 @@
     padding: 10px 20px 0px;
 }
 
-#example {
+#example, #abstract, #error-types, #demo, #author-institution-div {
     padding: 0px 20px 0px;
-}
-
-#demo {
-    padding: 10px 0px 0px 20px;
-}
-
-#author-institution-div {
-    padding: 10px 0px 10px 20px;
 }
 
 #author-div {
