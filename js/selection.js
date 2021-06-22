@@ -722,15 +722,15 @@ $(document).ready(function () {
 
             view_example(situation_num)
 
-            $(document).on('click', '#view-button', function(e){
-                var situation_num = parseInt($("#prompt-dropdown > input").attr('data-situation-num'))
-                console.log(situation_num +1)
-                if (isNaN(situation_num) || situation_num < 0 || situation_num > 1106) {
-                    alert("Example id must be in [0, 1106]")
-                } else {
-                    view_example(situation_num + 1)
-                }
-            });
+            // $(document).on('click', '#view-button', function(e){
+            //     var situation_num = parseInt($("#prompt-dropdown > input").attr('data-situation-num'))
+            //     console.log(situation_num +1)
+            //     if (isNaN(situation_num) || situation_num < 0 || situation_num > 1106) {
+            //         alert("Example id must be in [0, 1106]")
+            //     } else {
+            //         view_example(situation_num + 1)
+            //     }
+            // });
 
             $(document).on('click', '.annotator-radio', function() {
                 var radio = $(this).children('input')
@@ -1026,17 +1026,21 @@ $(document).ready(function () {
                 $(this).find('.dropdown-menu').slideUp(300);
             });
 
-            $(document).on("click", '#prompt-dropdown .dropdown-menu li', function(e) {
-                $(this).parents('.dropdown').find('span').text($(this).text().substring(0, 80) + "...");
-                $(this).parents('.dropdown').find('input').attr('data-situation-num', $(this).attr('data-situation-num'));
-                console.log($(this).parents('.dropdown').find('span'))
-            });
-
             $(document).on("click", '#model-dropdown .dropdown-menu li', function(e) {
                 $(this).parents('.dropdown').find('span').text($(this).text());
                 $(this).parents('.dropdown').find('input').attr('value', $(this).attr('data-model-type'));
                 load_dropdown_menu($(this).attr('data-model-type'))
             });
+
+            $(document).on("click", '#prompt-dropdown .dropdown-menu li', function(e) {
+                $(this).parents('.dropdown').find('span').text($(this).text().substring(0, 85) + "...");
+                $(this).parents('.dropdown').find('input').attr('data-situation-num', $(this).attr('data-situation-num'));
+                var situation_num = parseInt($(this).attr('data-situation-num'))
+                console.log(situation_num +1)
+                view_example(situation_num + 1)
+            });
+
+
             /*End Dropdown Menu*/
 
             // $('.dropdown-menu li').click(function () {
