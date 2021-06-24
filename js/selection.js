@@ -644,8 +644,27 @@ $(document).ready(function () {
                 var temperature = results["data"][situation_num][6]
                 var frequency_penalty = results["data"][situation_num][7]
 
-
-                $('#situation-0-model').text("Continuation written by " + model.toUpperCase() + " (p = " + p + ", temperature = " + temperature + ", frequency penalty = " + frequency_penalty + "):")
+                if (model == "gpt2") {
+                    model = "GPT-2 Small"
+                } else if (model == "gpt2-xl") {
+                    model = "GPT-2 XL"
+                } else if (model == "grover-mega") {
+                    model = "Grover-Mega"
+                } else if (model == "human") {
+                    model = "Human"
+                } else if (model == "gpt3") {
+                    model = "GPT-3"
+                }
+                if (model == "Human") {
+                    $('#situation-0-model').text("Continuation written by Human:")
+                } else {
+                    if (temperature == "0.0") {
+                        $('#situation-0-model').text("Continuation written by " + model + " (argmax, frequency penalty = " + frequency_penalty + "):")
+                    } else {
+                        $('#situation-0-model').text("Continuation written by " + model + " (p = " + p + ", temperature = " + temperature + ", frequency penalty = " + frequency_penalty + "):")
+                    }
+                }
+                
                 $('#situation-0-example-id').text("Example id: " + (situation_num - 1))
 
                 // console.log(results["data"][1][0])
