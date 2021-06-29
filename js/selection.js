@@ -561,7 +561,7 @@ function list_antecedents() {
         if (pair != null) {
             start = pair[0]
             end = pair[1]
-            let txt = situation_text["situation-0"].substring(start, end)
+            let txt = situation_text["situation-1"].substring(start, end)
             let removeButton = $('<button></button>')
                 .addClass('bg-transparent black bn hover-white hover-bg-black br-pill mr1')
                 .attr('antecedent-num', a)
