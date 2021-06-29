@@ -1,11 +1,10 @@
-
 * {
   box-sizing: border-box;
 }
 
-html *
-{
-   font-family: sans-serif;
+html * {
+  /* We can use tachyons .sans-serif class instead, which chooses better fonts if they're available. */
+  /* font-family: sans-serif; */
 }
 
 .bg-Technical_Jargon {
@@ -173,7 +172,9 @@ html *
 }
 
 
-.prompt {font-style: italic}
+.prompt {
+  font-style: italic
+}
 
 .paragraph {
   line-height: 1.6
@@ -185,13 +186,21 @@ span.quality-span {
 
 /* span.annotation { border-bottom:3px solid; } */
 
-span.annotation span.annotation { padding-bottom:6px; }
+span.annotation span.annotation {
+  padding-bottom: 6px;
+}
 
-span.annotation span.annotation span.annotation { padding-bottom:12px; }
+span.annotation span.annotation span.annotation {
+  padding-bottom: 12px;
+}
 
-span.annotation span.annotation span.annotation span.annotation { padding-bottom:18px; }
+span.annotation span.annotation span.annotation span.annotation {
+  padding-bottom: 18px;
+}
 
-span.annotation span.annotation span.annotation span.annotation span.annotation { padding-bottom:24px; }
+span.annotation span.annotation span.annotation span.annotation span.annotation {
+  padding-bottom: 24px;
+}
 
 /* span[data-uid="001"] { border-color:#f08080; }
 span[data-uid="002"] { border-color:#dda0dd; }
@@ -200,21 +209,21 @@ span[data-uid="004"] { border-color:#edbb85; }
 span[data-uid="005"] { border-color:#add8e6; } */
 
 #quality-selection {
-    display: none;
-    position: absolute;
-    background-color: white;
-    padding:10px;
-    /* text-align: center; */
-    width: 640px;
-    /* max-width: 400px; */
-    margin: 20px;
-    z-index: 100;
+  display         : none;
+  position        : absolute;
+  background-color: white;
+  padding         : 10px;
+  /* text-align   : center; */
+  width           : 640px;
+  /* max-width    : 400px; */
+  margin          : 20px;
+  z-index         : 100;
 }
 
 /* #dropdown-button-container {
   text-align: center;
 } */
-/* 
+/*
 #explanation_div {
   padding-top: 20px;
 } */
@@ -224,11 +233,11 @@ span[data-uid="005"] { border-color:#add8e6; } */
 }
 
 #close-icon {
-  display: inline-block;
-  cursor: pointer;
+  display      : inline-block;
+  cursor       : pointer;
   border-radius: 60px;
   /* box-shadow: 0px 0px 2px #888; */
-  padding: 0.25em 0.3em;
+  padding      : 0.25em 0.3em;
 }
 
 #close-icon:hover {
@@ -263,43 +272,50 @@ span[data-uid="005"] { border-color:#add8e6; } */
 } */
 
 .alignment {
-  vertical-align: top; 
-  display: inline-block;
+  vertical-align: top;
+  display       : inline-block;
 }
 
-.quality { font-size: 24px; font-weight: 300; line-height: 32px; margin: 0px; display:inline-block}
-/* 
+.quality {
+  font-size  : 24px;
+  font-weight: 300;
+  line-height: 32px;
+  margin     : 0px;
+  display    : inline-block
+}
+
+/*
 .situation-display {
     padding-left: 10px;
 } */
 
 .disable {
-  opacity: .3;
-  cursor: default;
-  outline: none;
+  opacity       : .3;
+  cursor        : default;
+  outline       : none;
   pointer-events: none;
 }
 
 .selection_a {
-    /* color: #FFFFFF; */
-    background: #FFD700;
-    padding: 5px;
-    line-height: 1.5;
-    text-decoration: none;
+  /* color: #FFFFFF; */
+  background     : #FFD700;
+  padding        : 5px;
+  line-height    : 1.5;
+  text-decoration: none;
 }
 
 .selection_a_antecedent {
-    background: #FBF1A9;
-    padding: 5px;
-    line-height: 1.8;
-    text-decoration: none;
+  background     : #FBF1A9;
+  padding        : 5px;
+  line-height    : 1.8;
+  text-decoration: none;
 }
 
 
 #selection_text {
-    text-align: center;
-    margin-top: 8px;
-    margin-bottom: 5px;
+  text-align   : center;
+  margin-top   : 8px;
+  margin-bottom: 5px;
 }
 
 #selection_antecedent {
@@ -308,46 +324,51 @@ span[data-uid="005"] { border-color:#add8e6; } */
 
 /*for div border animation*/
 .gradient-border {
-    --borderWidth: 3px;
-    background: #1D1F20;
-    position: relative;
-    border-radius: var(--borderWidth);
-  }
-  .gradient-border:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 4px;
-    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
-    background-size: 300% 300%;
-    clip-path: polygon(0% 100%, 3px 100%, 3px 3px, calc(100% - 3px) 3px, calc(100% - 3px) calc(100% - 3px), 3px calc(100% - 3px), 3px 100%, 100% 100%, 100% 0%, 0% 0%);
-    animation: animatedgradient 3.5s ease-in-out infinite;
+  --borderWidth: 3px;
+  background   : #1D1F20;
+  position     : relative;
+  border-radius: var(--borderWidth);
+}
+
+.gradient-border:after {
+  content        : '';
+  position       : absolute;
+  top            : 0;
+  left           : 0;
+  right          : 0;
+  bottom         : 0;
+  border-radius  : 4px;
+  background     : linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background-size: 300% 300%;
+  clip-path      : polygon(0% 100%, 3px 100%, 3px 3px, calc(100% - 3px) 3px, calc(100% - 3px) calc(100% - 3px), 3px calc(100% - 3px), 3px 100%, 100% 100%, 100% 0%, 0% 0%);
+  animation      : animatedgradient 3.5s ease-in-out infinite;
+}
+
+@-webkit-keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
   }
 
-  @-webkit-keyframes animatedgradient {
-      0% {
-          background-position: 0% 50%;
-      }
-      50% {
-          background-position: 100% 50%;
-      }
-      100% {
-          background-position: 0% 50%;
-      }
+  50% {
+    background-position: 100% 50%;
   }
 
-
-  @keyframes animatedgradient {
-      0% {
-          background-position: 0% 50%;
-      }
-      50% {
-          background-position: 100% 50%;
-      }
-      100% {
-          background-position: 0% 50%;
-      }
+  100% {
+    background-position: 0% 50%;
   }
+}
+
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

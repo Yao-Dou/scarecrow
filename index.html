@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- The ol big boy, jQ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="https://unpkg.com/papaparse@5.3.1/papaparse.min.js"></script>    
+    <script src="https://unpkg.com/papaparse@5.3.1/papaparse.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- JS -->
@@ -25,117 +27,176 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
-  </head>
-  <body>
+</head>
+
+<body class="sans-serif">
 
     <!-- HTML -->
-
-
-    <div id="content" class="box">
-        <div id="headline" class="pt4 f-subheadline">
+    <div id="content" class="box ph1 ph2-ns">
+        <p class="mt2 mt4-ns f2 f1-ns tc mb0">
             Scarecrow
-        </div>
-        
-        <div class="f3 i">
-            <p id="subheadline">
-                A new framework for quantitative and qualitative analysis of errors in machine generated text from crowd annotations.
-            </p>
-        </div>
+        </p>
 
-        <div id="buttons">
-            <button class="confirm s_quality_button btn f4">Read Paper</button>
-            <button class="confirm s_quality_button btn f4">Download Dataset</button>
-            <button onclick="window.open('https://yao-dou.github.io/qual/','_blank')" class="confirm s_quality_button btn f4">View Qualification</button>
+        <p class="f4 f3-ns i mt1 tc">
+            <!-- A new framework for quantitative and qualitative analysis of errors in machine generated text from crowd annotations. -->
+            A framework for scrutinizing machine text
+        </p>
+
+        <div id="buttons" class="mw8">
+            <button class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns mr2">Read Paper</button>
+            <button class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns mr2">Download Dataset</button>
+            <button onclick="window.open('https://yao-dou.github.io/qual/','_blank')"
+                class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns">View Training</button>
             <span class="stretch"></span>
         </div>
 
-        <div id="abstract" class="mt4">
-            <div id="abstract-text" class="f3">
-                About
-            </div>    
-            <div class="f4">
+        <div id="abstract" class="mt5 mw7 center">
+            <div id="abstract-text" class="f3 f2-ns">
+                Abstract
+            </div>
+            <div class="f5 f4-ns lh-copy">
                 <p>
-                    Scarecrow is a new structured, crowd-sourced error annotation schema using 10 error types: 
-                        <span class="f4 bg-moon-gray black br-pill dib  b ph3">Grammar and Usage</span>,
-                        <span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span>, 
-                        <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>, 
-                        <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>, 
-                        <span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span>,
-                        <span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span>,
-                        <span class="f4 bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>,
-                        <span class="f4 bg-near-black white br-pill dib b ph3 fs-normal">Bad Math</span>, 
-                        <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>, and
-                        <span class="f4 bg-dark-green white br-pill dib b ph3 fs-normal">Wrong: Encyclopedic</span>.
-                    These error types were identified by combining expert analysis with several pilot rounds of ontology-free crowd annotation to arrive at a schema which covers the error phenomena found in real machine generated text.
+                    Modern neural text generation systems can produce remarkably fluent and grammatical texts.
+                    While earlier language models suffered from repetition and syntactic errors, the errors made by
+                    contemporary models are often semantic, narrative, or discourse failures.
+                </p>
+
+                <p>
+                    To facilitate research of these complex error types, we introduce a new structured, crowd-sourced
+                    error annotation schema called <span class="ttu">scarecrow</span>.
+                    The error categories used in <span class="ttu">scarecrow</span>&mdash;such as
+                    <span class="bg-dark-red white br-pill dib b ph2">redundancy</span>,
+                    <span class="bg-light-green black br-pill dib b ph2 fs-normal">commonsense errors</span>,
+                    and
+                    <span class="bg-pink white br-pill dib b ph2">incoherence</span>&mdash;were
+                    were identified by combining expert analysis with several pilot rounds of
+                    ontology-free crowd annotation to arrive at a schema which covers the error phenomena found in real
+                    machine generated text.
+                </p>
+
+                <p>
+                    We use <span class="ttu">scarecrow</span> to collect 13k annotations of 1.3k human and machine
+                    generate paragraphs of English language news text, amounting to over 41k spans each labeled with its
+                    error category, severity, a natural language explanation, and antecedent span (where relevant).
+                    We collect annotations for text generated by state-of-the-art systems with varying known performance
+                    levels&mdash;from GPT-2 Small through the largest GPT-3.
+                    We isolate several factors for detailed analysis, including parameter count, training data, and
+                    decoding technique.
+                    Our results show both expected and surprising differences across these settings.
+                    These findings demonstrate the value of <span class="ttu">scarecrow</span> annotations in the
+                    assessment of current and future text generation systems.
+                </p>
+
+                <!-- <p>
+                    Scarecrow is a new structured, crowd-sourced error annotation schema using 10 error types:
+                    <span class="f4 bg-moon-gray black br-pill dib  b ph3">Grammar and Usage</span>,
+                    <span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span>,
+                    <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>,
+                    <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>,
+                    <span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span>,
+                    <span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span>,
+                    <span class="f4 bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>,
+                    <span class="f4 bg-near-black white br-pill dib b ph3 fs-normal">Bad Math</span>,
+                    <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>, and
+                    <span class="f4 bg-dark-green white br-pill dib b ph3 fs-normal">Wrong: Encyclopedic</span>.
+                    These error types were identified by combining expert analysis with several pilot rounds of
+                    ontology-free crowd annotation to arrive at a schema which covers the error phenomena found in real
+                    machine generated text.
                 </p>
                 <p>
-                    We use Scarecrow to collect 13k annotations of 1.3k human and machine generated English news paragraphs, amounting to over 41k spans each labeled with its error category, severity, a natural language explanation, and antecedent span (where relevant).
-                    We collect annotations for text generated by state-of-the-art systems with varying known performance levels---from GPT-2 Small through the largest GPT-3.
-                    We isolate several factors for detailed analysis, including parameter count, training data, and sampling technique. 
-                    Our results show both expected and surprising differences across these settings. See more details in paper.
-                </p>
-            </div>        
+                    We use Scarecrow to collect 13k annotations of 1.3k human and machine generated English news
+                    paragraphs, amounting to over 41k spans each labeled with its error category, severity, a natural
+                    language explanation, and antecedent span (where relevant).
+                    We collect annotations for text generated by state-of-the-art systems with varying known performance
+                    levels---from GPT-2 Small through the largest GPT-3.
+                    We isolate several factors for detailed analysis, including parameter count, training data, and
+                    sampling technique.
+                    Our results show both expected and surprising differences across these settings. See more details in
+                    paper.
+                </p> -->
+            </div>
         </div>
 
-        <div id="error-types" class="mt4">
-            <div id="error-types-text" class="f3">
-                Error-types
-            </div>    
-            <div class="f4">
-                <p>
-                    We broadly group the 10 error types into three categories: <i>language errors</i> 
+        <div id="error-types" class="mt5 mw8 center">
+            <p id="error-types-text" class="f3 f2-ns mb2">
+                Error Types
+            </p>
+            <div>
+                <!-- <p>
+                    We broadly group the 10 error types into three categories: <i>language errors</i>
                     (<span class="f4 bg-moon-gray black br-pill dib  b ph3">Grammar and Usage</span>,
-                    <span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span>, 
-                    <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>, 
-                    <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>, 
-                    <span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span>), 
-                    <i>factual errors</i> 
+                    <span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span>,
+                    <span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span>,
+                    <span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span>,
+                    <span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span>),
+                    <i>factual errors</i>
                     (<span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span>,
-                    <span class="f4 bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>), and 
-                    <i>reader issues</i> 
-                    (<span class="f4 bg-near-black white br-pill dib b ph3 fs-normal">Bad Math</span>, 
-                    <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span>,
-                    <span class="f4 bg-dark-green white br-pill dib b ph3 fs-normal">Wrong: Encyclopedic</span>).
-                    
+                    <span class="f4 bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span>), and
+                    <i>reader issues</i>
+                    (<span class="f4 bg-near-black white br-pill dib b ph3 fs-normal">Bad Math</span>,
+                    <span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Commonsense</span>,
+                    <span class="f4 bg-dark-green white br-pill dib b ph3 fs-normal">Encyclopedic</span>).
+
+                </p> -->
+                <p class="f5 f4-ns mt0">
+                    This table summarizes the 10 error types that annotators choose from to identify problems in text.
+                    <!-- Here is a table that summarizes these 10 error types (see more details in paper). -->
                 </p>
-                <p>
-                    Here is a table that summarizes these 10 error types (see more details in paper).
-                </p>
-                <div id="table-div">
-                    <table class="collapse ba br2 b--black-10 pv2 ph3 mb3">
+                <div id="table-div" class="f5 f4-ns mw8">
+                    <table class="collapse ba br2 b--black-10 pv2 mb3" style="width: 100%; table-layout: fixed;">
                         <tbody>
                             <tr class="striped--light-gray">
-                                <th class="pv2 ph3 tl ttu">Error Type</th>
-                                <th class="tl ttu pv2 ph3">Definition</th>
-                                <th class="tl ttu pv2 ph3">Example</th>
+                                <th class="pv2 ph2 ph3-ns tl ttu">Error Type</th>
+                                <th class="tl ttu pv2 ph2 ph3-ns">Definition</th>
+                                <th class="tl ttu pv2 ph2 ph3-ns">Example</th>
                             </tr>
                             <tr class="striped--light-gray">
-                                <td class="pv2 ph3"><span class="f4 bg-moon-gray black br-pill dib  b ph3">Grammar and Usage</span></td>
-                                <td class="pv2 ph3">This category of errors includes missing words, extra words, and incorrect or out of order words.</td>
+                                <td class="pv2 ph1 ph3-ns"><span
+                                        class="bg-moon-gray black br-pill dib b pv1 ph2">Grammar and
+                                        Usage</span></td>
+                                <td class="pv2 ph3">This category of errors includes missing words, extra words, and
+                                    incorrect or out of order words.</td>
                                 <td class="pv2 ph3">
-                                    A PhD student from the University of Kent in the UK, claims to have discovered a clever way to
+                                    A PhD student from the University of Kent in the UK, claims to have discovered a
+                                    clever way to
                                     explain the positive <span class="bb bw2 b--moon-gray">emoticons</span> in cats.
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-dark-red white br-pill dib b ph3">Redundant</span></td>
-                                <td class="pv2 ph3">Redundant text repeats itself. Sometimes, you will see the exact word or phrase repeated. Other times, the same idea is repeated using different words.</td>
+                                <td class="pv2 ph3"><span
+                                        class="bg-dark-red white br-pill dib b pv1 ph2">Redundant</span>
+                                </td>
+                                <td class="pv2 ph3">Redundant text repeats itself. Sometimes, you will see the exact
+                                    word or phrase repeated. Other times, the same idea is repeated using different
+                                    words.</td>
                                 <td class="pv2 ph3">
                                     They then made decisions based on Kondo’s instructions, to the extent that they
-                                    <span class="bb bw2 b--light-red">created de-cluttered spaces </span> <span class="bb bw2 b--dark-red">and got rid of clutter and clutter-filled spaces</span>.
+                                    <span class="bb bw2 b--light-red">created de-cluttered spaces </span> <span
+                                        class="bb bw2 b--dark-red">and got rid of clutter and clutter-filled
+                                        spaces</span>.
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-yellow black br-pill dib b ph3">Off-prompt</span></td>
-                                <td class="pv2 ph3">Prompt is a piece of text written by a human that the AI is supposed to continue. Sometimes, however, the AI will write a phrase or sentence that is completely unrelated to the prompt. Other times, the text might be related, but it contradicts the prompt.</td>
-                                <td class="pv2 ph3"><span class="b">Prompt:</span>  China sets new record for Economic Growth<br><br> <span class="b">Text:</span>
+                                <td class="pv2 ph3"><span
+                                        class="bg-yellow black br-pill dib b pv1 ph2">Off-prompt</span>
+                                </td>
+                                <td class="pv2 ph3">Prompt is a piece of text written by a human that the AI is supposed
+                                    to continue. Sometimes, however, the AI will write a phrase or sentence that is
+                                    completely unrelated to the prompt. Other times, the text might be related, but it
+                                    contradicts the prompt.</td>
+                                <td class="pv2 ph3"><span class="b">Prompt:</span> China sets new record for Economic
+                                    Growth<br><br> <span class="b">Text:</span>
                                     The Chinese economy
-                                        <span class="bb bw2 b--yellow"> fell 10% this month, the third such loss this year.</span>
+                                    <span class="bb bw2 b--yellow"> fell 10% this month, the third such loss this
+                                        year.</span>
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-dark-blue white br-pill dib b ph3">Self-Contradiction</span></td>
-                                <td class="pv2 ph3">It occurs when the AI writes something that contradicts another piece of text that the AI had previously written.</td>
+                                <td class="pv2 ph1 ph3-ns"><span
+                                        class="bg-dark-blue white br-pill dib b pv1 ph2">Self-Contradiction</span>
+                                </td>
+                                <td class="pv2 ph3">It occurs when the AI writes something that contradicts another
+                                    piece of text that the AI had previously written.</td>
                                 <td class="pv2 ph3">
                                     McDonald's is considering a design which will replace the
                                     <span class="bb bw2 b--light-blue">cardboard packaging</span>.
@@ -145,17 +206,24 @@
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-pink white br-pill dib b ph3">Incoherent</span></td>
-                                <td class="pv2 ph3">The text that doesn't fit into the above categories, but it still just doesn’t make any sense all.</td>
+                                <td class="pv2 ph3"><span class="bg-pink white br-pill dib b pv1 ph2">Incoherent</span>
+                                </td>
+                                <td class="pv2 ph3">The text that doesn't fit into the above categories, but it still
+                                    just doesn’t make any sense all.</td>
                                 <td class="pv2 ph3">
                                     Cats naturally show anxiety and fear by at times
                                     <span class="bb bw2 b--pink">
-                                    breaking apart different parts of the brain in an attempt to keep the others from escaping</span>.
+                                        breaking apart different parts of the brain in an attempt to keep the others
+                                        from escaping</span>.
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-orange white br-pill dib b ph3 fs-normal">Technical Jargon</span></td>
-                                <td class="pv2 ph3">The jargon or specific words from a field you’re not familiar with.</td>
+                                <td class="pv2 ph3"><span
+                                        class="bg-orange white br-pill dib b pv1 ph2 fs-normal">Technical
+                                        Jargon</span>
+                                </td>
+                                <td class="pv2 ph3">The jargon or specific words from a field you’re not familiar with.
+                                </td>
                                 <td class="pv2 ph3">
                                     In Chile, an 800-megawatt
                                     <span class="bb bw2 b--orange">photovoltaic</span>
@@ -163,29 +231,40 @@
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-purple white br-pill dib b ph3 fs-normal">Needs Google</span></td>
-                                <td class="pv2 ph3">When there’s a fact or figure that you suspect might be true, but you would need to Google it to be sure.</td>
+                                <td class="pv2 ph3"><span class="bg-purple white br-pill dib b pv1 ph2 fs-normal">Needs
+                                        Google</span></td>
+                                <td class="pv2 ph3">When there’s a fact or figure that you suspect might be true, but
+                                    you would need to Google it to be sure.</td>
                                 <td class="pv2 ph3">
                                     It was promoted by
                                     <span class="bb bw2 b--purple">
-                                        Dr. Michael Fanning, the Executive Director of the Foundation for Mental Health Awareness, Inc.&nbsp;
+                                        Dr. Michael Fanning, the Executive Director of the Foundation for Mental Health
+                                        Awareness, Inc.&nbsp;
                                     </span>
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-near-black white br-pill dib b ph3 fs-normal">Bad Math</span></td>
-                                <td class="pv2 ph3">Bad math includes problems with basic math (+ - ✖️ ÷), problems converting fixed units, and problems converting currencies that are wildly impossible (e.g., 1$ = 10£).
+                                <td class="pv2 ph3"><span
+                                        class="bg-near-black white br-pill dib b pv1 ph2 fs-normal">Bad
+                                        Math</span></td>
+                                <td class="pv2 ph3">Bad math includes problems with basic math (+ - ✖️ ÷), problems
+                                    converting fixed units, and problems converting currencies that are wildly
+                                    impossible (e.g., 1$ = 10£).
                                 </td>
                                 <td class="pv2 ph3">
-                                    One account, @Iain_Rowling1, had over 500,000 followers at one point, but in just four days they fell by
+                                    One account, @Iain_Rowling1, had over 500,000 followers at one point, but in just
+                                    four days they fell by
                                     <span class="bb bw2 b--near-black">
                                         around half – some 4,000.&nbsp;
                                     </span>
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-light-green black br-pill dib b ph3 fs-normal">Wrong: Commonsense</span></td>
-                                <td class="pv2 ph3">Text that violates our everyday basic understanding of the world.</td>
+                                <td class="pv2 ph1 ph3-ns"><span
+                                        class="bg-light-green black br-pill dib b pv1 ph2 fs-normal">Commonsense</span>
+                                </td>
+                                <td class="pv2 ph3">Text that violates our everyday basic understanding of the world.
+                                </td>
                                 <td class="pv2 ph3">
                                     The picture is from high above the South Pole, where close to
                                     <span class="bb bw2 b--light-green">
@@ -195,78 +274,86 @@
                                 </td>
                             </tr>
                             <tr class="striped--light-gray ">
-                                <td class="pv2 ph3"><span class="f4 bg-dark-green white br-pill dib b ph3 fs-normal">Wrong: Encyclopedic</span></td>
-                                <td class="pv2 ph3">Text that are just plain factually wrong where the correct information is written down in a fact table somewhere, like a textbook, a wikipedia sidebar, or an encyclopedia.</td>
+                                <td class="pv2 ph1 ph3-ns"><span
+                                        class="bg-dark-green white br-pill dib b pv1 ph2 fs-normal">Encyclopedic</span>
+                                </td>
+                                <td class="pv2 ph3">Text that are just plain factually wrong where the correct
+                                    information is written down in a fact table somewhere, like a textbook, a wikipedia
+                                    sidebar, or an encyclopedia.</td>
                                 <td class="pv2 ph3">
                                     <span class="bb bw2 b--dark-green">
-                                    Japanese Prime Minister Justin Trudeau
+                                        Japanese Prime Minister Justin Trudeau
                                     </span>
                                     said he will be halting all imports and exports until the current
                                     situation can be contained.
                                 </td>
                             </tr>
-                      </tbody></table>
+                        </tbody>
+                    </table>
                 </div>
-                
-            </div>        
+
+            </div>
         </div>
 
-        <div id="example" class="mt4">
-            <div id="example-text" class="f3">
+        <div id="example" class="mt5 ph2">
+            <p id="example-text" class="f3 f2-ns mb2">
                 Browse Dataset
-            </div>    
-            <div class="f4 i">
-                <p>
-                    Annotations from up to 10 crowd workers for the dataset.
-                </p>
-            </div>        
+            </p>
+            <p class="f4 i mt0 measure-wide">
+                We annotate over 1,300 paragraphs with 10 annotators each.
+                To preview an annotation, choose a model and then a prompt.
+                The continuation will appear on the left, and the annotations on the right.
+                You can scroll the annotations window.
+                Select an annotator, then hover over the errors they marked to highlight where they are in the
+                continuation.
+            </p>
         </div>
 
         <div id="search">
             <div id="model-dropdown" class="dropdown">
                 <div class="select">
-                  <span class="f4">Select Model</span>
-                  <i class="fa fa-chevron-left"></i>
+                    <span class="f4">Select Model</span>
+                    <i class="fa fa-chevron-left"></i>
                 </div>
                 <input type="hidden" name="model">
                 <ul class="dropdown-menu f5">
-                  <li data-model-type="gpt2">GPT-2 Small</li>
-                  <li data-model-type="gpt2-xl">GPT-2 XL</li>
-                  <li data-model-type="grover-mega">Grover-Mega</li>
-                  <li data-model-type="gpt3">GPT-3 Davinci</li>
-                  <li data-model-type="human">Human</li>
+                    <li data-model-type="gpt2">GPT-2 Small</li>
+                    <li data-model-type="gpt2-xl">GPT-2 XL</li>
+                    <li data-model-type="grover-mega">Grover-Mega</li>
+                    <li data-model-type="gpt3">GPT-3 Davinci</li>
+                    <li data-model-type="human">Human</li>
                 </ul>
-              </div>
+            </div>
 
-              <div id="prompt-dropdown" class="dropdown">
+            <div id="prompt-dropdown" class="dropdown">
                 <div class="select">
-                  <span class="f4">Select Prompt</span>
-                  <i class="fa fa-chevron-left"></i>
+                    <span class="f4">Select Prompt</span>
+                    <i class="fa fa-chevron-left"></i>
                 </div>
                 <input type="hidden" name="prompt">
                 <ul class="dropdown-menu f5">
-                  <!-- <li id="gpt2-small">GPT-2 Small</li>
+                    <!-- <li id="gpt2-small">GPT-2 Small</li>
                   <li id="gpt2-xl">GPT-2 XL</li>
                   <li id="grover-mega">Grover-Mega</li>
                   <li id="gpt3">GPT-3 Davinci</li>
                   <li id="human">Human</li> -->
                 </ul>
-              </div>
+            </div>
         </div>
-        
+
         <!-- Example situation to be annotated -->
-        <div id="situation" class="situation">
+        <div id="situation" class="situation mw-100">
             <div id="situation-0-div" class="outline situation-0-part">
                 <div id="situation-0-prompt-div">
-                    <p id="situation-0-example-id" class="f4 pl4 pr4 pt3 mt0 mb0">Example id: </p>
-                    <p class="f4 pl4 pr4 pt1 mt1 mb0">Sytem Prompt (Human Written): </p>
-                    <p id="situation-0-prompt" class="f3 pl4 pr4 pa1 mt1 mb0 prompt">
-                        
+                    <p id="situation-0-example-id" class="f6 f5-ns pl4 pr4 pt3 mt0 mb0">Example id: </p>
+                    <p class="f6 f5-ns pl4 pr4 pt1 mt1 mb0">Sytem Prompt (Human Written): </p>
+                    <p id="situation-0-prompt" class="f5 f4-ns pl4 pr4 pa1 mt1 mb0 prompt">
+
                     </p>
                 </div>
                 <div id="situation-0-generation-div">
-                    <p id="situation-0-model" class="f4 pl4 pr4 pt4 mt0 mb0">Continuation written by : </p>
-                    <p id="situation-0" class="f3 pl4 pr4 pa1 mt0 mb2 paragraph"></p>
+                    <p id="situation-0-model" class="f6 f5-ns pl4 pr4 pt4 mt0 mb0">Continuation written by : </p>
+                    <p id="situation-0" class="f5 f4-ns pl4 pr4 pa1 mt0 mb2 paragraph"></p>
                 </div>
             </div>
             <div id="situation-0-displays" class="situation-0-part">
@@ -283,40 +370,52 @@
             </div>
         </div>
 
-        <div id="demo" class="mt4">
-            <div class="f3">
-                Demo
-            </div>
-            <div class="f4 i">
-                <p class="mb0">
-                    The annotation tool used by crowd workers to annotate the dataset.
-                </p>
-            </div>
-        </div>
+        <div id="demo" class="mt5 mw7 center">
+            <p class="f3 f2-ns mb2">
+                Annotation Tool
+            </p>
+            <p class="f4 i mt0 mb4">
+                Here you can demo the annotation tool used by crowd workers to annotate
+                the dataset. Click and drag on any words in the <span class="b">continuation</span> to trigger the
+                annotation
+                popup.
+                As you make annotations, they will appear below the continuation, where you can interact with them
+                further.
+                (Works on desktop computers only.)
 
-        <div class="situation">
-            <div id="situation-1-div" class="outline">
-                <div id="situation-1-prompt-div">
-                    <p class="f4 pl4 pr4 pt3 mt1 mb0">Sytem Prompt (Human Written): </p>
-                    <p id="situation-1-prompt" class="f3 pl4 pr4 pa1 mt1 mb0 prompt">
-                        Police, the canine unit and members of the community began searching for Luke.
-                    </p>
-                </div>
-                <div id="situation-1-generation-div">
-                    <p class="f4 pl4 pr4 pt4 mt0 mb0">Continuation (Human or AI Model Written): </p>
-                    <p id="situation-1" class="f3 pl4 pr4 pa1 pb3 mt0 mb2 paragraph">The search was
-                         called 
-                        off at around 11 p.m. and resumed at 7 a.m. on Thursday. Police said the search was suspended again at around 9 p.m. on Thursday. Police said the search resumed at 7 a.m. on Friday. Police said the search was suspended again at around 9 p.m. on Friday. Police said the search resumed at 7 a.m. on Saturday. Police said the search was suspended again at around 9 p.m. on Saturday. Police said the search resumed at 7 a.m. on Sunday.</p>
-                </div>
-            </div>
-            <div id="situation-1-display-0" class="situation-display"></div>
-        </div>
+            </p>
 
-        <div id="quality-selection" class="quality-selection gradient-border">
-            <i class="fa fa-close" id="close-icon"></i>
-            <p id="selection_text" class="selection_text"></p>
-            <!-- <input type="text" id="text_input" name="quality" placeholder="type your problem"> -->   
-            <div id="dropdown-button-container">
+            <div class="situation mt3">
+                <div id="situation-1-div" class="outline">
+                    <div id="situation-1-prompt-div">
+                        <p class="f6 f5-ns pl4 pr4 pt3 mt1 mb0">Sytem Prompt (Human Written): </p>
+                        <p id="situation-1-prompt" class="f5 f4-ns pl4 pr4 pa1 mt1 mb0 prompt">
+                            Police, the canine unit and members of the community began searching for Luke.
+                        </p>
+                    </div>
+                    <div id="situation-1-generation-div">
+                        <p class="f6 f5-ns pl4 pr4 pt4 mt0 mb0">Continuation (Human or AI Model Written): </p>
+                        <p id="situation-1" class="f5 f4-ns pl4 pr4 pa1 pb3 mt0 mb2 paragraph">The search was
+                            called
+                            off at around 11 p.m. and resumed at 7 a.m. on Thursday. Police said the search was
+                            suspended
+                            again at around 9 p.m. on Thursday. Police said the search resumed at 7 a.m. on Friday.
+                            Police
+                            said the search was suspended again at around 9 p.m. on Friday. Police said the search
+                            resumed
+                            at 7 a.m. on Saturday. Police said the search was suspended again at around 9 p.m. on
+                            Saturday.
+                            Police said the search resumed at 7 a.m. on Sunday.</p>
+                    </div>
+                </div>
+                <div id="situation-1-display-0" class="situation-display"></div>
+            </div>
+
+            <div id="quality-selection" class="quality-selection gradient-border">
+                <i class="fa fa-close" id="close-icon"></i>
+                <p id="selection_text" class="selection_text"></p>
+                <!-- <input type="text" id="text_input" name="quality" placeholder="type your problem"> -->
+                <div id="dropdown-button-container">
                     <!-- <input class="checkbox" type="checkbox" name="general" id="general">
                     <label class="for-checkbox" for="general"></label> -->
                     <div class="single_part section over-hide z-bigger">
@@ -326,31 +425,36 @@
                             <div class="f6 mb2 float-l">Factual</div>
                             <div class="row">
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-5" value="Needs_Google">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-5" value="Needs_Google">
                                     <label class="b for-checkbox-tools" for="error-5" id="error-5-label">
                                         Needs Google
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-1" value="Technical_Jargon">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-1" value="Technical_Jargon">
                                     <label class="b for-checkbox-tools" for="error-1" id="error-1-label">
                                         Technical Jargon
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-2" value="Bad_Math">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-2" value="Bad_Math">
                                     <label class="b for-checkbox-tools" for="error-2" id="error-2-label">
                                         Bad Math
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-3" value="Encyclopedic">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-3" value="Encyclopedic">
                                     <label class="b for-checkbox-tools" for="error-3" id="error-3-label">
                                         Wrong: Encyclopedic
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-4" value="Commonsense">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-4" value="Commonsense">
                                     <label class="b for-checkbox-tools" for="error-4" id="error-4-label">
                                         Wrong: Commonsense
                                     </label>
@@ -359,109 +463,141 @@
                             <p class="f6 mb2">Language</p>
                             <div class="row">
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-6" value="Grammar_Usage">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-6" value="Grammar_Usage">
                                     <label class="b for-checkbox-tools" for="error-6" id="error-6-label">
                                         Grammar / Usage
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-7" value="Off-prompt">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-7" value="Off-prompt">
                                     <label class="b for-checkbox-tools" for="error-7" id="error-7-label">
                                         Off-prompt
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_able" type="radio" name="error_type" id="error-8" value="Redundant">
+                                    <input class="checkbox-tools antecedent_able" type="radio" name="error_type"
+                                        id="error-8" value="Redundant">
                                     <label class="b for-checkbox-tools" for="error-8" id="error-8-label">
                                         Redundant
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_able" type="radio" name="error_type" id="error-9" value="Self-contradiction">
+                                    <input class="checkbox-tools antecedent_able" type="radio" name="error_type"
+                                        id="error-9" value="Self-contradiction">
                                     <label class="b for-checkbox-tools" for="error-9" id="error-9-label">
                                         Self-contradiction
                                     </label>
                                 </div>
                                 <div class="column">
-                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type" id="error-10" value="Incoherent">
+                                    <input class="checkbox-tools antecedent_no_able" type="radio" name="error_type"
+                                        id="error-10" value="Incoherent">
                                     <label class="b for-checkbox-tools" for="error-10" id="error-10-label">
                                         Incoherent
                                     </label>
                                 </div>
                             </div>
-                        </div>	
+                        </div>
                     </div>
-        
-                <div class="single_part" id="antecedent_selection" style="display:none;">
-                    <p id="antecedent_select_text" class="b mb2" >Select the antecedent.</p>
-                    <p id="selection_antecedent" class="selection_text">Selected antecedents: </p>
-                </div>
-                <!-- <div class="form__group field">
+
+                    <div class="single_part" id="antecedent_selection" style="display:none;">
+                        <p id="antecedent_select_text" class="b mb2">Select the antecedent.</p>
+                        <p id="selection_antecedent" class="selection_text">Selected antecedents: </p>
+                    </div>
+                    <!-- <div class="form__group field">
                     <input type="text" class="form__field" placeholder="Explanation" name="explanation" id='explanation'/>
                     <label for="explanation" class="form__label">Explanation *</label>
                 </div> -->
-                <div class="disable single_part" id="explanation_div">
-                    <p class="b mb2">Explain your selection.</p>
-                    <textarea id="explanation" name="explanation" placeholder="Please write down your explanation!" rows="4" style="width: 100%; resize: none; overflow-y: hidden;"></textarea>
-                </div>
-                
-        
-                <div class="disable single_part section over-hide z-bigger" id="severity_div">
-                    <div>
-                        <p class="radio-instruction mb2 b">Select the severity <i>(how severe is this error?).</i></p>
+                    <div class="disable single_part" id="explanation_div">
+                        <p class="b mb2">Explain your selection.</p>
+                        <textarea id="explanation" name="explanation" placeholder="Please write down your explanation!"
+                            rows="4" style="width: 100%; resize: none; overflow-y: hidden;"></textarea>
+                    </div>
+
+
+                    <div class="disable single_part section over-hide z-bigger" id="severity_div">
                         <div>
-                            <div class="column-severity">
-                                <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-1" value="1">
-                                <label class="b for-checkbox-tools-severity" for="severity-1" id="severity-1-label">
-                                    1 - Almost no impact
-                                </label>
-                            </div>
-                            <div class="column-severity">
-                                <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-2" value="2">
-                                <label class="b for-checkbox-tools-severity" for="severity-2" id="severity-2-label">
-                                    2 - Understandable, but difficult
-                                </label>
-                            </div>
-                            <div class="column-severity">
-                                <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity" id="severity-3" value="3">
-                                <label class="b for-checkbox-tools-severity" for="severity-3" id="severity-3-label">
-                                    3 - Very hard to understand
-                                </label>
+                            <p class="radio-instruction mb2 b">Select the severity <i>(how severe is this error?).</i>
+                            </p>
+                            <div>
+                                <div class="column-severity">
+                                    <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity"
+                                        id="severity-1" value="1">
+                                    <label class="b for-checkbox-tools-severity" for="severity-1" id="severity-1-label">
+                                        1 - Almost no impact
+                                    </label>
+                                </div>
+                                <div class="column-severity">
+                                    <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity"
+                                        id="severity-2" value="2">
+                                    <label class="b for-checkbox-tools-severity" for="severity-2" id="severity-2-label">
+                                        2 - Understandable, but difficult
+                                    </label>
+                                </div>
+                                <div class="column-severity">
+                                    <input class="checkbox-tools-severity checkbox-tools" type="radio" name="severity"
+                                        id="severity-3" value="3">
+                                    <label class="b for-checkbox-tools-severity" for="severity-3" id="severity-3-label">
+                                        3 - Very hard to understand
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="disable buttons" id="button_div">
-                    <!-- <input type="button" id="clear_button" class="clear quality_button" value="Clear"> -->
-                    <button id="confirm_button" class="b confirm quality_button btn" type="button">Confirm</button>
+                    <div class="disable buttons" id="button_div">
+                        <!-- <input type="button" id="clear_button" class="clear quality_button" value="Clear"> -->
+                        <button id="confirm_button" class="b confirm quality_button btn" type="button">Confirm</button>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-        <div id="author-institution-div" class="mb3">
-            <div id="author-div" class="f3 mt4">
-                Authors
-                <p class="f4 mb0">
-                    <a href='https://yao-dou.github.io/' class="link dim black" target="_blank">Yao Dou</a>*, 
-                    <a href='https://maxwellforbes.com/' class="link dim black" target="_blank">Maxwell Forbes</a>*, 
-                    <a href='https://rikdz.github.io/' class="link dim black" target="_blank">Rik Koncel-Kedziorski</a>, 
-                    <a href='https://nasmith.github.io/' class="link dim black" target="_blank">Noah A.Smith</a>, 
-                    <a href='https://homes.cs.washington.edu/~yejin/' class="link dim black" target="_blank">Yejin Choi</a> 
+        <div id="author-institution-div" class="mt5 mb3 mw7 center">
+            <div id="author-div">
+                <p class="f3 f2-ns mb1">
+                    Authors
                 </p>
-                <p class="mt1 f5 mb0">
+
+                <p class="f4 mt0 mb0">
+                    <a href='https://yao-dou.github.io/' class="link underline-hover hover-blue black dark-blue"
+                        target="_blank">Yao Dou</a>*,
+                    <a href='https://maxwellforbes.com/' class="link underline-hover hover-blue black dark-blue"
+                        target="_blank">Maxwell Forbes</a>*,
+                    <a href='https://rikdz.github.io/' class="link underline-hover hover-blue black dark-blue"
+                        target="_blank">Rik Koncel-Kedziorski</a>,
+                    <a href='https://nasmith.github.io/' class="link underline-hover hover-blue black dark-blue"
+                        target="_blank">Noah A. Smith</a>,
+                    <a href='https://homes.cs.washington.edu/~yejin/'
+                        class="link underline-hover hover-blue black dark-blue" target="_blank">Yejin
+                        Choi</a>
+                </p>
+                <p class="mt1 f6 f5-ns mb0">
                     *Equal contribution
                 </p>
             </div>
-            <div id="institution-div" class="f3 mt4">
-                Institutions
-                <p class="f4">
-                    <a href='https://www.cs.washington.edu/' class="link dim black" target="_blank">University of Washington</a>, 
-                    <a href='https://allenai.org/' class="link dim black" target="_blank">Allen Institute for AI</a>
+            <div id="institution-div" class="mt5">
+                <p class="f3 f2-ns mb1">
+                    Institutions
+                </p>
+                <p class="f5 f4-ns mt0">
+                    <a href='https://www.cs.washington.edu/' class="link underline-hover hover-blue black dark-blue"
+                        target="_blank">University of
+                        Washington</a>,
+                    <a href='https://allenai.org/' class="link underline-hover hover-blue black dark-blue"
+                        target="_blank">Allen Institute for AI</a>
+                </p>
+
+                <p class="white mb0">
+                    This is some hidden text to expand this div to the full width it needs.
+                    This is some hidden text to expand this div to the full width it needs.
                 </p>
             </div>
         </div>
     </div>
     <input type="hidden" name="situation-1" id="situation-1-serialize">
     <!-- <input type="hidden" name="situation-0-source-id" value="${situation-0-source}"> -->
-    </body>
+</body>
+
 </html>
