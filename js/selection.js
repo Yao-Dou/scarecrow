@@ -668,7 +668,7 @@ $(document).ready(function () {
                 $('#situation-0-example-id').text("Example id: " + (situation_num - 1))
 
                 // console.log(results["data"][1][0])
-                // console.log(results["data"][1107])
+                // console.log(results["data"][1307])
                 
                 // $("#id-input").attr({
                 //     "max":parseInt(results["data"][results["data"].length - 1][0])
@@ -737,15 +737,15 @@ $(document).ready(function () {
 
             load_dropdown_menu("")
 
-            var situation_num = getRandomIntInclusive(0, 1106) + 1
+            var situation_num = getRandomIntInclusive(0, 1307) + 1
 
             view_example(situation_num)
 
             // $(document).on('click', '#view-button', function(e){
             //     var situation_num = parseInt($("#prompt-dropdown > input").attr('data-situation-num'))
             //     console.log(situation_num +1)
-            //     if (isNaN(situation_num) || situation_num < 0 || situation_num > 1106) {
-            //         alert("Example id must be in [0, 1106]")
+            //     if (isNaN(situation_num) || situation_num < 0 || situation_num > 1307) {
+            //         alert("Example id must be in [0, 1307]")
             //     } else {
             //         view_example(situation_num + 1)
             //     }
