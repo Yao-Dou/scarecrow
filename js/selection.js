@@ -53,6 +53,7 @@ function reverse_substitute(input_text) {
     new_input_text = new_input_text.replace(/_QUOTE_/g, "\"");
     new_input_text = new_input_text.replace(/_LEFT_/g, "<");
     new_input_text = new_input_text.replace(/_RIGHT_/g, ">");
+    new_input_text = new_input_text.replace(/_NEWLINE_/g, "\n");
     return new_input_text
 }
 
