@@ -27,6 +27,17 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+
+
+    <style>
+        .darker-bg {
+            background-color: #fafafa;
+        }
+
+        .fade-bg {
+            background-image: linear-gradient(rgba(5, 5, 38, 0.02) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 80%, rgba(5, 5, 38, 0.02) 100%);
+        }
+    </style>
 </head>
 
 <body class="sans-serif">
@@ -44,15 +55,15 @@
 
         <div id="buttons" class="mw8">
             <button onclick="window.open('http://arxiv.org/abs/2107.01294','_blank')"
-                class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns mr2">Read Paper</button>
+                class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns mr2 mb2">Read Paper</button>
             <button onclick="window.open('data/grouped_data.csv')"
-                class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns mr2" download>Download Dataset</button>
+                class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns mr2 mb2" download>Download Dataset</button>
             <button onclick="window.open('https://yao-dou.github.io/qual/','_blank')"
-                class="confirm s_quality_button btn f5 f4-ns ml2 ml0-ns">View Training</button>
+                class="confirm s_quality_button btn f5 f4-ns ml2 mb2 ml0-ns">View Training</button>
             <span class="stretch"></span>
         </div>
 
-        <p id="data-information" class="mw8 center f6 f5-ns measure lh-copy">
+        <p id="data-information" class="mw8 center f6 f5-ns measure lh-copy i">
             Notice: In the dataset, the special tokens <span class="b code pa1 bg-black-10">_SEP_</span> and <span
                 class="b code pa1 bg-black-10">_QUOTE_</span> in
             the error explanations represent <span class="b code pa1 bg-black-10">,</span> and <span
@@ -305,79 +316,83 @@
             </div>
         </div>
 
-        <div id="example" class="mt5 ph2">
-            <p id="example-text" class="f3 f2-ns mb2">
-                Browse Dataset
-            </p>
-            <p class="f4 i mt0 measure-wide">
-                We annotate over 1,300 paragraphs with 10 annotators each.
-                To preview an annotation, choose a model and then a prompt.
-                The continuation will appear on the left, and the annotations on the right.
-                You can scroll the annotations window.
-                Select an annotator, then hover over the errors they marked to highlight where they are in the
-                continuation.
-            </p>
-        </div>
-
-        <div id="search">
-            <div id="model-dropdown" class="dropdown">
-                <div class="select">
-                    <span class="f4">Select Model</span>
-                    <i class="fa fa-chevron-left"></i>
-                </div>
-                <input type="hidden" name="model">
-                <ul class="dropdown-menu f5">
-                    <li data-model-type="gpt2">GPT-2 Small</li>
-                    <li data-model-type="gpt2-xl">GPT-2 XL</li>
-                    <li data-model-type="grover-mega">Grover-Mega</li>
-                    <li data-model-type="gpt3">GPT-3 Davinci</li>
-                    <li data-model-type="human">Human</li>
-                </ul>
+        <div class="darker-bg fade-bg mt5 ph4-l pb4">
+            <div id="example" class="ph2">
+                <p id="example-text" class="f3 f2-ns mb2">
+                    Browse Dataset
+                </p>
+                <p class="f5 f4-ns i mt0 measure-wide">
+                    We annotate over 1,300 paragraphs with 10 annotators each.
+                    To preview an annotation, choose a model and then a prompt.
+                    The continuation will appear on the left, and the annotations on the right.
+                    You can scroll the annotations window.
+                    Select an annotator, then hover over the errors they marked to highlight where they are in the
+                    continuation.
+                </p>
             </div>
 
-            <div id="prompt-dropdown" class="dropdown">
-                <div class="select">
-                    <span class="f4">Select Prompt</span>
-                    <i class="fa fa-chevron-left"></i>
+            <div id="search">
+                <div id="model-dropdown" class="dropdown">
+                    <div class="select">
+                        <span class="f4">Select Model</span>
+                        <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <input type="hidden" name="model">
+                    <ul class="dropdown-menu f5">
+                        <li data-model-type="gpt2">GPT-2 Small</li>
+                        <li data-model-type="gpt2-xl">GPT-2 XL</li>
+                        <li data-model-type="grover-mega">Grover-Mega</li>
+                        <li data-model-type="gpt3">GPT-3 Davinci</li>
+                        <li data-model-type="human">Human</li>
+                    </ul>
                 </div>
-                <input type="hidden" name="prompt">
-                <ul class="dropdown-menu f5">
-                    <!-- <li id="gpt2-small">GPT-2 Small</li>
+
+                <div id="prompt-dropdown" class="dropdown">
+                    <div class="select">
+                        <span class="f4">Select Prompt</span>
+                        <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <input type="hidden" name="prompt">
+                    <ul class="dropdown-menu f5">
+                        <!-- <li id="gpt2-small">GPT-2 Small</li>
                   <li id="gpt2-xl">GPT-2 XL</li>
                   <li id="grover-mega">Grover-Mega</li>
                   <li id="gpt3">GPT-3 Davinci</li>
                   <li id="human">Human</li> -->
-                </ul>
-            </div>
-        </div>
-
-        <!-- Example situation to be annotated -->
-        <div id="situation" class="situation mw-100 pt2">
-            <div id="situation-0-div" class="outline situation-0-part">
-                <div id="situation-0-prompt-div">
-                    <p id="situation-0-example-id" class="f6 f5-ns pl4 pr4 pt3 mt0 mb0">Example id: </p>
-                    <p class="f6 f5-ns pl4 pr4 pt1 mt1 mb0">Sytem Prompt (Human Written): </p>
-                    <p id="situation-0-prompt" class="f5 f4-ns pl4 pr4 pa1 mt1 mb0 prompt">
-
-                    </p>
-                </div>
-                <div id="situation-0-generation-div">
-                    <p id="situation-0-model" class="f6 f5-ns pl4 pr4 pt4 mt0 mb0">Continuation written by : </p>
-                    <p id="situation-0" class="f5 f4-ns pl4 pr4 pa1 mt0 mb2 paragraph"></p>
+                    </ul>
                 </div>
             </div>
-            <div id="situation-0-displays" class="situation-0-part">
-                <div id="situation-0-display-0" class="situation-display"></div>
-                <div id="situation-0-display-1" class="situation-display"></div>
-                <div id="situation-0-display-2" class="situation-display"></div>
-                <div id="situation-0-display-3" class="situation-display"></div>
-                <div id="situation-0-display-4" class="situation-display"></div>
-                <div id="situation-0-display-5" class="situation-display"></div>
-                <div id="situation-0-display-6" class="situation-display"></div>
-                <div id="situation-0-display-7" class="situation-display"></div>
-                <div id="situation-0-display-8" class="situation-display"></div>
-                <div id="situation-0-display-9" class="situation-display"></div>
+
+            <!-- Example situation to be annotated -->
+            <div id="situation" class="situation mw-100 pt2">
+                <div id="situation-0-div" class="outline situation-0-part">
+                    <div id="situation-0-prompt-div">
+                        <p id="situation-0-example-id" class="f7 f6-ns ph1 ph4-ns mt2 mb0 ttu">example id: </p>
+                        <p class="f6 f5-ns ph1 ph4-ns pt1 mt1 mb0 b">Prompt (human-written): </p>
+                        <p id="situation-0-prompt" class="f5 f4-ns ph1 ph4-ns pa1 mt0 mb0 prompt">
+
+                        </p>
+                    </div>
+                    <div id="situation-0-generation-div">
+                        <p id="situation-0-model" class="f6 f5-ns ph1 ph4-ns pt4 mt0 mb0 b">Continuation written by :
+                        </p>
+                        <p id="situation-0" class="f5 f4-ns ph1 ph4-ns pa1 mt0 mb2 paragraph"></p>
+                    </div>
+                </div>
+                <div id="situation-0-displays" class="situation-0-part">
+                    <div id="situation-0-display-0" class="situation-display ph2 ph3-ns"></div>
+                    <div id="situation-0-display-1" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-2" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-3" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-4" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-5" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-6" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-7" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-8" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                    <div id="situation-0-display-9" class="situation-display ph2 ph3-ns mt3 mt4-ns"></div>
+                </div>
             </div>
+
         </div>
 
         <div id="demo" class="mt5 mw7 center">
@@ -584,7 +599,7 @@
                     Authors
                 </p>
 
-                <p class="f4 mt0 mb0">
+                <p class="f5 f4-ns mt0 mb0">
                     <a href='https://yao-dou.github.io/' class="link underline-hover hover-blue black dark-blue"
                         target="_blank">Yao Dou</a>*,
                     <a href='https://maxwellforbes.com/' class="link underline-hover hover-blue black dark-blue"

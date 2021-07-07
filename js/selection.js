@@ -26,15 +26,15 @@ let original_ontologies = ["Technical_Jargon", "Bad_Math", "Encyclopedic", "Comm
 let black_text_errors_types = ["Commonsense", "Grammar_Usage", "Off-prompt"]
 var error_types_dict = {
     "Technical_Jargon": "Technical Jargon",
-    "Bad_Math" : "Bad Math",
-    "Encyclopedic" : "Wrong: Encyclopedic",
-    "Commonsense" : "Wrong: Commonsense",
-    "Needs_Google" : "Needs Google",
-    "Grammar_Usage" : "Grammar / Usage",
-    "Off-prompt" : "Off-prompt",
-    "Redundant" : "Redundant",
-    "Self-contradiction" : "Self-contradiction",
-    "Incoherent" : "Incoherent"
+    "Bad_Math": "Bad Math",
+    "Encyclopedic": "Wrong: Encyclopedic",
+    "Commonsense": "Wrong: Commonsense",
+    "Needs_Google": "Needs Google",
+    "Grammar_Usage": "Grammar / Usage",
+    "Off-prompt": "Off-prompt",
+    "Redundant": "Redundant",
+    "Self-contradiction": "Self-contradiction",
+    "Incoherent": "Incoherent"
 };
 var situation_text = {};
 var old_value = ""
@@ -101,7 +101,7 @@ class Characters {
         this.render_1();
         // this.serialize(this.num);
     }
-    
+
     render_1() {
         let display = $('#' + this.displayID).empty();
         for (let i = 0; i < this.data.length; i++) {
@@ -112,32 +112,32 @@ class Characters {
             display.append(this.data[i].render_1(this.situationID, i));
         }
     }
-    
+
 
     render(num) {
         let display = $('#' + this.displayID).empty();
-        let annotator_p = $('<span></span>')
+        let annotator_p = $('<span class="bb bw1 b--black-40 db mb1 mb2-ns"></span>')
         annotator_p.append($('<label>').prop({
             for: 'annotator',
-            class: 'l-radio annotator-radio'
-          }).append(
+            class: 'l-radio annotator-radio b'
+        }).append(
             $('<input>').prop({
                 type: 'radio',
                 id: 'annotator-' + num,
                 name: 'annotator',
                 value: num
-              }).css({'margin-right':'6px'})
-            ).append(
-                $('<span>').text('Annotator ' + num).addClass("f4")
-            )
+            }).css({ 'margin-right': '6px' })
         ).append(
-          $('<br>')
+            $('<span>').text('Annotator ' + num).addClass("f6 f5-ns ttu")
+        )
+        ).append(
+            $('<br>')
         );
 
-        
+
         display.append(annotator_p)
         if (this.data.length == 0) {
-            display.append($("<span class='f4 pl2'>There is no \"badness\" in this text!</span>"))
+            display.append($("<span class='f6 f5-ns ttu i'>no problems found</span>"))
         } else {
             for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i] == null) {
@@ -176,7 +176,7 @@ class CharacterSelection {
         this.noticeMeSenpai = false;
     }
     equals(other) {
-        return this.error_type == other.error_type && this.explanation == other.explanation 
+        return this.error_type == other.error_type && this.explanation == other.explanation
             && this.severity == other.severity && JSON.stringify(this.start_end_pairs) === JSON.stringify(other.start_end_pairs) && JSON.stringify(this.antecedent_start_end_pairs) === JSON.stringify(other.antecedent_start_end_pairs);
     }
     render(situationID, annotator_num, num) {
@@ -186,7 +186,7 @@ class CharacterSelection {
         // let new_input_text = txt.replace(/"/g, "_QUOTE_");
         // new_input_text = new_input_text.replace(/</g, "_LEFT_");
         // new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
-        let color_class= error_type
+        let color_class = error_type
         let text_color = "white"
         let opposite_color = "black"
         if (black_text_errors_types.includes(color_class)) {
@@ -205,7 +205,7 @@ class CharacterSelection {
         //     });
 
         let span = $('<span></span>')
-            .addClass('b bg-' + color_class + " " + text_color +' pa2 ma1 br-pill dib quality-span')
+            .addClass('b bg-' + color_class + " " + text_color + ' pa2 ma1 br4 br-pill-ns dib quality-span')
             .append(txt);
         span.attr('id', 'quality-span-' + situationID + "-" + annotator_num + '-' + num)
         // span.addClass('quality-span-'+num)
@@ -237,7 +237,7 @@ class CharacterSelection {
         // let new_input_text = txt.replace(/"/g, "_QUOTE_");
         // new_input_text = new_input_text.replace(/</g, "_LEFT_");
         // new_input_text = new_input_text.replace(/>/g, "_RIGHT_");
-        let color_class= error_type
+        let color_class = error_type
         let text_color = "white"
         let opposite_color = "black"
         if (black_text_errors_types.includes(color_class)) {
@@ -246,7 +246,7 @@ class CharacterSelection {
         }
 
         let removeButton = $('<button></button>')
-            .addClass('bg-transparent ' + text_color +' bn hover-' + opposite_color + ' hover-bg-' + text_color + ' br-pill mr1 pointer')
+            .addClass('bg-transparent ' + text_color + ' bn hover-' + opposite_color + ' hover-bg-' + text_color + ' br-pill mr1 pointer')
             .append('✘')
             .on('click', function () {
                 document.getElementById(situationID).innerHTML = situation_text[situationID]
@@ -256,10 +256,10 @@ class CharacterSelection {
             });
 
         let span = $('<span></span>')
-            .addClass('b grow bg-' + color_class + " " + text_color +' pa2 ma1 br-pill dib quality-span')
+            .addClass('b grow bg-' + color_class + " " + text_color + ' pa2 ma1 br-pill dib quality-span')
             .append(removeButton)
             .append(txt);
-        span.attr('id', 'quality-span-'+num)
+        span.attr('id', 'quality-span-' + num)
         // span.addClass('quality-span-'+num)
         span.attr('data-situation-id', situationID)
         span.attr('data-error-type', error_type)
@@ -294,8 +294,8 @@ class CharacterSelection {
         // console.log($('#' + situationID).text().length)
         var filtered = this.antecedent_start_end_pairs.filter(function (el) {
             return el != null;
-          });
-        return '["' + substitute(this.error_type) + '","' + substitute(this.explanation) + '",' + this.severity + ','+ this.start_end_pairs[0][0] + ',' + this.start_end_pairs[0][1] + ',[' + filtered + ']]';
+        });
+        return '["' + substitute(this.error_type) + '","' + substitute(this.explanation) + '",' + this.severity + ',' + this.start_end_pairs[0][0] + ',' + this.start_end_pairs[0][1] + ',[' + filtered + ']]';
     }
 }
 
@@ -314,7 +314,7 @@ let situationID = "situation-1";
 function comparespan(span_a, span_b) {
     let index_a = span_a[1]
     let index_b = span_b[1]
-    if(index_a == index_b) {
+    if (index_a == index_b) {
         return span_a[3] - span_b[3]
     }
     return index_a - index_b;
@@ -326,7 +326,7 @@ function annotate(character, annotator_num, text) {
     $("#situation-0-display-" + annotator_num).children('.quality-span').addClass("grow")
     // console.log(character_selections)
     let span_list = []
-    for(selection of character_selections) {
+    for (selection of character_selections) {
         if (selection == null) {
             continue;
         }
@@ -337,7 +337,7 @@ function annotate(character, annotator_num, text) {
         span_list.push([p_span_id, start_end_pair[1], false, num, selection.error_type]);
         let antecedent_start_end_pairs = selection.antecedent_start_end_pairs
         if (antecedent_start_end_pairs.length > 0) {
-            for(antecedent of antecedent_start_end_pairs) {
+            for (antecedent of antecedent_start_end_pairs) {
                 if (antecedent != null) {
                     span_list.push([p_span_id + "_antecedent", antecedent[0], true, num, selection.error_type + "_antecedent"]);
                     span_list.push([p_span_id + "_antecedent", antecedent[1], false, num, selection.error_type + "_antecedent"]);
@@ -349,12 +349,12 @@ function annotate(character, annotator_num, text) {
     // console.log(span_list)
     // console.log(span_list)
     let new_text = ""
-    for(i in span_list) {
+    for (i in span_list) {
         span = span_list[i]
         var before_pair_end;
-        if(i == 0) {
+        if (i == 0) {
             before_pair_end = 0
-        } else{
+        } else {
             before_pair_end = span_list[i - 1][1]
         }
         start_temp = span[1]
@@ -362,24 +362,24 @@ function annotate(character, annotator_num, text) {
         var span_to_add;
         var color_class = span[4]
 
-        if(span[2]) {
+        if (span[2]) {
             // span_to_add = "<span id=\"p-span-" + span[3]+ "\"class=\"annotation border-" + color_class + "\">"
-            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0]+ "\">"
+            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0] + "\">"
         } else {
             span_to_add = "</span>"
             // multiple spans cross together (intersect)
-            for (j = i; j >0; j--) {
-                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
-                    var previous_color_class = span_list[j-1][4]
+            for (j = i; j > 0; j--) {
+                if (span_list[j - 1][2] && span_list[j - 1][3] != span[3]) {
+                    var previous_color_class = span_list[j - 1][4]
                     span_to_add += "</span>"
                 } else {
                     break
                 }
             }
-            for (j = i; j >0; j--) {
-                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
-                    var previous_color_class = span_list[j-1][4]
-                    span_to_add += "<span class=\"annotation border-" + previous_color_class + " p-span-" + span_list[j-1][3]+ "\">"
+            for (j = i; j > 0; j--) {
+                if (span_list[j - 1][2] && span_list[j - 1][3] != span[3]) {
+                    var previous_color_class = span_list[j - 1][4]
+                    span_to_add += "<span class=\"annotation border-" + previous_color_class + " p-span-" + span_list[j - 1][3] + "\">"
                 } else {
                     break
                 }
@@ -398,7 +398,7 @@ function annotate(character, annotator_num, text) {
 function annotate_1(character, text) {
     let character_selections = character.data
     let span_list = []
-    for(selection of character_selections) {
+    for (selection of character_selections) {
         if (selection == null) {
             continue;
         }
@@ -409,7 +409,7 @@ function annotate_1(character, text) {
         span_list.push([p_span_id, start_end_pair[1], false, num, selection.error_type]);
         let antecedent_start_end_pairs = selection.antecedent_start_end_pairs
         if (antecedent_start_end_pairs.length > 0) {
-            for(antecedent of antecedent_start_end_pairs) {
+            for (antecedent of antecedent_start_end_pairs) {
                 if (antecedent != null) {
                     span_list.push([p_span_id + "_antecedent", antecedent[0], true, num, selection.error_type + "_antecedent"]);
                     span_list.push([p_span_id + "_antecedent", antecedent[1], false, num, selection.error_type + "_antecedent"]);
@@ -422,12 +422,12 @@ function annotate_1(character, text) {
     span_list.sort(comparespan)
     // console.log(span_list)
     let new_text = ""
-    for(i in span_list) {
+    for (i in span_list) {
         span = span_list[i]
         var before_pair_end;
-        if(i == 0) {
+        if (i == 0) {
             before_pair_end = 0
-        } else{
+        } else {
             before_pair_end = span_list[i - 1][1]
         }
         start_temp = span[1]
@@ -435,24 +435,24 @@ function annotate_1(character, text) {
         var span_to_add;
         var color_class = span[4]
 
-        if(span[2]) {
+        if (span[2]) {
             // span_to_add = "<span id=\"p-span-" + span[3]+ "\"class=\"annotation border-" + color_class + "\">"
-            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0]+ "\">"
+            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0] + "\">"
         } else {
             span_to_add = "</span>"
             // multiple spans cross together (intersect)
-            for (j = i; j >0; j--) {
-                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
-                    var previous_color_class = span_list[j-1][4]
+            for (j = i; j > 0; j--) {
+                if (span_list[j - 1][2] && span_list[j - 1][3] != span[3]) {
+                    var previous_color_class = span_list[j - 1][4]
                     span_to_add += "</span>"
                 } else {
                     break
                 }
             }
-            for (j = i; j >0; j--) {
-                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
-                    var previous_color_class = span_list[j-1][4]
-                    span_to_add += "<span class=\"annotation border-" + previous_color_class + " p-span-" + span_list[j-1][3]+ "\">"
+            for (j = i; j > 0; j--) {
+                if (span_list[j - 1][2] && span_list[j - 1][3] != span[3]) {
+                    var previous_color_class = span_list[j - 1][4]
+                    span_to_add += "<span class=\"annotation border-" + previous_color_class + " p-span-" + span_list[j - 1][3] + "\">"
                 } else {
                     break
                 }
@@ -471,7 +471,7 @@ function annotate_1(character, text) {
 function annotate_select_span(character, text, select_span, select_antecedents) {
     let character_selections = character.data
     let span_list = []
-    for(selection of character_selections) {
+    for (selection of character_selections) {
         if (selection == null) {
             continue;
         }
@@ -481,10 +481,10 @@ function annotate_select_span(character, text, select_span, select_antecedents) 
         span_list.push([p_span_id, start_end_pair[0], true, num, selection.error_type]);
         span_list.push([p_span_id, start_end_pair[1], false, num, selection.error_type]);
     }
-    for(l in select_antecedents) {
+    for (l in select_antecedents) {
         if (select_antecedents[l] != null) {
-            span_list.push(["select-antecedent--" + (l+1), select_antecedents[l][0], true, -1, "select-antecedent"]);
-            span_list.push(["select-antecedent--" + (l+1), select_antecedents[l][1], false, -1, "select-antecedent"]);
+            span_list.push(["select-antecedent--" + (l + 1), select_antecedents[l][0], true, -1, "select-antecedent"]);
+            span_list.push(["select-antecedent--" + (l + 1), select_antecedents[l][1], false, -1, "select-antecedent"]);
         }
     }
     if (select_span !== undefined) {
@@ -495,49 +495,49 @@ function annotate_select_span(character, text, select_span, select_antecedents) 
     span_list.sort(comparespan)
     // console.log(span_list)
     let new_text = ""
-    for(i in span_list) {
+    for (i in span_list) {
         span = span_list[i]
         var before_pair_end;
-        if(i == 0) {
+        if (i == 0) {
             before_pair_end = 0
-        } else{
+        } else {
             before_pair_end = span_list[i - 1][1]
         }
         start_temp = span[1]
         subtxt = text.substring(before_pair_end, start_temp)
         var span_to_add;
         var color_class = span[4]
-        if(span[2]) {
+        if (span[2]) {
             // span_to_add = "<span id=\"p-span-" + span[3]+ "\"class=\"annotation border-" + color_class + "\">"
-            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0]+ "\">"
+            span_to_add = "<span class=\"annotation border-" + color_class + " " + span[0] + "\">"
             if (span[4] == "select-span") {
-                span_to_add = "<span class=\"annotation bg-yellow " + span[0]+ "\">"
+                span_to_add = "<span class=\"annotation bg-yellow " + span[0] + "\">"
             }
             if (span[4] == "select-antecedent") {
-                span_to_add = "<span class=\"annotation bg-light-yellow " + span[0]+ "\">"
+                span_to_add = "<span class=\"annotation bg-light-yellow " + span[0] + "\">"
             }
         } else {
             span_to_add = "</span>"
             // multiple spans cross together (intersect)
-            for (j = i; j >0; j--) {
-                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
-                    var previous_color_class = span_list[j-1][4]
+            for (j = i; j > 0; j--) {
+                if (span_list[j - 1][2] && span_list[j - 1][3] != span[3]) {
+                    var previous_color_class = span_list[j - 1][4]
                     span_to_add += "</span>"
                 } else {
                     break
                 }
             }
-            for (j = i; j >0; j--) {
-                if (span_list[j - 1][2] && span_list[j-1][3] != span[3]) {
-                    var previous_color_class = span_list[j-1][4]
+            for (j = i; j > 0; j--) {
+                if (span_list[j - 1][2] && span_list[j - 1][3] != span[3]) {
+                    var previous_color_class = span_list[j - 1][4]
                     if (span_list[j - 1][4] == "select-span") {
-                        span_to_add += "<span class=\"annotation bg-yellow " + span_list[j-1][0] + "\">"
+                        span_to_add += "<span class=\"annotation bg-yellow " + span_list[j - 1][0] + "\">"
                     }
                     if (span_list[j - 1][4] == "select-antecedent") {
-                        span_to_add += "<span class=\"annotation bg-light-yellow " + span_list[j-1][0] + "\">"
+                        span_to_add += "<span class=\"annotation bg-light-yellow " + span_list[j - 1][0] + "\">"
                     }
                     else {
-                        span_to_add += "<span class=\"annotation border-" + previous_color_class + " " + span_list[j-1][0]+ "\">"
+                        span_to_add += "<span class=\"annotation border-" + previous_color_class + " " + span_list[j - 1][0] + "\">"
                     }
                 } else {
                     break
@@ -600,14 +600,14 @@ function disable_everything() {
 // script
 $(document).ready(function () {
     Papa.parse(filename, {
-        worker:true,
+        worker: true,
         download: true,
-        complete: function(results) {
+        complete: function (results) {
             // console.log(results["data"][0])
             // ["id", "gid", "prompt", "generation", "model", "p", "temperature", "frequency_penalty", "responses"]
 
             situation_text['situation-1'] = $('#' + 'situation-1').text()
-            
+
             var pageX;
             var pageY;
 
@@ -636,7 +636,7 @@ $(document).ready(function () {
             function view_example(situation_num) {
                 C_list = []
                 var prompt = results["data"][situation_num][2]
-                var generation =  results["data"][situation_num][3]
+                var generation = results["data"][situation_num][3]
                 // console.log(results["data"][situation_num][8])
                 // console.log(eval(results["data"][situation_num][8])[3])
                 var responses = eval(results["data"][situation_num][8])
@@ -665,12 +665,12 @@ $(document).ready(function () {
                         $('#situation-0-model').text("Continuation written by " + model + " (p = " + p + ", temperature = " + temperature + ", frequency penalty = " + frequency_penalty + "):")
                     }
                 }
-                
+
                 $('#situation-0-example-id').text("Example id: " + (situation_num - 1))
 
                 // console.log(results["data"][1][0])
                 // console.log(results["data"][1307])
-                
+
                 // $("#id-input").attr({
                 //     "max":parseInt(results["data"][results["data"].length - 1][0])
                 // });
@@ -680,16 +680,16 @@ $(document).ready(function () {
                 $('#situation-0').text(generation)
                 situation_text['situation-0'] = generation
 
-                // height
-
-                $('#situation-0-displays').height($('#situation-0-div').height())
-                var remain_space_height = $(window).height() - $('#situation-0-div').position().top;
-                if ($('#situation-0-div').height() > remain_space_height) {
-                    $('#situation-0-displays').height($('#situation-0-div').height())
-                } else {
-                    $('#situation-0-displays').height(remain_space_height)
+                // height. we want at least as big as the situation display, ideally bigger.
+                let bigDisplayHeight = 800;
+                let situationHeight = $('#situation-0-div').height();
+                let desiredHeight = Math.max(bigDisplayHeight, situationHeight);
+                $('#situation-0-displays').height(desiredHeight);
+                // backup in case not enough space.
+                if (desiredHeight > $(window).height()) {
+                    $('#situation-0-displays').height($(window).height())
                 }
-                
+
 
                 for (var i in responses) {
                     var C_temp = new Characters("situation-0", i)
@@ -724,7 +724,7 @@ $(document).ready(function () {
                 // console.log(C_list.length)
             }
 
-            function load_dropdown_menu(model){
+            function load_dropdown_menu(model) {
                 $("#prompt-dropdown > .dropdown-menu").empty()
                 var data = results["data"].slice(1, results["data"].length - 1)
                 if (model != "") {
@@ -752,14 +752,14 @@ $(document).ready(function () {
             //     }
             // });
 
-            $(document).on('click', '.annotator-radio', function() {
+            $(document).on('click', '.annotator-radio', function () {
                 var radio = $(this).children('input')
                 radio.prop("checked", true);
                 var annotator_num = radio.val()
                 annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
             });
 
-            $(document).on('mouseover','.quality-span',function(e){
+            $(document).on('mouseover', '.quality-span', function (e) {
                 // $(this).css("color","black")
                 // $(this).css("background-color","white")
                 var color_class = $(this).attr("data-error-type")
@@ -768,11 +768,11 @@ $(document).ready(function () {
                 var situation_id = $(this).attr("data-situation-id")
                 var span_num = $(this).attr("data-num")
                 var span_annotator_num = $(this).attr("data-annotator-num")
-                var p_span_id = ".p-span-" + situation_id + "-" +span_annotator_num + "-" +span_num
-                $(p_span_id).addClass("bg-"+color_class);
-                var antecedent_color_class= color_class+"_antecedent"
+                var p_span_id = ".p-span-" + situation_id + "-" + span_annotator_num + "-" + span_num
+                $(p_span_id).addClass("bg-" + color_class);
+                var antecedent_color_class = color_class + "_antecedent"
                 var antecedent_p_span_id = ".p-span-" + situation_id + "-" + span_annotator_num + "-" + span_num + "_antecedent"
-                $(antecedent_p_span_id).addClass("bg-"+antecedent_color_class);
+                $(antecedent_p_span_id).addClass("bg-" + antecedent_color_class);
                 if (black_text_errors_types.includes(color_class)) {
                     $(p_span_id).addClass("black");
                     $(antecedent_p_span_id).addClass("black")
@@ -793,7 +793,7 @@ $(document).ready(function () {
                 // text = front_part + "<span class=\""+color_class+"\">" + subtxt + "</span>" + end_part
                 // document.getElementById(situation_id).innerHTML = text
             });
-            $(document).on('mouseout','.quality-span',function(e){
+            $(document).on('mouseout', '.quality-span', function (e) {
                 // $(this).css("color","white")
                 var color_class = $(this).attr("data-error-type")
                 // $(this).addClass(color_class)
@@ -801,11 +801,11 @@ $(document).ready(function () {
                 var situation_id = $(this).attr("data-situation-id")
                 var span_num = $(this).attr("data-num")
                 var span_annotator_num = $(this).attr("data-annotator-num")
-                var p_span_id = ".p-span-" + situation_id + "-" +span_annotator_num + "-" +span_num
-                $(p_span_id).removeClass("bg-"+color_class);
-                var antecedent_color_class= color_class+"_antecedent"
+                var p_span_id = ".p-span-" + situation_id + "-" + span_annotator_num + "-" + span_num
+                $(p_span_id).removeClass("bg-" + color_class);
+                var antecedent_color_class = color_class + "_antecedent"
                 var antecedent_p_span_id = ".p-span-" + situation_id + "-" + span_annotator_num + "-" + span_num + "_antecedent"
-                $(antecedent_p_span_id).removeClass("bg-"+antecedent_color_class);
+                $(antecedent_p_span_id).removeClass("bg-" + antecedent_color_class);
                 if (black_text_errors_types.includes(color_class)) {
                     $(p_span_id).removeClass("black");
                     $(antecedent_p_span_id).removeClass("black")
@@ -824,7 +824,7 @@ $(document).ready(function () {
             //         $('#confirm_button').click();
             //     }
             // });
-            $(document).on("keypress", function(e){
+            $(document).on("keypress", function (e) {
                 if (e.key === "Enter") {
                     e.preventDefault();
                 }
@@ -834,7 +834,7 @@ $(document).ready(function () {
             // selection js
 
 
-            $('#close-icon').on("click", function(e) {
+            $('#close-icon').on("click", function (e) {
                 $("input:radio[name='severity']").prop('checked', false);
                 $('#error_type').val('');
                 $('#explanation').val('');
@@ -844,7 +844,7 @@ $(document).ready(function () {
                 annotate_1(C, situation_text["situation-1"])
                 disable_everything();
             });
-            $("#situation-1").on("mousedown", function(e){
+            $("#situation-1").on("mousedown", function (e) {
                 pageX = e.pageX;
                 pageY = e.pageY;
                 document.getElementById("situation-1").innerHTML = situation_text["situation-1"]
@@ -909,12 +909,12 @@ $(document).ready(function () {
                     $('#quality-selection').css({
                         'display': "inline-block",
                         'left': pageX - 45,
-                        'top' : pageY + 20
-                    }).fadeIn(200, function() {
+                        'top': pageY + 20
+                    }).fadeIn(200, function () {
                         disable_everything()
                     });
                     annotate_select_span(C, situation_text["situation-1"], [start, end], antecedent_start_end_pairs_1)
-                } else {  
+                } else {
                     $("#explanation_div").removeClass("disable");
                     antecedent_start_end_pairs_1.push([start, end])
                     list_antecedents()
@@ -936,14 +936,14 @@ $(document).ready(function () {
                     annotate_select_span(C, situation_text["situation-1"], start_end_pairs_1[0], antecedent_start_end_pairs_1)
                 }
             });
-            $('#confirm_button').on("click", function(e) {
+            $('#confirm_button').on("click", function (e) {
                 // var disabled = $(this).prop("disabled")
-        
+
                 // get text input value
                 var error_type = $('input[name="error_type"]:checked').val();
                 var explanation = $("textarea#explanation").val();
                 var severity = $('input[name="severity"]:checked').val();
-                if (error_type === "" || explanation === "" ||  severity === undefined) {
+                if (error_type === "" || explanation === "" || severity === undefined) {
                     alert("Error Type, Explanation, and Severity are required!")
                     return false
                 }
@@ -951,10 +951,10 @@ $(document).ready(function () {
                 display.attr('id', situationID + '-display')
                 display.attr('data-situation-id', situationID)
                 C.add(new CharacterSelection(error_type, explanation, severity, start_end_pairs_1, antecedent_start_end_pairs_1, C.data.length));
-        
+
                 C.update_1();
-                $('#quality-selection').fadeOut(1, function() {
-                   disable_everything()
+                $('#quality-selection').fadeOut(1, function () {
+                    disable_everything()
                 });
                 start_end_pairs_1 = []
                 antecedent_start_end_pairs_1 = []
@@ -971,25 +971,25 @@ $(document).ready(function () {
             //     quality_map[situation_id][quality_num] = new_input_text
             //     AC.update()
             // });
-           
-            $("#no_badness").on("change", function(){
-                if($(this).is(':checked')) {
+
+            $("#no_badness").on("change", function () {
+                if ($(this).is(':checked')) {
                     old_value = $("#situation-1-serialize").attr("value")
                     $("#situation-1-serialize").attr("value", "There is no badeness in text.")
                 } else {
                     $("#situation-1-serialize").attr("value", old_value)
                 }
-             });
-            
+            });
+
             // clear button in the quality select box
-            $("#clear_button").on("click", function(){
+            $("#clear_button").on("click", function () {
                 $("input:radio[name='error_type']").prop('checked', false);
                 $("input:radio[name='severity']").prop('checked', false);
                 $('#error_type').val('');
                 $('#explanation').val('');
             });
-        
-            $(".antecedent_able").on('click',function(e){
+
+            $(".antecedent_able").on('click', function (e) {
                 if (!$(this).hasClass("selected")) {
                     $("input[name='error_type']").removeClass("selected")
                     $(this).addClass("selected")
@@ -1010,8 +1010,8 @@ $(document).ready(function () {
                     $("#explanation_div").addClass("disable");
                 }
             });
-        
-            $(".antecedent_no_able").on('click',function(e){
+
+            $(".antecedent_no_able").on('click', function (e) {
                 $("input[name='error_type']").removeClass("selected")
                 $("#antecedent_selection").slideUp("fast");
                 antecedent_start_end_pairs_1 = []
@@ -1023,18 +1023,18 @@ $(document).ready(function () {
                 $("#severity_div").addClass("disable");
                 $("#explanation_div").removeClass("disable");
             });
-        
-            $("#explanation").on('change keyup paste', function() {
+
+            $("#explanation").on('change keyup paste', function () {
                 $("#severity_div").removeClass("disable");
             });
-        
-            $(document).on('click','.checkbox-tools-severity',function(e){
+
+            $(document).on('click', '.checkbox-tools-severity', function (e) {
                 $("#button_div").removeClass("disable");
             });
-        
-            $( function() {
-                $( "#quality-selection" ).draggable();
-              } );
+
+            $(function () {
+                $("#quality-selection").draggable();
+            });
             // dropdown js
             $(document).on('click', '.dropdown', function (e) {
                 $(this).attr('tabindex', 1).focus();
@@ -1046,17 +1046,17 @@ $(document).ready(function () {
                 $(this).find('.dropdown-menu').slideUp(300);
             });
 
-            $(document).on("click", '#model-dropdown .dropdown-menu li', function(e) {
+            $(document).on("click", '#model-dropdown .dropdown-menu li', function (e) {
                 $(this).parents('.dropdown').find('span').text($(this).text());
                 $(this).parents('.dropdown').find('input').attr('value', $(this).attr('data-model-type'));
                 load_dropdown_menu($(this).attr('data-model-type'))
             });
 
-            $(document).on("click", '#prompt-dropdown .dropdown-menu li', function(e) {
+            $(document).on("click", '#prompt-dropdown .dropdown-menu li', function (e) {
                 $(this).parents('.dropdown').find('span').text($(this).text().substring(0, 85) + "...");
                 $(this).parents('.dropdown').find('input').attr('data-situation-num', $(this).attr('data-situation-num'));
                 var situation_num = parseInt($(this).attr('data-situation-num'))
-                console.log(situation_num +1)
+                console.log(situation_num + 1)
                 view_example(situation_num + 1)
             });
 
@@ -1067,7 +1067,7 @@ $(document).ready(function () {
             // var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
             // msg = '<span class="msg">Hidden input value: ';
             // $('.msg').html(msg + input + '</span>');
-            // }); 
+            // });
 
         }
     });

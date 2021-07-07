@@ -177,7 +177,7 @@ html * {
 }
 
 .paragraph {
-  line-height: 1.6
+  line-height: 1.4
 }
 
 span.quality-span {
@@ -321,7 +321,7 @@ span[data-uid="005"] { border-color:#add8e6; } */
 }
 
 .situation-display {
-  padding-left: 10px;
+  /* padding-left: 10px; */
 }
 
 .disable {
