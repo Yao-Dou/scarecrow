@@ -116,7 +116,8 @@ class Characters {
 
     render(num) {
         let display = $('#' + this.displayID).empty();
-        let annotator_p = $('<span class="bb bw1 b--black-40 db mb1 mb2-ns"></span>')
+        let annotator_p = $('<span class="bb bw1 b--black-40 db mb1 mb2-ns"></span>');
+        let displayNum = Number.parseInt(num) + 1;
         annotator_p.append($('<label>').prop({
             for: 'annotator',
             class: 'l-radio annotator-radio b'
@@ -128,7 +129,7 @@ class Characters {
                 value: num
             }).css({ 'margin-right': '6px' })
         ).append(
-            $('<span>').text('Annotator ' + num).addClass("f6 f5-ns ttu")
+            $('<span>').text('Annotator ' + displayNum).addClass("f6 f5-ns ttu")
         )
         ).append(
             $('<br>')
@@ -752,11 +753,34 @@ $(document).ready(function () {
             //     }
             // });
 
-            $(document).on('click', '.annotator-radio', function () {
-                var radio = $(this).children('input')
-                radio.prop("checked", true);
-                var annotator_num = radio.val()
+            function switchToAnnotator(annJQ, radioJQ) {
+                // make everything except the current one semi-transparent
+                $('.ann').addClass("o-20");
+                annJQ.removeClass("o-20");
+
+                // check radio and set the active annotations w/ annotate()
+                radioJQ.prop("checked", true);
+                var annotator_num = radioJQ.val()
                 annotate(C_list[annotator_num], annotator_num, situation_text["situation-0"])
+            }
+
+            // keeping the radio selection for people on mobile (where you can't
+            // 'mouseover' anything)
+            $(document).on('click', '.annotator-radio', function () {
+                var radio = $(this).children('input');
+                if (!radio.prop('checked')) {
+                    switchToAnnotator($(this).parent().parent(), radio);
+                }
+            });
+
+            // adding this function to allow people to easily change annotators without
+            // having to click
+            $(document).on("mouseover", ".ann", function (e) {
+                let radio = $(this).find('input');
+                if (radio.prop('checked')) {
+                    return;
+                }
+                switchToAnnotator($(this), radio);
             });
 
             $(document).on('mouseover', '.quality-span', function (e) {
